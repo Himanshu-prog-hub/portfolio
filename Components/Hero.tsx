@@ -36,6 +36,7 @@ const Hero = () => {
               Hi, I&apos;m Himanshu, a Fullstack Developer based in Bengaluru.
             </p>
 
+            {/* Added Button on the botton which requires some properties */}
             <a href="#about">
               <MagicButton 
                 title="Show my work"
