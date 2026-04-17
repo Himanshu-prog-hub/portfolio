@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 
   title: {
-    default: "Himanshu Mishra — Software Developer",
+    default: "Himanshu Mishra | Software Developer",
     template: "%s | Himanshu Mishra",
   },
   description:
-    "Software Developer 2 at Serko. I build scalable Java microservices, cloud-native systems on GCP, and polished web interfaces. Based in Bengaluru, India.",
+    "Software Developer at Serko · Java · Spring Boot · GCP · React · Based in Bengaluru, India.",
   keywords: [
     "Himanshu Mishra",
     "Software Developer",
@@ -67,17 +67,10 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: BASE_URL,
     siteName: "Himanshu Mishra",
-    title: "Himanshu Mishra — Software Developer",
+    title: "Himanshu Mishra | Software Developer",
     description:
-      "Software Developer 2 at Serko. Scalable Java microservices, GCP cloud systems, and modern web interfaces. Based in Bengaluru, India.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Himanshu Mishra — Software Developer Portfolio",
-      },
-    ],
+      "Software Developer at Serko · Java · Spring Boot · GCP · React · Based in Bengaluru, India.",
+    // og:image is auto-generated from app/opengraph-image.tsx
   },
 
   // ── Twitter / X Card ─────────────────────────────────────────────────────
@@ -85,10 +78,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@manshu_1100",
     creator: "@manshu_1100",
-    title: "Himanshu Mishra — Software Developer",
+    title: "Himanshu Mishra | Software Developer",
     description:
-      "Software Developer 2 at Serko. Java · Spring Boot · GCP · React. Based in Bengaluru, India.",
-    images: ["/og-image.png"],
+      "Software Developer at Serko · Java · Spring Boot · GCP · React · Based in Bengaluru, India.",
+    // twitter:image is auto-generated from app/opengraph-image.tsx
   },
 
   // ── Verification (add tokens once you verify in Google / Bing) ───────────
