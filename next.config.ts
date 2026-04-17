@@ -5,9 +5,6 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
-  webpack: (config) => {
-    return config;
-  },
   // Next.js doesn't auto-serve index.html for public/ subdirectories,
   // so we rewrite each bundled app path to its index.html.
   async rewrites() {

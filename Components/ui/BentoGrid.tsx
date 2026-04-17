@@ -4,7 +4,8 @@ import { cn } from "@/utils/cn";
 import { BackgroundGradientAnimation } from "./GradientBG";
 import GridGlobe from "./GridGlobe";
 import { motion } from "framer-motion";
-import Lottie from "react-lottie";
+import dynamic from "next/dynamic";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import { useState } from "react";
 import animationData from "@/data/confetti.json"
 import MagicButton from "./MagicButton";
@@ -239,12 +240,10 @@ export const BentoGridItem = ({
             <div className="mt-5 relative">
               <div className="absolute -bottom-5 right-0">
                 <Lottie
-                  options={{
-                    loop: copied,
-                    autoplay: copied,
-                    animationData,
-                    rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
-                  }}
+                  animationData={animationData}
+                  loop={copied}
+                  autoplay={copied}
+                  rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
                 />
               </div>
               <MagicButton

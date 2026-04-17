@@ -44,7 +44,7 @@ export function FadeIn({
   once = true,
   as: Tag = 'div',
 }: FadeInProps) {
-  const MotionTag = motion(Tag as any);
+  const MotionTag = motion.create(Tag as any);
 
   const hidden: Variants['hidden'] = {
     opacity: 0,
