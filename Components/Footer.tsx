@@ -1,40 +1,223 @@
-import { socialMedia } from '@/data'
-import { div, footer } from 'framer-motion/client'
-import React from 'react'
-import { FaLocationArrow } from 'react-icons/fa'
-import MagicButton from './ui/MagicButton'
+'use client';
 
-const Footer = () => {
-  return (
-    <footer className="w-full pb-10 mb-[100px] md:mb-5" id="contact">
+import React, { useState } from 'react';
+import { FaLocationArrow, FaGithub, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FadeIn } from './ui/FadeIn';
 
-        <div className="flex flex-col items-center">
-            <h1 className="heading lg:max-w-[45vw">
-                Ready to take <span className="text-purple">your</span> digital oresence to the next level?
-            </h1>
-            <p className="text-white-200 md:mt-10 my-5 text-center">
-                Reach out to me today and let&apos;s discuss how I can help youu achieve your goals.
-            </p>
-            <a href="mailto:mishra00.11himanshu@gmail.com">
-                <MagicButton
-                    title="Let's get in touch"
-                    icon={<FaLocationArrow/>}
-                    position="right"
-                />
-            </a>
-        </div>
-        <div className="flex mt-16 md:flex-row flex-col justify-between items-center">
-            <p className="md:text-base text-sm md:font-normal font-light">Copyright © 2025 Himanshu</p>
-            <div className="flex items-center md:gap-3 gap-6">
-                {socialMedia.map((profile) => (
-                    <div key={profile.id} className="w-10 h-10 cursor-pointer flex justify-center items-center backdrop-filter backdrop-blur-lg saturate-180 bg-opacity-75 bg-black-200 rounded-lg border border-black-300">
-                        <img src={profile.img} width={20} height={20} />
-                    </div>
-                ))}
-            </div>
-        </div>
-    </footer>
-  )
+type FormState = { name: string; email: string; message: string };
+
+interface FieldProps {
+  label: string;
+  id: keyof FormState;
+  type?: string;
+  rows?: number;
+  value: string;
+  onChange: (val: string) => void;
+  error?: string;
+  placeholder?: string;
 }
 
-export default Footer
+function Field({ label, id, type = 'text', rows, value, onChange, error, placeholder }: FieldProps) {
+  const base = [
+    "w-full rounded-xl bg-white/[0.04] border px-4 py-3",
+    "text-sm text-white/80 placeholder:text-white/20 outline-none",
+    "transition-colors duration-200 focus:border-purple/50 focus:bg-white/[0.06]",
+    error ? 'border-red-500/50' : 'border-white/10',
+  ].join(' ');
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label htmlFor={id} className="text-xs font-medium text-white/40 uppercase tracking-widest">
+        {label}
+      </label>
+      {rows ? (
+        <textarea
+          id={id}
+          rows={rows}
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          className={`${base} resize-none`}
+          placeholder={placeholder}
+        />
+      ) : (
+        <input
+          id={id}
+          type={type}
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          className={base}
+          placeholder={placeholder}
+        />
+      )}
+      {error && <span className="text-[10px] text-red-400">{error}</span>}
+    </div>
+  );
+}
+
+type Status = 'idle' | 'sending' | 'sent' | 'error';
+
+function ContactForm() {
+  const [form, setForm]     = useState<FormState>({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState<Status>('idle');
+  const [errors, setErrors] = useState<Partial<FormState>>({});
+
+  const set = (key: keyof FormState) => (val: string) =>
+    setForm(f => ({ ...f, [key]: val }));
+
+  const validate = (): boolean => {
+    const e: Partial<FormState> = {};
+    if (!form.name.trim())                                e.name    = 'Name is required';
+    if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) e.email   = 'Valid email required';
+    if (form.message.trim().length < 10)                  e.message = 'Message must be at least 10 characters';
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const handleSubmit = async (ev: React.FormEvent) => {
+    ev.preventDefault();
+    if (!validate()) return;
+    setStatus('sending');
+    try {
+      const res  = await fetch('/api/contact', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setErrors({ message: data.error ?? 'Something went wrong. Please try again.' });
+        setStatus('error');
+        return;
+      }
+      setStatus('sent');
+      setForm({ name: '', email: '', message: '' });
+    } catch {
+      setErrors({ message: 'Network error. Please check your connection and try again.' });
+      setStatus('error');
+    }
+  };
+
+  return (
+    <AnimatePresence mode="wait">
+      {status === 'sent' ? (
+        <motion.div
+          key="success"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex flex-col items-center gap-4 py-10"
+        >
+          <div className="w-14 h-14 rounded-full bg-emerald-400/10 border border-emerald-400/30 flex items-center justify-center text-2xl">
+            ✓
+          </div>
+          <p className="text-emerald-400 font-semibold">Message sent!</p>
+          <p className="text-white/40 text-sm">I&apos;ll get back to you within 24 hours.</p>
+          <button
+            onClick={() => setStatus('idle')}
+            className="text-xs text-white/30 hover:text-white/60 transition-colors mt-2"
+          >
+            Send another →
+          </button>
+        </motion.div>
+      ) : (
+        <motion.form
+          key="form"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          onSubmit={handleSubmit}
+          className="w-full max-w-lg mx-auto px-4 sm:px-0 flex flex-col gap-4"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Field label="Name"  id="name"  value={form.name}  onChange={set('name')}  error={errors.name}  placeholder="John Doe" />
+            <Field label="Email" id="email" type="email" value={form.email} onChange={set('email')} error={errors.email} placeholder="john@example.com" />
+          </div>
+          <Field
+            label="Message" id="message" rows={4}
+            value={form.message} onChange={set('message')}
+            error={errors.message}
+            placeholder="Hi Himanshu, I'd love to work together on..."
+          />
+          <motion.button
+            type="submit"
+            disabled={status === 'sending'}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="flex items-center justify-center gap-2 w-full rounded-xl bg-gradient-to-r from-purple to-indigo-500 py-3.5 text-sm font-semibold text-white disabled:opacity-60 transition-all duration-200 hover:shadow-[0_0_24px_rgba(124,58,237,0.35)]"
+          >
+            {status === 'sending' ? (
+              <>
+                <motion.div
+                  className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 0.7, repeat: Infinity, ease: 'linear' }}
+                />
+                Sending...
+              </>
+            ) : (
+              <>
+                Send Message
+                <FaLocationArrow className="w-3 h-3" />
+              </>
+            )}
+          </motion.button>
+        </motion.form>
+      )}
+    </AnimatePresence>
+  );
+}
+
+const Footer = () => {
+  const socialLinks = [
+    { icon: <FaGithub   className="w-4 h-4" />, href: 'https://github.com/Himanshu-prog-hub',    label: 'GitHub'   },
+    { icon: <FaLinkedin className="w-4 h-4" />, href: 'https://linkedin.com/in/himanshu-mishra', label: 'LinkedIn' },
+    { icon: <FaTwitter  className="w-4 h-4" />, href: 'https://twitter.com',                      label: 'Twitter'  },
+  ];
+
+  return (
+    <footer className="w-full pb-10 mb-[100px] md:mb-5" id="contact">
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-16" />
+
+      <FadeIn direction="up" duration={0.6}>
+        <div className="flex flex-col items-center gap-3 mb-12">
+          <h1 className="heading">
+            Let&apos;s <span className="text-purple">Connect</span>
+          </h1>
+          <p className="text-white/40 text-sm md:text-base text-center max-w-md">
+            Have a project in mind, or just want to say hi? Drop me a message.
+          </p>
+        </div>
+      </FadeIn>
+
+      <FadeIn direction="up" delay={0.15} duration={0.55}>
+        <ContactForm />
+      </FadeIn>
+
+      <FadeIn direction="up" delay={0.1} duration={0.5}>
+        <div className="flex mt-16 md:flex-row flex-col justify-between items-center gap-4">
+          <p className="text-sm text-white/30">
+            &copy; 2025 Himanshu Mishra &middot; Built with Next.js &amp; coffee
+          </p>
+          <div className="flex items-center gap-3">
+            {socialLinks.map((s, i) => (
+              <motion.a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + i * 0.08, duration: 0.4 }}
+                className="w-9 h-9 flex items-center justify-center rounded-lg border border-white/10 text-white/40 hover:text-white hover:border-purple/40 hover:bg-purple/10 transition-all duration-200"
+              >
+                {s.icon}
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </FadeIn>
+    </footer>
+  );
+};
+
+export default Footer;

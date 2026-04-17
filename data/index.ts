@@ -1,25 +1,38 @@
 export const navItems = [
     { name: "About", link: "#about" },
     { name: "Projects", link: "#projects" },
-    { name: "Testimonials", link: "#testimonials" },
-    { name: "Contact", link: "#contact" },
+    { name: "Stats", link: "#stats" },
     { name: "Experience", link: "#experience" },
+    { name: "Music", link: "#beyond" },
+    { name: "LLD", link: "#lld" },
+    { name: "Contact", link: "#contact" },
   ];
-  
+
+  export interface WorkExperienceItem {
+    id: number
+    role: string
+    company: string
+    duration: string
+    location: string
+    description: string
+    tech: string[]
+  }
+
   export const gridItems = [
     {
       id: 1,
-      title: "I prioritize client collaboration, fostering open communication ",
+      title: "Hi, I’m Himanshu Mishra – a Software Developer 2 at Serko with a passion for system design and cloud technologies. Outside of work, I’m a trained Indian classical singer and guitar enthusiast, always exploring creativity alongside code.",
       description: "",
       className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
       imgClassName: "w-full h-full",
-      titleClassName: "justify-end",
-      img: "/b1.svg",
+      titleClassName: "justify-start",
+      img: "HimanshuPhoto.png",
       spareImg: "",
     },
+    
     {
       id: 2,
-      title: "I'm very flexible with time zone communications",
+      title: "Building for a globally connected world",
       description: "",
       className: "lg:col-span-2 md:col-span-3 md:row-span-2",
       imgClassName: "",
@@ -29,8 +42,8 @@ export const navItems = [
     },
     {
       id: 3,
-      title: "My tech stack",
-      description: "I constantly try to improve",
+      title: "",
+      description: "",
       className: "lg:col-span-2 md:col-span-3 md:row-span-2",
       imgClassName: "",
       titleClassName: "justify-center",
@@ -50,7 +63,7 @@ export const navItems = [
   
     {
       id: 5,
-      title: "Currently building a Spotify Clone Using React",
+      title: "Building an AI Travel Agent that autonomously plans trips using LLMs, RAG & real-time flight data",
       description: "The Inside Scoop",
       className: "md:col-span-3 md:row-span-2",
       imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
@@ -73,68 +86,70 @@ export const navItems = [
   export const projects = [
     {
       id: 1,
-      title: "3D Solar System Planets to Explore",
-      des: "Explore the wonders of our solar system with this captivating 3D simulation of the planets using Three.js.",
+      title: "LLD Playground Hub",
+      des: "React and Vite visualiser for my Java LLD implementations. Walk through Spotify, KV-Store, and Distributed Message Queue designs with pattern maps, execution flows, and an AI chat grounded in the actual code.",
       img: "/p1.svg",
-      iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/fm.svg"],
-      link: "https://github.com/adrianhajdin?tab=repositories",
+      iconLists: ["/re.svg", "/ts.svg", "/three.svg"],
+      link: "https://github.com/Himanshu-prog-hub/LLDPlayground",
+      // The built LLD Playground app lives at public/lld-playground/ — served at /lld-playground/.
+      // To update it: run build-lld.bat (Windows) which rebuilds and copies the dist automatically.
+      liveUrl: "/lld-playground/",
+      liveLabel: "Launch Playground",
+      tags: ["React", "Vite", "Java", "LLD", "System Design"],
+      status: "Live",
     },
     {
       id: 2,
-      title: "Yoom - Video Conferencing App",
-      des: "Simplify your video conferencing experience with Yoom. Seamlessly connect with colleagues and friends.",
+      title: "LinkedIn Post Generator",
+      des: "Generates LinkedIn posts from a topic, tone, and length selection. Backed by a Groq LLM via FastAPI, with a focused React UI built for quick drafting and copy-paste output.",
       img: "/p2.svg",
-      iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/stream.svg", "/c.svg"],
-      link: "https://github.com/adrianhajdin/zoom-clone",
+      iconLists: ["/re.svg", "/ts.svg", "/next.svg"],
+      link: "https://github.com/Himanshu-prog-hub/LinkedinPostGenerator",
+      // liveUrl: "/linkedin-post-generator/",  ← uncomment when backend is deployed
+      // liveLabel: "Launch App",
+      tags: ["Python", "Groq", "LLM", "React", "FastAPI"],
+      status: "In Progress",
     },
     {
       id: 3,
-      title: "AI Image SaaS - Canva Application",
-      des: "A REAL Software-as-a-Service app with AI features and a payments and credits system using the latest tech stack.",
-      img: "/p3.svg",
-      iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/c.svg"],
-      link: "https://github.com/adrianhajdin/ai_saas_app",
+      title: "Interactive Developer Portfolio",
+      des: "This site. Next.js 15, Three.js, Framer Motion. 3D instrument canvas, live constellation background, AI chat over my LLD code, Spotify collab matcher, and light/dark theming.",
+      img: "/p4.svg",
+      iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/three.svg", "/fm.svg"],
+      link: "https://github.com/Himanshu-prog-hub/portfolio",
+      tags: ["Next.js", "Three.js", "TypeScript", "Frontend", "React"],
+      status: "Live",
     },
     {
       id: 4,
-      title: "Animated Apple Iphone 3D Website",
-      des: "Recreated the Apple iPhone 15 Pro website, combining GSAP animations and Three.js 3D effects..",
-      img: "/p4.svg",
-      iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/three.svg", "/gsap.svg"],
-      link: "https://github.com/adrianhajdin/iphone",
+      title: "Policy Compliance Agent",
+      des: "Internal tool at Serko. Reads corporate travel policies written in plain English and filters live flight results against them. Java and Spring Boot backend, LLM integration for policy parsing.",
+      img: "/p3.svg",
+      iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
+      link: "",
+      tags: ["Java", "Spring Boot", "LLM", "GenAI", "AI Agent", "Backend"],
+      status: "Shipped",
     },
   ];
   
   export const testimonials = [
     {
       quote:
-        "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-      name: "Himanshu Mishra",
-      title: "Director of AlphaStream Technologies",
+        "At Serko, I work as a Software Developer 2, contributing to backend development and system design for large-scale travel and expense management solutions. My role involves designing and implementing scalable microservices, optimizing system performance, and ensuring reliability through CI/CD pipelines and cloud-native practices on GCP. I collaborate closely with cross-functional teams to deliver features that enhance booking experiences and payment workflows, while also driving initiatives around observability, automation, and maintainability.Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
+      name: "Serko",
+      title: "Software Developer 2",
     },
     {
       quote:
-        "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-      name: "Rahul Mishra",
-      title: "Director of AlphaStream Technologies",
+        "At Sabre, I worked as a Software Developer 2 on GetThere, a corporate booking tool. I contributed to backend feature development, focusing on integrating NDC-based content alongside traditional ATPCO fares to enhance fare visibility and amenities for corporate travelers. My work also included projects around PCI compliance and direct data handling, ensuring security and reliability of sensitive transactions. Collaborated with global teams to deliver scalable solutions that improved both performance and user experience.",
+      name: "Sabre Travel Technologies",
+      title: "Software Developer 2",
     },
     {
       quote:
-        "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-      name: "Bhumij Sharma",
-      title: "Director of AlphaStream Technologies",
-    },
-    {
-      quote:
-        "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-      name: "Rishabha Kumar",
-      title: "Director of AlphaStream Technologies",
-    },
-    {
-      quote:
-        "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-      name: "Kushragra Srivastava",
-      title: "Director of AlphaStream Technologies",
+        "At Sabre, I began as a Software Developer Intern, gaining hands-on experience in backend development and enterprise-scale systems. I contributed to feature enhancements and bug fixes on the GetThere platform, while building a strong foundation in Java, microservices, and database design. This role gave me exposure to working in an agile environment and set the stage for my transition into a full-time Software Developer role.",
+      name: "Sabre Travel Technologies",
+      title: "Software Developer Intern",
     },
   ];
   
@@ -174,45 +189,29 @@ export const navItems = [
   export const workExperience = [
     {
       id: 1,
-      title: "Backend Engineer Intern",
-      desc: "Assisted in the development of a web-based platform using React.js, enhancing interactivity.",
-      className: "md:col-span-2",
-      thumbnail: "/exp1.svg",
+      role: "Software Developer 2",
+      company: "Serko",
+      duration: "2023 – Present",
+      location: "Bengaluru, India",
+      description: "Building scalable microservices and cloud-native systems for travel & expense management. Designing booking and payment workflows on GCP, driving CI/CD pipelines, observability, and system reliability across cross-functional teams.",
+      tech: ["Java", "Spring Boot", "GCP", "Kubernetes", "PostgreSQL", "React"],
     },
     {
       id: 2,
-      title: "Software Engineer Intern - Sabre",
-      desc: "Designed and developed mobile app for both iOS & Android platforms using React Native.",
-      className: "md:col-span-2", // change to md:col-span-2
-      thumbnail: "/exp2.svg",
+      role: "Software Developer",
+      company: "Sabre GetThere",
+      duration: "2022 – 2023",
+      location: "Bengaluru, India",
+      description: "Integrated NDC-based airline content alongside traditional ATPCO fares for corporate travelers. Led PCI compliance initiatives and improved fare visibility and amenities across the GetThere booking platform.",
+      tech: ["Java", "Spring Boot", "MySQL", "REST APIs", "Microservices"],
     },
     {
       id: 3,
-      title: "Software Developer - Sabre",
-      desc: "Led the dev of a mobile app for a client, from initial concept to deployment on app stores.",
-      className: "md:col-span-2", // change to md:col-span-2
-      thumbnail: "/exp3.svg",
-    },
-    {
-      id: 4,
-      title: "Software Developer - Serko",
-      desc: "Developed and maintained user-facing features using modern frontend technologies.",
-      className: "md:col-span-2",
-      thumbnail: "/exp4.svg",
-    },
-  ];
-  
-  export const socialMedia = [
-    {
-      id: 1,
-      img: "/git.svg",
-    },
-    {
-      id: 2,
-      img: "/twit.svg",
-    },
-    {
-      id: 3,
-      img: "/link.svg",
+      role: "Software Developer Intern",
+      company: "Sabre GetThere",
+      duration: "2021 – 2022",
+      location: "Bengaluru, India",
+      description: "Contributed to backend feature development and bug fixes on the GetThere platform. Built strong foundations in Java, microservices, and agile delivery while gaining exposure to enterprise travel tech at scale.",
+      tech: ["Java", "Spring Boot", "MySQL", "REST APIs"],
     },
   ];

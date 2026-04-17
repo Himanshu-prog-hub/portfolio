@@ -6,60 +6,43 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
-
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
-
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
-
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
-
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 10% 3.9%;
-
     --radius: 0.5rem;
   }
 
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
-
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
-
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
-
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
-
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
@@ -67,23 +50,480 @@
 }
 
 @layer base {
-  * {
-    @apply border-border !scroll-smooth;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  button {
-    @apply active:outline-none;
-  }
+  * { @apply border-border !scroll-smooth; }
+  body { @apply bg-background text-foreground; }
+  button { @apply active:outline-none; }
 }
 
 @layer utilities {
-  .heading {
-    @apply font-bold text-4xl md:text-5xl text-center;
-  }
+  /* Reduce heading size on small screens so it doesn't dominate */
+  .heading { @apply font-bold text-3xl sm:text-4xl md:text-5xl text-center; }
+  .black-gradient { background: linear-gradient(90deg, #161a31 0%, #06091f 100%); }
 
-  .black-gradient {
-    background: linear-gradient(90deg, #161a31 0%, #06091f 100%);
+  /* ── Mobile section spacing: tighten py-20 for small screens ── */
+  @media (max-width: 639px) {
+    .py-20 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+    .pt-36 { padding-top: 5rem !important; }
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LIGHT MODE — comprehensive overrides
+   Strategy: target every hardcoded dark value with [class*="..."]
+   and use inline-style selectors for the BentoGrid items
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Base ──────────────────────────────────────────────────────────────── */
+html:not(.dark) body,
+html:not(.dark) main {
+  background-color: #f5f3ff !important;
+  color: #160b2e !important;
+}
+
+/* Global fixed bg grid layer */
+html:not(.dark) div[class*="fixed"][class*="inset-0"][class*="-z-10"] {
+  background-color: #f5f3ff !important;
+}
+
+/* ── Text — catch ALL white/opacity variants via substring match ─────── */
+html:not(.dark) [class*="text-white"] {
+  color: #160b2e !important;
+}
+/* Restore specific non-text elements that shouldn't be dark */
+html:not(.dark) [class*="text-purple"],
+html:not(.dark) [class*="text-emerald"],
+html:not(.dark) [class*="text-amber"],
+html:not(.dark) [class*="text-cyan"],
+html:not(.dark) [class*="text-indigo"],
+html:not(.dark) [class*="text-blue"],
+html:not(.dark) [class*="text-red"],
+html:not(.dark) [class*="text-green"] {
+  /* keep colored text as-is — only unset if they were set to dark */
+  color: unset;
+}
+/* Specific color classes we want to keep */
+html:not(.dark) .text-purple  { color: #7c3aed !important; }
+html:not(.dark) .text-emerald-400 { color: #34d399 !important; }
+html:not(.dark) [class*="text-\[#1DB954\]"] { color: #1DB954 !important; }
+
+/* Muted text — slightly less dark */
+html:not(.dark) [class*="text-white\/30"],
+html:not(.dark) [class*="text-white\/20"],
+html:not(.dark) [class*="text-white\/25"] {
+  color: rgba(22, 11, 46, 0.38) !important;
+}
+html:not(.dark) [class*="text-white\/40"],
+html:not(.dark) [class*="text-white\/35"] {
+  color: rgba(22, 11, 46, 0.50) !important;
+}
+html:not(.dark) [class*="text-white\/50"],
+html:not(.dark) [class*="text-white\/45"] {
+  color: rgba(22, 11, 46, 0.60) !important;
+}
+html:not(.dark) [class*="text-white\/60"],
+html:not(.dark) [class*="text-white\/55"] {
+  color: rgba(22, 11, 46, 0.70) !important;
+}
+html:not(.dark) [class*="text-white\/70"],
+html:not(.dark) [class*="text-white\/80"],
+html:not(.dark) [class*="text-white\/90"] {
+  color: rgba(22, 11, 46, 0.85) !important;
+}
+
+/* ── Backgrounds ─────────────────────────────────────────────────────── */
+/* Catch hardcoded dark hex bg classes */
+html:not(.dark) [class*="bg-black"] {
+  background-color: #f5f3ff !important;
+}
+/* Card surfaces */
+html:not(.dark) [class*="bg-\[#0d0f23\]"],
+html:not(.dark) [class*="bg-\[#0a0c1e\]"],
+html:not(.dark) [class*="bg-\[#04071d\]"],
+html:not(.dark) [class*="bg-\[#020818\]"],
+html:not(.dark) [class*="bg-\[#161a31\]"],
+html:not(.dark) [class*="bg-\[#10132E\]"],
+html:not(.dark) [class*="bg-\[#10132e\]"] {
+  background-color: #ffffff !important;
+}
+/* Inline-style dark backgrounds (BentoGrid uses style="background: rgb(4,7,29)") */
+html:not(.dark) [style*="rgb(4,7,29)"],
+html:not(.dark) [style*="rgba(4,7,29"],
+html:not(.dark) [style*="rgba(12,14,35"] {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+/* Subtle bg transparency classes */
+html:not(.dark) [class*="bg-white\/\[0.0"] {
+  background-color: rgba(22, 11, 46, 0.04) !important;
+}
+html:not(.dark) [class*="bg-white\/5"]  { background-color: rgba(22,11,46,0.05) !important; }
+html:not(.dark) [class*="bg-white\/10"] { background-color: rgba(22,11,46,0.07) !important; }
+
+/* ── Borders ─────────────────────────────────────────────────────────── */
+html:not(.dark) [class*="border-white"] {
+  border-color: rgba(124, 58, 237, 0.18) !important;
+}
+/* Keep colored borders */
+html:not(.dark) [class*="border-purple"] { border-color: rgba(124,58,237,0.45) !important; }
+html:not(.dark) [class*="border-emerald"] { border-color: rgba(52,211,153,0.5) !important; }
+
+/* ── Nav bar ─────────────────────────────────────────────────────────── */
+html:not(.dark) [class*="bg-black-100\/80"],
+html:not(.dark) [class*="bg-black-100\/90"] {
+  background-color: rgba(245, 243, 255, 0.92) !important;
+  backdrop-filter: blur(16px);
+  border-color: rgba(124,58,237,0.2) !important;
+}
+
+/* ── Cards / sections ────────────────────────────────────────────────── */
+html:not(.dark) .rounded-2xl,
+html:not(.dark) .rounded-3xl {
+  box-shadow: 0 2px 16px rgba(124,58,237,0.08), 0 0 0 1px rgba(124,58,237,0.1);
+}
+
+/* ── Gradients that go to dark → flip to light ───────────────────────── */
+/* The fixed full-screen grid bg div */
+html:not(.dark) [class*="fixed"][class*="inset-0"][class*="-z-10"] > div {
+  background: linear-gradient(to bottom, rgba(245,243,255,0.3), rgba(245,243,255,0.95)) !important;
+}
+
+/* ── Inputs & form fields ────────────────────────────────────────────── */
+html:not(.dark) input,
+html:not(.dark) textarea {
+  background-color: #f0eeff !important;
+  color: #160b2e !important;
+  border-color: rgba(124,58,237,0.25) !important;
+}
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: rgba(22,11,46,0.35) !important;
+}
+
+/* ── Gradient overlays that create dark bgs ─────────────────────────── */
+html:not(.dark) [class*="from-\[#04071d\]"],
+html:not(.dark) [class*="via-\[#04071d\]"],
+html:not(.dark) [class*="to-\[#04071d\]"] {
+  --tw-gradient-from: #f5f3ff !important;
+  --tw-gradient-via: #ede9fe !important;
+  --tw-gradient-to: #f5f3ff !important;
+}
+
+/* ── Section headings ────────────────────────────────────────────────── */
+html:not(.dark) .heading {
+  color: #160b2e;
+}
+
+/* ── Bento grid item overlay gradients ───────────────────────────────── */
+/* In light mode we don't want the dark to-transparent overlays */
+html:not(.dark) [id="about"] .absolute.inset-0[class*="bg-gradient"] {
+  opacity: 0.15 !important;
+}
+
+/* ── Floating elements ───────────────────────────────────────────────── */
+html:not(.dark) [class*="bg-\[#0d0f23\]\/95"],
+html:not(.dark) [class*="bg-\[#0a0c1e\]\/95"] {
+  background-color: rgba(255,255,255,0.97) !important;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────── */
+html:not(.dark) ::-webkit-scrollbar { width: 6px; }
+html:not(.dark) ::-webkit-scrollbar-track { background: #f0eeff; }
+html:not(.dark) ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 999px; }
+html:not(.dark) ::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.5); }
+
+/* ── Tag chips & badges ──────────────────────────────────────────────── */
+html:not(.dark) [class*="bg-purple\/10"] { background-color: rgba(124,58,237,0.10) !important; }
+html:not(.dark) [class*="bg-purple\/20"] { background-color: rgba(124,58,237,0.15) !important; }
+html:not(.dark) [class*="bg-purple\/5"]  { background-color: rgba(124,58,237,0.06) !important; }
+
+/* ── Footer & bottom bar ─────────────────────────────────────────────── */
+html:not(.dark) footer { background-color: #f5f3ff !important; }
+
+/* ── Mono/code text ──────────────────────────────────────────────────── */
+html:not(.dark) .font-mono { color: rgba(22,11,46,0.65) !important; }
+
+/* ── Drop shadows → light-mode equivalent ───────────────────────────── */
+html:not(.dark) [class*="shadow"] {
+  --tw-shadow-color: rgba(124,58,237,0.12);
+}
+
+/* ── Hero bottom fade ──────────────────────────────────────────────────── */
+.hero-bottom-fade {
+  background: linear-gradient(to top, #000319 0%, rgba(0,3,25,0.75) 35%, rgba(0,3,25,0.30) 65%, transparent 100%);
+}
+html:not(.dark) .hero-bottom-fade {
+  background: linear-gradient(to top, #f5f3ff 0%, rgba(245,243,255,0.80) 35%, rgba(245,243,255,0.35) 65%, transparent 100%) !important;
+}
+
+/* ── Guitar vignette overlay (left side hologram) ───────────────────── */
+.guitar-vignette {
+  background: radial-gradient(ellipse 80% 80% at 60% 50%, transparent 40%, #000319 85%);
+}
+html:not(.dark) .guitar-vignette {
+  background: radial-gradient(ellipse 80% 80% at 60% 50%, transparent 40%, #f5f3ff 90%) !important;
+}
+
+/* ── Guitar vignette overlay — comprehensive multi-layer for BeyondCode ── */
+.guitar-vignette-overlay {
+  background:
+    linear-gradient(to bottom,
+      rgba(0,3,25,0.72) 0%,
+      rgba(0,3,25,0.30) 9%,
+      transparent 18%,
+      transparent 82%,
+      rgba(0,3,25,0.35) 100%),
+    radial-gradient(circle at 38% 50%,
+      rgba(0,229,255,0.10) 0%,
+      rgba(0,70,110,0.06) 22%,
+      transparent 58%),
+    linear-gradient(to right,
+      rgba(0,3,25,0.70) 0%,
+      rgba(0,3,25,0.18) 18%,
+      transparent 38%,
+      transparent 76%,
+      rgba(0,3,25,0.28) 100%);
+}
+html:not(.dark) .guitar-vignette-overlay {
+  background:
+    linear-gradient(to bottom,
+      rgba(245,243,255,0.85) 0%,
+      rgba(245,243,255,0.40) 10%,
+      transparent 20%,
+      transparent 80%,
+      rgba(245,243,255,0.45) 100%),
+    radial-gradient(circle at 38% 50%,
+      rgba(67,56,202,0.08) 0%,
+      rgba(67,56,202,0.04) 25%,
+      transparent 55%),
+    linear-gradient(to right,
+      rgba(245,243,255,0.80) 0%,
+      rgba(245,243,255,0.22) 20%,
+      transparent 40%,
+      transparent 75%,
+      rgba(245,243,255,0.35) 100%) !important;
+}
+
+/* ── Cello vignette overlay (right side hologram) ───────────────────── */
+.cello-vignette-overlay {
+  background:
+    linear-gradient(to bottom,
+      rgba(0,3,25,0.96) 0%,
+      rgba(0,3,25,0.60) 10%,
+      transparent 22%,
+      transparent 82%,
+      rgba(0,3,25,0.50) 100%),
+    radial-gradient(circle at 62% 50%,
+      rgba(0,229,255,0.10) 0%,
+      rgba(0,70,110,0.06) 22%,
+      transparent 58%),
+    linear-gradient(to left,
+      rgba(0,3,25,0.70) 0%,
+      rgba(0,3,25,0.18) 18%,
+      transparent 38%,
+      transparent 76%,
+      rgba(0,3,25,0.28) 100%);
+}
+html:not(.dark) .cello-vignette-overlay {
+  background:
+    linear-gradient(to bottom,
+      rgba(245,243,255,0.92) 0%,
+      rgba(245,243,255,0.45) 12%,
+      transparent 22%,
+      transparent 80%,
+      rgba(245,243,255,0.55) 100%),
+    radial-gradient(circle at 62% 50%,
+      rgba(67,56,202,0.08) 0%,
+      rgba(67,56,202,0.04) 25%,
+      transparent 55%),
+    linear-gradient(to left,
+      rgba(245,243,255,0.80) 0%,
+      rgba(245,243,255,0.22) 20%,
+      transparent 40%,
+      transparent 75%,
+      rgba(245,243,255,0.35) 100%) !important;
+}
+
+/* ── Tabla vignette (left side) — dissolves toward left + edges ──────── */
+.tabla-vignette {
+  background: radial-gradient(ellipse 80% 80% at 40% 50%, transparent 40%, #000319 85%);
+}
+html:not(.dark) .tabla-vignette {
+  background: radial-gradient(ellipse 80% 80% at 40% 50%, transparent 40%, #f5f3ff 90%) !important;
+}
+
+/* ── BeyondCode section: ensure section bg matches page in light mode ─── */
+html:not(.dark) #beyond {
+  background-color: #f5f3ff;
+}
+
+/* ── Hardcoded text-[#c1c2d3] (BentoGrid description text) ──────────── */
+html:not(.dark) [class*="text-\[#c1c2d3\]"] {
+  color: rgba(22,11,46,0.55) !important;
+}
+
+/* ── White/light chip labels inside BeyondCode ───────────────────────── */
+html:not(.dark) [class*="text-white\/35"],
+html:not(.dark) [class*="text-white\/30"],
+html:not(.dark) [class*="text-white\/25"] {
+  color: rgba(22,11,46,0.40) !important;
+}
+
+/* ── Progress dots / step indicators ────────────────────────────────── */
+html:not(.dark) [class*="bg-white\/10"] {
+  background-color: rgba(22,11,46,0.08) !important;
+}
+
+/* ── Hobby card gradient blobs ───────────────────────────────────────── */
+html:not(.dark) [class*="from-amber-500\/20"],
+html:not(.dark) [class*="from-indigo-500\/20"] {
+  --tw-gradient-from: rgba(245,158,11,0.12);
+}
+
+/* ── Collab chat container ───────────────────────────────────────────── */
+html:not(.dark) .rounded-2xl[class*="bg-\[#0a0c1e\]"],
+html:not(.dark) div[class*="bg-\[#0a0c1e\]"] {
+  background-color: #ffffff !important;
+  border-color: rgba(124,58,237,0.15) !important;
+}
+html:not(.dark) div[class*="bg-\[#0d0f23\]"] {
+  background-color: #faf9ff !important;
+  border-color: rgba(124,58,237,0.15) !important;
+}
+
+/* ── Stat/chip bars inside the collab widget ─────────────────────────── */
+html:not(.dark) [class*="border-white\/\[0.06\]"],
+html:not(.dark) [class*="border-white\/\[0.05\]"] {
+  border-color: rgba(124,58,237,0.1) !important;
+}
+
+/* ── White/5 and White/8 hover backgrounds ───────────────────────────── */
+html:not(.dark) [class*="bg-white\/5"],
+html:not(.dark) [class*="hover\:bg-white\/10"]:hover {
+  background-color: rgba(124,58,237,0.06) !important;
+}
+
+/* ── Stroke colours in the SVG progress ring ─────────────────────────── */
+html:not(.dark) circle[stroke="rgba(255,255,255,0.05)"] {
+  stroke: rgba(22,11,46,0.08) !important;
+}
+
+/* ── Italic quote at the bottom ──────────────────────────────────────── */
+html:not(.dark) [class*="text-white\/20"] {
+  color: rgba(22,11,46,0.30) !important;
+}
+
+/* ── Section headings that use text-purple keep purple ───────────────── */
+html:not(.dark) .text-purple {
+  color: #7c3aed !important;
+}
+
+/* ── Make sure MagicButton bg is readable ────────────────────────────── */
+html:not(.dark) [class*="bg-\[#161a31\]"] {
+  background-color: #ede9fe !important;
+  color: #4c1d95 !important;
+}
+
+/* ── Hero CTA buttons ────────────────────────────────────────────────── */
+html:not(.dark) [class*="black-gradient"] {
+  background: linear-gradient(90deg, #ede9fe 0%, #f5f3ff 100%) !important;
+  color: #4c1d95 !important;
+}
+
+/* ── Tech stack chip backgrounds ─────────────────────────────────────── */
+html:not(.dark) [class*="bg-\[#10132E\]"],
+html:not(.dark) [class*="bg-\[#10132e\]"] {
+  background-color: #ede9fe !important;
+  color: #4c1d95 !important;
+}
+
+/* ── MagicButton inner span (bg-slate-950) — keep as dark purple CTA ─── */
+html:not(.dark) [class*="bg-slate-950"] {
+  background-color: #5b21b6 !important;
+  /* text colour overrides the catch-all text-white rule since this is later */
+  color: #ffffff !important;
+}
+
+/* ── Animated conic border on MagicButton outer button ───────────────── */
+/* The outer button is transparent (overflow:hidden) — no override needed */
+
+/* ── Spotlight fill colours — in light mode tone them down ───────────── */
+html:not(.dark) [class*="fill-white"],
+html:not(.dark) [class*="fill-purple"],
+html:not(.dark) [class*="fill-blue"] {
+  fill: rgba(124,58,237,0.25) !important;
+}
+
+/* ── TextGenerateEffect heading ──────────────────────────────────────── */
+html:not(.dark) [class*="text-center"][class*="text-\[40px\]"],
+html:not(.dark) [class*="text-center"][class*="text-5xl"],
+html:not(.dark) [class*="text-center"][class*="text-6xl"] {
+  color: #160b2e;
+}
+
+/* ── CopyEmail pill in Hero ──────────────────────────────────────────── */
+html:not(.dark) [class*="bg-white\/\[0.03\]"] {
+  background-color: rgba(124,58,237,0.05) !important;
+  border-color: rgba(124,58,237,0.2) !important;
+}
+
+/* ── Open-to-work emerald pill ───────────────────────────────────────── */
+html:not(.dark) [class*="bg-emerald-400\/8"],
+html:not(.dark) [class*="border-emerald-400\/25"] {
+  background-color: rgba(52,211,153,0.1) !important;
+  border-color: rgba(52,211,153,0.4) !important;
+}
+
+/* ── RecentProjects search / filter bar ──────────────────────────────── */
+html:not(.dark) [class*="bg-\[#080b1a\]"] {
+  background-color: #f0eeff !important;
+  border-color: rgba(124,58,237,0.2) !important;
+}
+html:not(.dark) [class*="bg-transparent"][class*="text-white\/80"] {
+  color: #160b2e !important;
+}
+
+/* ── bg-black\/40 icon circles ────────────────────────────────────────── */
+html:not(.dark) [class*="bg-black\/40"] {
+  background-color: rgba(124,58,237,0.1) !important;
+}
+
+/* ── Experience cards & similar ──────────────────────────────────────── */
+html:not(.dark) [class*="hover\:border-purple\/30"]:hover,
+html:not(.dark) [class*="hover\:border-purple\/40"]:hover {
+  border-color: rgba(124,58,237,0.45) !important;
+}
+
+/* ── BentoGrid photo card (id=1) — ensure text is readable in light mode ─ */
+html:not(.dark) [class*="drop-shadow-lg"] {
+  text-shadow: 0 1px 3px rgba(245,243,255,0.5);
+}
+
+/* ── BeyondCode section hologram containers ─────────────────────────── */
+html:not(.dark) #beyond {
+  background-color: #f5f3ff;
+}
+
+/* ── Make the "h2.text-white.dark:text-white" in BeyondCode readable ─── */
+html:not(.dark) h2.text-white,
+html:not(.dark) h2[class*="text-white"] {
+  color: #160b2e !important;
+}
+
+/* ── Collaborative chat widget — always-dark text items ─────────────── */
+html:not(.dark) [class*="text-white\/60"][class*="text-sm"] {
+  color: rgba(22,11,46,0.65) !important;
+}
+html:not(.dark) [class*="text-white\/90"][class*="font-medium"] {
+  color: rgba(22,11,46,0.90) !important;
+}
+
+/* ── BentoGrid item card border in light mode ───────────────────────── */
+html:not(.dark) [class*="border-white\/\[0.1\]"] {
+  border-color: rgba(124,58,237,0.14) !important;
+}
+
+/* ── bg-[#0d0f23] hobby cards ────────────────────────────────────────── */
+html:not(.dark) [class*="bg-\[#0d0f23\]"] {
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 12px rgba(124,58,237,0.08), 0 0 0 1px rgba(124,58,237,0.1);
 }

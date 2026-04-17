@@ -25,13 +25,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Prevent browser from restoring previous scroll position on refresh */}
+        <script dangerouslySetInnerHTML={{ __html: "history.scrollRestoration='manual';if(typeof window!=='undefined'){window.scrollTo(0,0);}" }} />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
          <ThemeProvider
             attribute="class"
             defaultTheme="dark"
-            enableSystem
+            enableSystem={false}
+            forcedTheme="dark"
             disableTransitionOnChange
           >
             {children}
