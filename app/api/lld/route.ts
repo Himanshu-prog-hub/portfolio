@@ -76,7 +76,7 @@ ${mode === 'whatif' ? 'You are in WHAT-IF MODE: propose concrete code-level chan
 }
 
 // ── Smart fallback answers when no API key is set ──────────────────────────
-function generateFallbackAnswer(problem: (typeof lldProblems)[0], question: string, mode?: string): string {
+function generateFallbackAnswer(problem: (typeof lldProblems)[0], question: string, _mode?: string): string {
   const q = question.toLowerCase();
   const patternList = problem.patterns.join(', ');
 
