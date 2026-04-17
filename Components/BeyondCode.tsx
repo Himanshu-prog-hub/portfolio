@@ -246,7 +246,7 @@ function MusicCollabChat() {
                   ))}
                 </div>
                 <p className="text-white/60 text-sm leading-relaxed max-w-xs">
-                  <span className="text-white/90 font-medium">1,474 hours</span> of Spotify, Khayal training, and guitar experiments.
+                  <span className="text-white/90 font-medium">1,474 hours</span>{' '}of Spotify, Khayal training, and guitar experiments.
                   My taste is all over the place — let&apos;s see if yours overlaps.
                 </p>
                 <div className="flex flex-wrap justify-center gap-1.5">

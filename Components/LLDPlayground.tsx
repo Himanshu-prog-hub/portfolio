@@ -124,8 +124,7 @@ function ChatBubble({ msg }: { msg: Message }) {
           ? 'bg-purple/15 border border-purple/25 text-white/85 rounded-tr-sm'
           : 'bg-[#0d0f23] border border-white/[0.08] text-white/80 rounded-tl-sm'}`}>
         {msg.text.split('\n').map((line, i) => {
-          // Bold: **text**
-          const formatted = line.replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>');
+          const formatted = esc(line).replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>');
           return <p key={i} className={i > 0 ? 'mt-1.5' : ''} dangerouslySetInnerHTML={{ __html: formatted }} />;
         })}
       </div>
@@ -221,7 +220,7 @@ export default function LLDPlayground() {
   const diffColor = { Medium: 'text-amber-400 border-amber-400/30 bg-amber-400/8', Hard: 'text-rose-400 border-rose-400/30 bg-rose-400/8' };
 
   return (
-    <section ref={sectionRef} id="lld" className="py-20 relative">
+    <section ref={sectionRef} id="lld" className="py-20 relative overflow-x-hidden">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -264,7 +263,7 @@ export default function LLDPlayground() {
         </div>
 
         {/* ── Main split view ── */}
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 xl:grid-cols-[1fr_1fr] gap-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
 
           {/* ── LEFT — Chat panel ── */}
           <div className="flex flex-col gap-4">
@@ -300,7 +299,7 @@ export default function LLDPlayground() {
             </div>
 
             {/* Mode selector */}
-            <div className="flex gap-2">
+            <div className="flex gap-2" role="group" aria-label="Response mode">
               {([
                 { id: 'explain',   label: 'Explain',   icon: <FaCode className="w-3 h-3" /> },
                 { id: 'interview', label: 'Interview',  icon: <FaQuestionCircle className="w-3 h-3" /> },
@@ -308,6 +307,7 @@ export default function LLDPlayground() {
               ] as const).map(m => (
                 <button
                   key={m.id}
+                  aria-pressed={mode === m.id}
                   onClick={() => setMode(m.id)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200
                     ${mode === m.id ? 'bg-purple/20 border border-purple/40 text-white' : 'border border-white/[0.07] text-white/40 hover:text-white/60'}`}
@@ -318,7 +318,7 @@ export default function LLDPlayground() {
             </div>
 
             {/* Tabs: Chat / Flow / Patterns */}
-            <div className="flex gap-1 border-b border-white/[0.07]">
+            <div role="tablist" className="flex gap-1 border-b border-white/[0.07]">
               {([
                 { id: 'chat',     label: 'AI Chat',         icon: <FaRobot className="w-3 h-3" /> },
                 { id: 'flow',     label: 'Execution Flow',  icon: <FaProjectDiagram className="w-3 h-3" /> },
@@ -326,6 +326,10 @@ export default function LLDPlayground() {
               ] as const).map(t => (
                 <button
                   key={t.id}
+                  role="tab"
+                  aria-selected={activeTab === t.id}
+                  aria-controls={`${t.id}-panel`}
+                  tabIndex={activeTab === t.id ? 0 : -1}
                   onClick={() => setActiveTab(t.id)}
                   className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-medium transition-all duration-200 border-b-2 -mb-px
                     ${activeTab === t.id ? 'border-purple text-white' : 'border-transparent text-white/35 hover:text-white/60'}`}
@@ -358,7 +362,7 @@ export default function LLDPlayground() {
                   )}
 
                   {/* Messages */}
-                  <div ref={chatScrollRef} className="flex flex-col gap-3 max-h-[320px] overflow-y-auto pr-1">
+                  <div ref={chatScrollRef} className="flex flex-col gap-3 max-h-[200px] sm:max-h-[280px] md:max-h-[320px] lg:max-h-[420px] overflow-y-auto pr-1">
                     {messages.map((m, i) => <ChatBubble key={i} msg={m} />)}
                     {loading && (
                       <div className="flex gap-3">
@@ -395,7 +399,7 @@ export default function LLDPlayground() {
                       disabled={loading || !input.trim()}
                       className="px-4 py-2.5 rounded-xl bg-purple/20 hover:bg-purple/30 border border-purple/40
                                  text-white/80 text-sm font-semibold transition-all duration-200
-                                 disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2"
+                                 disabled:opacity-30 disabled:cursor-not-allowed disabled:pointer-events-none flex items-center gap-2"
                     >
                       <HiOutlineSparkles className="w-4 h-4" />
                       Ask
@@ -473,7 +477,7 @@ export default function LLDPlayground() {
             </div>
 
             {/* Code block */}
-            <div className="relative rounded-2xl border border-white/[0.07] bg-[#080a18] overflow-hidden flex-1">
+            <div className="relative rounded-2xl border border-white/[0.07] bg-[#080a18] overflow-hidden flex-1 min-w-0">
               {/* Top bar */}
               <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/[0.06]">
                 {['#ff5f56', '#ffbd2e', '#27c93f'].map(c => (
@@ -483,8 +487,8 @@ export default function LLDPlayground() {
                 <span className="ml-auto text-[9px] text-white/15 font-mono">java</span>
               </div>
               {/* Code */}
-              <div className="overflow-auto max-h-[620px]">
-                <pre className="p-5 text-[11.5px] leading-relaxed font-mono text-white/70 whitespace-pre">
+              <div className="overflow-auto max-h-[280px] sm:max-h-[400px] lg:max-h-[540px]">
+                <pre className="p-5 text-[11px] leading-relaxed font-mono text-white/70 whitespace-pre min-w-0">
                   <code dangerouslySetInnerHTML={{ __html: highlight(activeFile.content) }} />
                 </pre>
               </div>

@@ -137,7 +137,7 @@ function ProjectCard({ project, highlighted, index }: { project: Project; highli
             href={(project as any).liveUrl}
             target={(project as any).liveUrl.startsWith('#') ? '_self' : '_blank'}
             rel="noopener noreferrer"
-            className="group/launch flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold
+            className="group/launch hidden md:flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold
                        bg-gradient-to-r from-purple/25 to-cyan-500/15 border border-purple/40
                        text-white hover:from-purple/40 hover:to-cyan-500/25 hover:border-purple/70
                        transition-all duration-200 shadow-[0_0_12px_rgba(124,58,237,0.15)]
