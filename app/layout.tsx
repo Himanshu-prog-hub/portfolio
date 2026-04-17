@@ -13,17 +13,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const BASE_URL = "https://himanshumishra.site";
+const BASE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
+const TITLE = "Himanshu Mishra | Java & React Developer at Serko";
+const DESCRIPTION =
+  "Backend Software Developer at Serko, specializing in Java, Spring Boot, GCP, and React. Building scalable microservices and distributed systems. Based in Bengaluru, India.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 
   title: {
-    default: "Himanshu Mishra | Software Developer",
+    default: TITLE,
     template: "%s | Himanshu Mishra",
   },
-  description:
-    "Software Developer at Serko · Java · Spring Boot · GCP · React · Based in Bengaluru, India.",
+  description: DESCRIPTION,
   keywords: [
     "Himanshu Mishra",
     "Software Developer",
@@ -67,9 +72,8 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: BASE_URL,
     siteName: "Himanshu Mishra",
-    title: "Himanshu Mishra | Software Developer",
-    description:
-      "Software Developer at Serko · Java · Spring Boot · GCP · React · Based in Bengaluru, India.",
+    title: TITLE,
+    description: DESCRIPTION,
     // og:image is auto-generated from app/opengraph-image.tsx
   },
 
@@ -78,9 +82,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@manshu_1100",
     creator: "@manshu_1100",
-    title: "Himanshu Mishra | Software Developer",
-    description:
-      "Software Developer at Serko · Java · Spring Boot · GCP · React · Based in Bengaluru, India.",
+    title: TITLE,
+    description: DESCRIPTION,
     // twitter:image is auto-generated from app/opengraph-image.tsx
   },
 

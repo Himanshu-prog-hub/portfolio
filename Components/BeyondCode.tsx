@@ -428,7 +428,7 @@ const BeyondCode = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.2, duration: 0.6, ease: 'easeOut' }}
-              className={`relative group rounded-2xl border border-white/10 bg-[#0d0f23] p-5 sm:p-7 flex flex-col gap-4 sm:gap-5 transition-all duration-300 overflow-hidden ${h.border}`}
+              className={`relative group rounded-2xl border border-white/10 bg-[#0d0f23] p-5 sm:p-7 flex flex-col gap-4 sm:gap-5 transition-all duration-300 overflow-hidden hover:shadow-[0_0_28px_rgba(124,58,237,0.1)] ${h.border}`}
             >
               <div className={`absolute -top-8 -right-8 w-40 h-40 rounded-full bg-gradient-to-br ${h.accent} blur-2xl pointer-events-none`} />
               <div className="flex items-start justify-between relative z-10">
@@ -446,7 +446,7 @@ const BeyondCode = () => {
               </div>
               <p className="text-sm text-white/50 leading-relaxed relative z-10">{h.description}</p>
               <div className="flex flex-wrap gap-2 relative z-10">
-                {h.tags.map(t => <span key={t} className="text-[10px] px-2.5 py-1 rounded-full border border-white/10 text-white/35">{t}</span>)}
+                {h.tags.map(t => <span key={t} className="text-[10px] px-2.5 py-1 rounded-full border border-white/10 text-white/40 hover:border-purple/40 hover:text-white/65 transition-all duration-200 cursor-default">{t}</span>)}
               </div>
               <div className="flex items-center gap-3 mt-auto relative z-10">
                 <a href={h.cta.href} target="_blank" rel="noopener noreferrer"

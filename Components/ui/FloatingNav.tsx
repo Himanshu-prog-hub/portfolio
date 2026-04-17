@@ -55,7 +55,7 @@ export const FloatingNav = ({
         style={{ width: 'fit-content' }}
       >
         {/* Pill */}
-        <div className="flex items-center gap-1 border rounded-full px-4 py-2.5 border-white/[0.12] bg-black-100/80 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+        <div className="flex items-center gap-1 border rounded-full px-4 py-2.5 border-white/[0.12] bg-black-100/80 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.22)]">
 
           {/* Logo */}
           <a href="#" className="group select-none px-2" aria-label="Home">
@@ -127,7 +127,7 @@ export const FloatingNav = ({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.97 }}
               transition={{ duration: 0.18, ease: 'easeOut' }}
-              className="sm:hidden mt-2 w-48 rounded-2xl border border-white/[0.12] bg-black-100/90 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden"
+              className="sm:hidden mt-2 w-[min(calc(100vw-2rem),12rem)] rounded-2xl border border-white/[0.12] bg-black-100/90 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.3)] overflow-hidden"
             >
               {navItems.map((navItem, idx) => {
                 const sectionId = linkToId(navItem.link);

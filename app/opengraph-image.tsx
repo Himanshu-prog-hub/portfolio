@@ -108,18 +108,18 @@ export default function OGImage() {
         {/* Tagline */}
         <div
           style={{
-            fontSize: 30,
+            fontSize: 28,
             color: "rgba(255,255,255,0.55)",
-            marginBottom: 44,
+            marginBottom: 32,
             fontWeight: 400,
             lineHeight: 1.4,
           }}
         >
-          Software Developer · Java · Spring Boot · GCP · React
+          Building scalable systems with Java · Spring Boot · GCP · React
         </div>
 
         {/* Tags row */}
-        <div style={{ display: "flex", gap: 14 }}>
+        <div style={{ display: "flex", gap: 14, marginBottom: 36 }}>
           {["Java", "Spring Boot", "GCP", "React", "Next.js", "LLD"].map((tag) => (
             <div
               key={tag}
@@ -136,6 +136,24 @@ export default function OGImage() {
               {tag}
             </div>
           ))}
+        </div>
+
+        {/* CTA */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            padding: "12px 28px",
+            borderRadius: 999,
+            background: "rgba(124,58,237,0.85)",
+            color: "#fff",
+            fontSize: 20,
+            fontWeight: 600,
+            letterSpacing: "0.03em",
+          }}
+        >
+          View Portfolio →
         </div>
       </div>
     ),

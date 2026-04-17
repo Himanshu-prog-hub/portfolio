@@ -22,7 +22,7 @@ function Field({ label, id, type = 'text', rows, value, onChange, error, placeho
   const base = [
     "w-full rounded-xl bg-white/[0.04] border px-4 py-3",
     "text-sm text-white/80 placeholder:text-white/20 outline-none",
-    "transition-colors duration-200 focus:border-purple/50 focus:bg-white/[0.06]",
+    "transition-all duration-200 focus:border-purple/60 focus:bg-purple/[0.06] focus:shadow-[0_0_14px_rgba(124,58,237,0.14)]",
     error ? 'border-red-500/50' : 'border-white/10',
   ].join(' ');
   return (

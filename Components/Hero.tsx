@@ -108,7 +108,7 @@ const Hero = () => {
             words="Hi! I'm Himanshu"
           />
 
-          <p className="text-center md:tracking-wider text-sm md:text-lg lg:text-2xl text-white/70">
+          <p className="text-center md:tracking-wider text-sm md:text-lg lg:text-2xl text-white/80">
             Fullstack Developer &amp; Classical Vocalist · Bengaluru
           </p>
 

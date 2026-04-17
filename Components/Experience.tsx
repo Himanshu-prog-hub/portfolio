@@ -51,7 +51,7 @@ const Experience = () => {
 
               {/* Card */}
               <div className="flex-1 group pb-2">
-                <div className="rounded-2xl border border-white/10 bg-[#0d0f23] p-6 md:p-8 hover:border-purple/30 transition-all duration-300">
+                <div className="rounded-2xl border border-white/10 bg-[#0d0f23] p-6 md:p-8 hover:border-purple/30 hover:bg-purple/[0.03] hover:shadow-[0_0_24px_rgba(124,58,237,0.08)] transition-all duration-300">
                   {/* Header */}
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
                     <div>

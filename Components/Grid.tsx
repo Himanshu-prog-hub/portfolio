@@ -6,7 +6,7 @@ import { cn } from "@/utils/cn";
 const Grid = () => {
   return (
     <section id="about">
-        <BentoGrid className="w-full pt-8 pb-20">
+        <BentoGrid className="w-full py-20">
             {gridItems.map((item, i) => (
                 <BentoGridItem
                     id={item.id}
