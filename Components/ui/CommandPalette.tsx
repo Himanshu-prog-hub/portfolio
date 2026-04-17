@@ -43,7 +43,7 @@ export function CommandPalette() {
     { id: 'email',      label: 'Copy Email Address',       icon: <FaEnvelope />,  category: 'Actions',    action: () => { navigator.clipboard?.writeText('hmishra@example.com'); setOpen(false); showToast('Email copied!'); }, description: 'himanshumishra@outlook.com' },
     // Links
     { id: 'github',     label: 'Open GitHub',              icon: <FaGithub />,    category: 'Links',      action: () => { setOpen(false); window.open('https://github.com/Himanshu-prog-hub', '_blank'); } },
-    { id: 'linkedin',   label: 'Open LinkedIn',            icon: <FaLinkedin />,  category: 'Links',      action: () => { setOpen(false); window.open('https://linkedin.com/in/himanshu-mishra', '_blank'); } },
+    { id: 'linkedin',   label: 'Open LinkedIn',            icon: <FaLinkedin />,  category: 'Links',      action: () => { setOpen(false); window.open('https://www.linkedin.com/in/himanshu-mishra-0b2795191/', '_blank'); } },
     { id: 'youtube',    label: 'Hear Himanshu sing',       icon: <HiMusicNote />, category: 'Links',      action: () => { setOpen(false); window.open('https://www.youtube.com/@himanshumishra8864', '_blank'); } },
   ];
 

@@ -168,8 +168,8 @@ function ContactForm() {
 const Footer = () => {
   const socialLinks = [
     { icon: <FaGithub   className="w-4 h-4" />, href: 'https://github.com/Himanshu-prog-hub',    label: 'GitHub'   },
-    { icon: <FaLinkedin className="w-4 h-4" />, href: 'https://linkedin.com/in/himanshu-mishra', label: 'LinkedIn' },
-    { icon: <FaTwitter  className="w-4 h-4" />, href: 'https://twitter.com',                      label: 'Twitter'  },
+    { icon: <FaLinkedin className="w-4 h-4" />, href: 'https://www.linkedin.com/in/himanshu-mishra-0b2795191/', label: 'LinkedIn' },
+    { icon: <FaTwitter  className="w-4 h-4" />, href: 'https://x.com/manshu_1100',                               label: 'X'        },
   ];
 
   return (
@@ -194,7 +194,7 @@ const Footer = () => {
       <FadeIn direction="up" delay={0.1} duration={0.5}>
         <div className="flex mt-16 md:flex-row flex-col justify-between items-center gap-4">
           <p className="text-sm text-white/30">
-            &copy; 2025 Himanshu Mishra &middot; Built with Next.js &amp; coffee
+            &copy; 2026 Himanshu Mishra &middot; Built with Next.js &amp; coffee
           </p>
           <div className="flex items-center gap-3">
             {socialLinks.map((s, i) => (

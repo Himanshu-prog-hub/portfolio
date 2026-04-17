@@ -205,7 +205,7 @@ export const BentoGridItem = ({
                 </a>
 
                 <a
-                  href="https://www.linkedin.com/in/himanshu-mishra-b11a61198/"
+                  href="https://www.linkedin.com/in/himanshu-mishra-0b2795191/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
