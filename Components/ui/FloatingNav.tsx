@@ -14,7 +14,6 @@ export const FloatingNav = ({
   className?: string;
 }) => {
   const { scrollYProgress } = useScroll();
-  const [visible, setVisible]         = useState(true);
   const [activeSection, setActiveSection] = useState<string>('');
   const [menuOpen, setMenuOpen]       = useState(false);
 

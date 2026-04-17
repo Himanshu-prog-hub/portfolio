@@ -157,7 +157,7 @@ export function HolographicTabla() {
     ], goldFaint));
 
     // Ground shadow rings beneath each drum
-    [[- 1.02, 0.68, 0.60], [0.88, 0.50, 0.45]].forEach(([dx, rx, rz]) => {
+    [[- 1.02, 0.68, 0.60], [0.88, 0.50, 0.45]].forEach(([_dx, rx, rz]) => {
       tabla.add(ellipseRing(rx, rz, -0.68, 24, mkL(0xffb300, 0.10)));
     });
 

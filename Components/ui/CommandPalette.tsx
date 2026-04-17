@@ -130,11 +130,11 @@ export function CommandPalette() {
                     <p className="text-center text-white/25 text-sm py-8">No results for &ldquo;{query}&rdquo;</p>
                   )}
                   {Object.entries(grouped).map(([cat, cmds]) => {
-                    const globalIdx = filtered.indexOf(cmds[0]);
+                    const _globalIdx = filtered.indexOf(cmds[0]);
                     return (
                       <div key={cat}>
                         <p className="text-[10px] uppercase tracking-widest text-white/25 px-5 pt-3 pb-1.5 font-semibold">{cat}</p>
-                        {cmds.map((cmd, ci) => {
+                        {cmds.map((cmd, _ci) => {
                           const idx = filtered.indexOf(cmd);
                           const isSelected = idx === selected;
                           return (

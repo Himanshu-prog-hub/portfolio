@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { projects } from '@/data';
 import { FaGithub, FaExternalLinkAlt, FaPlay } from 'react-icons/fa';
 import { TiltCard } from './ui/TiltCard';
-import { MagneticButton } from './ui/MagneticButton';
 import { FadeIn } from './ui/FadeIn';
 
 // ─── Types ─────────────────────────────────────────────────────────────────

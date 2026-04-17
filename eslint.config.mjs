@@ -13,6 +13,8 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {
+      // Downgrade any-type errors to warnings — many UI libs require it
+      "@typescript-eslint/no-explicit-any": "warn",
       // Allow _-prefixed variables/params to be unused (standard TS convention)
       "@typescript-eslint/no-unused-vars": ["error", {
         vars: "all",

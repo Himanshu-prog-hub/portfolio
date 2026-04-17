@@ -59,7 +59,7 @@ function useTypeLines(lines: string[], speed = 28) {
 
 export function TerminalEgg() {
   const [open, setOpen]         = useState(false);
-  const [typed, setTyped]       = useState('');
+  const [_typed, setTyped]      = useState('');
   const bufRef                  = useRef('');
   const { displayed, done }     = useTypeLines(open ? bootLines : []);
 
