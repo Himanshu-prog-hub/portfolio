@@ -1,3 +1,7 @@
+// This page is heavily interactive (Three.js, canvas, cursor tracking, Web Audio).
+// Disable static prerendering — Vercel serves it via SSR on first request, then caches.
+export const dynamic = 'force-dynamic';
+
 import Clients from "@/Components/Clients";
 import Experience from "@/Components/Experience";
 import Footer from "@/Components/Footer";
