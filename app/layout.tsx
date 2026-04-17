@@ -17,9 +17,9 @@ const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 
-const TITLE = "Himanshu Mishra | Java & React Developer at Serko";
+const TITLE = "Himanshu Mishra | Backend Developer at Serko, India";
 const DESCRIPTION =
-  "Backend Software Developer at Serko, specializing in Java, Spring Boot, GCP, and React. Building scalable microservices and distributed systems. Based in Bengaluru, India.";
+  "Software Developer at Serko building Java, Spring Boot & GCP backends. React frontends, microservices, system design. Based in Bengaluru, India.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: [
       {
-        url: "/og-image.tsx.png",
+        url: "/og-image.png",
         width: 1080,
         height: 1080,
         alt: "Himanshu Mishra — Software Developer at Serko",
@@ -91,7 +91,7 @@ export const metadata: Metadata = {
     creator: "@manshu_1100",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["/og-image.tsx.png"],
+    images: ["/og-image.png"],
   },
 
   // ── Verification (add tokens once you verify in Google / Bing) ───────────
