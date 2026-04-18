@@ -166,6 +166,35 @@ export function StarConstellation() {
       };
     });
 
+    /* ── Reduced motion: single static frame, no rAF loop ───────────── */
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      x.clearRect(0, 0, c.width, c.height);
+      bgStars.forEach(s => {
+        x.beginPath();
+        x.arc(s.px * c.width, s.py * c.height, s.r, 0, Math.PI * 2);
+        x.fillStyle = `rgba(210,215,255,${s.base})`;
+        x.fill();
+      });
+      placed.forEach(con => {
+        x.strokeStyle = 'rgba(180,160,255,0.09)';
+        x.lineWidth = 0.6;
+        con.links.forEach(([a, b]) => {
+          if (!con.placedStars[a] || !con.placedStars[b]) return;
+          x.beginPath();
+          x.moveTo(con.placedStars[a].x, con.placedStars[a].y);
+          x.lineTo(con.placedStars[b].x, con.placedStars[b].y);
+          x.stroke();
+        });
+        con.placedStars.forEach(s => {
+          x.beginPath();
+          x.arc(s.x, s.y, 1.2, 0, Math.PI * 2);
+          x.fillStyle = 'rgba(230,225,255,0.5)';
+          x.fill();
+        });
+      });
+      return () => { resizeObs.disconnect(); window.removeEventListener('resize', resize); };
+    }
+
     /* ── Draw loop ────────────────────────────────────────────────────── */
     function draw() {
       raf = requestAnimationFrame(draw);

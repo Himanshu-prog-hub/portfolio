@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { FaYoutube, FaInstagram, FaMusic, FaGuitar, FaSpotify } from 'react-icons/fa';
 import { HiMusicNote } from 'react-icons/hi';
 import dynamic from 'next/dynamic';
@@ -52,6 +52,7 @@ const hobbies = [
 ];
 
 function MusicBars() {
+  const shouldReduce = useReducedMotion();
   const heights = [40, 70, 55, 85, 45, 65, 50];
   return (
     <div className="flex items-end gap-[3px] h-10">
@@ -59,7 +60,7 @@ function MusicBars() {
         <motion.div
           key={i}
           className="w-[3px] rounded-full bg-amber-400/60"
-          animate={{ scaleY: [1, h / 50, 0.4, h / 60, 1] }}
+          animate={shouldReduce ? { scaleY: 1 } : { scaleY: [1, h / 50, 0.4, h / 60, 1] }}
           transition={{ duration: 1.4 + i * 0.15, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 }}
           style={{ height: `${h}%`, originY: 1 }}
         />
@@ -412,10 +413,10 @@ const BeyondCode = () => {
       </div>
 
       <div className="relative z-[2]">
-        <h1 className="heading">
+        <h2 className="heading">
           Beyond{' '}
           <span className="text-purple">The Code</span>
-        </h1>
+        </h2>
         <p className="text-center text-white/40 mt-3 text-sm md:text-base max-w-lg mx-auto">
           The disciplines that keep me sharp — and human
         </p>

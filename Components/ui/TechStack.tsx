@@ -151,7 +151,7 @@ export const TechStack = () => {
           <button
             key={cat}
             onClick={() => setActive(cat)}
-            className={`relative px-3 py-1.5 text-xs font-semibold rounded-full border transition-all duration-200 focus:outline-none ${
+            className={`relative px-3 py-1.5 text-xs font-semibold rounded-full border transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple/60 focus-visible:outline-none ${
               active === cat
                 ? "text-white border-transparent"
                 : "text-white/40 border-white/10 hover:text-white/70 hover:border-white/20"

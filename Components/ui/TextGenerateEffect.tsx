@@ -38,7 +38,7 @@ export const TextGenerateEffect = ({
           key={word + idx}
           className={cn(
             idx > 3 ? "text-purple" : "dark:text-white text-black",
-            isAnimating ? "opacity-0" : "opacity-1" // Matches SSR state
+            isAnimating ? "opacity-0" : "opacity-100" // Matches SSR state
           )}
         >
           {word}{" "}

@@ -83,7 +83,20 @@ export const navItems = [
     },
   ];
   
-  export const projects = [
+  export interface Project {
+    id: number;
+    title: string;
+    des: string;
+    img: string;
+    iconLists: string[];
+    link: string;
+    liveUrl?: string;
+    liveLabel?: string;
+    tags: string[];
+    status: string;
+  }
+
+  export const projects: Project[] = [
     {
       id: 1,
       title: "LLD Playground Hub",
@@ -113,7 +126,7 @@ export const navItems = [
     {
       id: 3,
       title: "Interactive Developer Portfolio",
-      des: "This site. Next.js 15, Three.js, Framer Motion. 3D instrument canvas, live constellation background, AI chat over my LLD code, Spotify collab matcher, and light/dark theming.",
+      des: "This site. Next.js 15, Three.js, Framer Motion. 3D instrument canvas, live constellation background, AI chat over my LLD code, Spotify collab matcher, command palette, and terminal easter egg.",
       img: "/p4.svg",
       iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/three.svg", "/fm.svg"],
       link: "https://github.com/Himanshu-prog-hub/portfolio",

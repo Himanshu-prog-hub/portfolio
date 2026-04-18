@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useMemo } from 'react';
 
 // Tiny floating orbs drifting in the Hero background.
@@ -32,6 +32,7 @@ const COLORS = {
 };
 
 export function AmbientParticles({ count = 28 }: { count?: number }) {
+  const shouldReduce = useReducedMotion();
   const particles: Particle[] = useMemo(() => {
     const rand = seededRandom(42);
     const colorMap: Particle['color'][] = ['purple', 'purple', 'cyan', 'cyan', 'white'];
@@ -47,6 +48,8 @@ export function AmbientParticles({ count = 28 }: { count?: number }) {
       color: colorMap[Math.floor(rand() * colorMap.length)],
     }));
   }, [count]);
+
+  if (shouldReduce) return null;
 
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">

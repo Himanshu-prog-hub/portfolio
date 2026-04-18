@@ -10,7 +10,7 @@ import { MagneticButton } from './ui/MagneticButton';
 import { StarConstellation } from './ui/StarConstellation';
 import { FaLocationArrow, FaCopy, FaCheck } from 'react-icons/fa';
 
-const EMAIL = 'himanshumishra8864@gmail.com';
+const EMAIL = 'mishra00.11himanshu@gmail.com';
 
 function CopyEmail() {
   const [copied, setCopied] = useState(false);
@@ -84,7 +84,7 @@ const Hero = () => {
         <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center gap-4">
 
           <motion.a
-            href="mailto:himanshumishra8864@gmail.com?subject=Freelance%20Opportunity&body=Hi%20Himanshu%2C%20I%27d%20love%20to%20discuss%20a%20potential%20project%20with%20you."
+            href="mailto:mishra00.11himanshu@gmail.com?subject=Freelance%20Opportunity&body=Hi%20Himanshu%2C%20I%27d%20love%20to%20discuss%20a%20potential%20project%20with%20you."
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}

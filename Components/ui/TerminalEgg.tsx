@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const SECRET = 'himanshu';
@@ -61,7 +61,36 @@ export function TerminalEgg() {
   const [open, setOpen]         = useState(false);
   const [_typed, setTyped]      = useState('');
   const bufRef                  = useRef('');
+  const closeButtonRef          = useRef<HTMLButtonElement>(null);
+  const dialogRef               = useRef<HTMLDivElement>(null);
   const { displayed, done }     = useTypeLines(open ? bootLines : []);
+
+  // Move focus into dialog on open; trap Tab within it
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => closeButtonRef.current?.focus(), 50);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onTab = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab' || !dialogRef.current) return;
+      const focusable = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>('button, [href], input, [tabindex]:not([tabindex="-1"])')
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last  = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    };
+    window.addEventListener('keydown', onTab);
+    return () => window.removeEventListener('keydown', onTab);
+  }, [open]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -97,6 +126,10 @@ export function TerminalEgg() {
           onClick={() => setOpen(false)}
         >
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Terminal easter egg"
             initial={{ y: 20 }}
             animate={{ y: 0 }}
             className="w-full max-w-xl rounded-2xl border border-white/10 bg-[#0a0c1a] overflow-hidden shadow-2xl"
@@ -104,8 +137,12 @@ export function TerminalEgg() {
           >
             {/* Title bar */}
             <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
-              <button onClick={() => setOpen(false)}
-                className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 transition-colors" />
+              <button
+                ref={closeButtonRef}
+                onClick={() => setOpen(false)}
+                aria-label="Close terminal"
+                className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 transition-colors focus-visible:ring-1 focus-visible:ring-red-400 focus-visible:outline-none"
+              />
               <div className="w-3 h-3 rounded-full bg-amber-500/40" />
               <div className="w-3 h-3 rounded-full bg-emerald-500/40" />
               <span className="ml-2 text-[11px] text-white/30 font-mono">himanshu — zsh</span>

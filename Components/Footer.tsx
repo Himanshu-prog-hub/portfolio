@@ -178,9 +178,9 @@ const Footer = () => {
 
       <FadeIn direction="up" duration={0.6}>
         <div className="flex flex-col items-center gap-3 mb-12">
-          <h1 className="heading">
+          <h2 className="heading">
             Let&apos;s <span className="text-purple">Connect</span>
-          </h1>
+          </h2>
           <p className="text-white/40 text-sm md:text-base text-center max-w-md">
             Have a project in mind, or just want to say hi? Drop me a message.
           </p>
@@ -208,7 +208,7 @@ const Footer = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 + i * 0.08, duration: 0.4 }}
-                className="w-9 h-9 flex items-center justify-center rounded-lg border border-white/10 text-white/40 hover:text-white hover:border-purple/40 hover:bg-purple/10 transition-all duration-200"
+                className="w-11 h-11 flex items-center justify-center rounded-lg border border-white/10 text-white/40 hover:text-white hover:border-purple/40 hover:bg-purple/10 transition-all duration-200"
               >
                 {s.icon}
               </motion.a>

@@ -97,8 +97,9 @@ export const BentoGridItem = ({
                       Desktop: object-position pushes face to right half of card so left text area is clean.
                       Mobile:  object-position centers face so it appears at the top of the card. */}
                   <motion.img
-                    src={img}
+                    src={img.startsWith('/') ? img : `/${img}`}
                     alt="Himanshu Mishra"
+                    fetchPriority="high"
                     initial={{ opacity: 0, scale: 0.96 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, margin: '-40px' }}
@@ -252,7 +253,7 @@ export const BentoGridItem = ({
                 title={copied ? 'Email copied' : 'Copy my email'}
                 icon={<IoCopyOutline />}
                 position="left"
-                otherClasses="!bg-[#161a31]"
+                otherClasses="bg-[#161a31]"
                 handleClick={handleCopy}
               />
             </div>

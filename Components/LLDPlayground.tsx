@@ -232,9 +232,9 @@ export default function LLDPlayground() {
             <span className="w-1.5 h-1.5 rounded-full bg-purple animate-pulse" />
             Design Thinking · Live Code Walkthrough
           </span>
-          <h1 className="heading">
+          <h2 className="heading">
             LLD <span className="text-purple">Playground</span>
-          </h1>
+          </h2>
           <p className="text-white/40 text-sm mt-3 max-w-xl mx-auto">
             My actual Java LLD implementations. Ask questions, trace execution flows,
             and dig into design decisions. All backed by real code.

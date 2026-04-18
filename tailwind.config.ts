@@ -27,6 +27,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-spectral)', 'Georgia', 'serif'],
+        mono: ['var(--font-geist-mono)', 'monospace'],
+      },
       colors: {
         black: {
           DEFAULT: "#000",
@@ -42,7 +46,7 @@ const config = {
         blue: {
           "100": "#E4ECFF",
         },
-        purple: "#CBACF9",
+        purple: "#7c3aed",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

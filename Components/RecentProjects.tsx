@@ -2,13 +2,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { projects } from '@/data';
+import { projects, type Project } from '@/data';
 import { FaGithub, FaExternalLinkAlt, FaPlay } from 'react-icons/fa';
 import { TiltCard } from './ui/TiltCard';
 import { FadeIn } from './ui/FadeIn';
-
-// ─── Types ─────────────────────────────────────────────────────────────────
-type Project = typeof projects[0];
 
 // ─── AI brain: keyword → matched tags + response text ─────────────────────
 const aiRules: { keywords: string[]; tags: string[]; reply: string }[] = [
@@ -98,13 +95,13 @@ function ProjectCard({ project, highlighted, index }: { project: Project; highli
     >
       {/* Status + icons row */}
       <div className="flex items-center justify-between">
-        <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-full border ${statusColor[(project as any).status] ?? 'text-white/40 border-white/10'}`}>
-          {(project as any).status ?? 'Project'}
+        <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-full border ${statusColor[project.status] ?? 'text-white/40 border-white/10'}`}>
+          {project.status}
         </span>
         <div className="flex gap-1.5">
           {project.iconLists.map((icon, i) => (
             <div key={i} className="w-6 h-6 rounded-full bg-black/40 border border-white/10 flex items-center justify-center">
-              <img src={icon} alt="" className="w-3.5 h-3.5 object-contain" />
+              <img src={icon} alt="" loading="lazy" className="w-3.5 h-3.5 object-contain" />
             </div>
           ))}
         </div>
@@ -122,7 +119,7 @@ function ProjectCard({ project, highlighted, index }: { project: Project; highli
 
       {/* Tags */}
       <div className="flex flex-wrap gap-1.5">
-        {((project as any).tags ?? []).map((tag: string) => (
+        {(project.tags ?? []).map((tag: string) => (
           <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full border border-white/10 text-white/40">
             {tag}
           </span>
@@ -132,19 +129,19 @@ function ProjectCard({ project, highlighted, index }: { project: Project; highli
       {/* Links row */}
       <div className="flex items-center gap-3 mt-1 flex-wrap">
         {/* Launch button — shown when project has a liveUrl */}
-        {(project as any).liveUrl && (
+        {project.liveUrl && (
           <a
-            href={(project as any).liveUrl}
-            target={(project as any).liveUrl.startsWith('#') ? '_self' : '_blank'}
+            href={project.liveUrl}
+            target={project.liveUrl.startsWith('/') ? '_self' : '_blank'}
             rel="noopener noreferrer"
-            className="group/launch hidden md:flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold
+            className="group/launch flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold
                        bg-gradient-to-r from-purple/25 to-cyan-500/15 border border-purple/40
                        text-white hover:from-purple/40 hover:to-cyan-500/25 hover:border-purple/70
                        transition-all duration-200 shadow-[0_0_12px_rgba(124,58,237,0.15)]
                        hover:shadow-[0_0_20px_rgba(124,58,237,0.3)]"
           >
             <FaPlay className="w-2.5 h-2.5 text-purple group-hover/launch:scale-110 transition-transform duration-150" />
-            {(project as any).liveLabel ?? 'Launch App'}
+            {project.liveLabel ?? 'Launch App'}
             <FaExternalLinkAlt className="w-2 h-2 text-purple/60" />
           </a>
         )}
@@ -201,7 +198,7 @@ const RecentProjects = () => {
     highlightedTags.length === 0
       ? projects
       : projects.filter(p =>
-          ((p as any).tags ?? []).some((t: string) => highlightedTags.includes(t))
+          (p.tags ?? []).some((t: string) => highlightedTags.includes(t))
         );
 
   const allProjects = projects;
@@ -209,10 +206,10 @@ const RecentProjects = () => {
   return (
     <div className="py-20" id="projects">
       <FadeIn direction="up" duration={0.6}>
-        <h1 className="heading">
+        <h2 className="heading">
           Things I&apos;ve{' '}
           <span className="text-purple">Built</span>
-        </h1>
+        </h2>
       </FadeIn>
       <FadeIn direction="up" delay={0.12} duration={0.5}>
         <p className="text-center text-white/40 mt-3 text-sm md:text-base max-w-lg mx-auto">
@@ -258,7 +255,7 @@ const RecentProjects = () => {
             <button
               key={chip}
               onClick={() => { setQuery(chip); handleSubmit(chip); }}
-              className="text-xs px-3 py-1 rounded-full border border-white/10 text-white/40 hover:border-purple/40 hover:text-white/70 transition-all duration-200"
+              className="text-xs px-3 py-1.5 rounded-full border border-white/10 text-white/40 hover:border-purple/40 hover:text-white/70 transition-all duration-200"
             >
               {chip}
             </button>
@@ -266,7 +263,7 @@ const RecentProjects = () => {
           {submitted && (
             <button
               onClick={() => { setQuery(''); setSubmitted(''); setAiReply(''); setHighlighted([]); }}
-              className="text-xs px-3 py-1 rounded-full border border-white/10 text-white/30 hover:text-white/60 transition-all"
+              className="text-xs px-3 py-1.5 rounded-full border border-white/10 text-white/30 hover:text-white/60 transition-all"
             >
               ✕ Clear
             </button>
@@ -314,7 +311,7 @@ const RecentProjects = () => {
             <ProjectCard
               key={project.id}
               project={project}
-              highlighted={highlightedTags.length > 0 && ((project as any).tags ?? []).some((t: string) => highlightedTags.includes(t))}
+              highlighted={highlightedTags.length > 0 && (project.tags ?? []).some((t: string) => highlightedTags.includes(t))}
               index={i}
             />
           ))}

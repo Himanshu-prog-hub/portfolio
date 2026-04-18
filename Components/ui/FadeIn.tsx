@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, type Variants } from 'framer-motion';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 type Direction = 'up' | 'down' | 'left' | 'right' | 'none';
 
@@ -44,7 +44,8 @@ export function FadeIn({
   once = true,
   as: Tag = 'div',
 }: FadeInProps) {
-  const MotionTag = motion.create(Tag as any);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const MotionTag = useMemo(() => motion.create(Tag as any), [Tag]);
 
   const hidden: Variants['hidden'] = {
     opacity: 0,

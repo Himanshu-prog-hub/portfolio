@@ -77,7 +77,7 @@ export const FloatingNav = ({
                   key={`link-${idx}`}
                   href={navItem.link}
                   className={cn(
-                    "relative px-3 py-1.5 rounded-full text-xs transition-all duration-200 cursor-pointer whitespace-nowrap",
+                    "relative px-3 py-2 rounded-full text-xs transition-all duration-200 cursor-pointer whitespace-nowrap",
                     isActive ? "text-white" : "text-white/40 hover:text-white/80"
                   )}
                 >
@@ -98,8 +98,10 @@ export const FloatingNav = ({
           {/* Mobile hamburger */}
           <button
             onClick={() => setMenuOpen(o => !o)}
-            className="sm:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px] rounded-full hover:bg-white/[0.06] transition-colors duration-200"
+            className="sm:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] rounded-full hover:bg-white/[0.06] transition-colors duration-200"
             aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
             <motion.span
               animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
@@ -123,6 +125,7 @@ export const FloatingNav = ({
         <AnimatePresence>
           {menuOpen && (
             <motion.div
+              id="mobile-menu"
               initial={{ opacity: 0, y: -8, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.97 }}

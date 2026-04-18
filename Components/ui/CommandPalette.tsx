@@ -20,7 +20,8 @@ export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState(0);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef    = useRef<HTMLInputElement>(null);
+  const paletteRef  = useRef<HTMLDivElement>(null);
 
   // Scroll-to helpers
   const scrollTo = (id: string) => {
@@ -40,7 +41,7 @@ export function CommandPalette() {
     { id: 'contact',    label: 'Contact',                  icon: <FaEnvelope />,  category: 'Navigate',   action: () => scrollTo('contact'),    description: 'Drop a message' },
     // Actions
     { id: 'terminal',   label: 'Launch Terminal',          icon: <FaTerminal />,  category: 'Actions',    action: () => { setOpen(false); setTimeout(() => triggerTerminal(), 200); }, description: 'Type "himanshu" · discover the Easter egg', kbd: 'h-i-m-a-n-s-h-u' },
-    { id: 'email',      label: 'Copy Email Address',       icon: <FaEnvelope />,  category: 'Actions',    action: () => { navigator.clipboard?.writeText('hmishra@example.com'); setOpen(false); showToast('Email copied!'); }, description: 'himanshumishra@outlook.com' },
+    { id: 'email',      label: 'Copy Email Address',       icon: <FaEnvelope />,  category: 'Actions',    action: () => { navigator.clipboard?.writeText('mishra00.11himanshu@gmail.com'); setOpen(false); showToast('Email copied!'); }, description: 'mishra00.11himanshu@gmail.com' },
     // Links
     { id: 'github',     label: 'Open GitHub',              icon: <FaGithub />,    category: 'Links',      action: () => { setOpen(false); window.open('https://github.com/Himanshu-prog-hub', '_blank'); } },
     { id: 'linkedin',   label: 'Open LinkedIn',            icon: <FaLinkedin />,  category: 'Links',      action: () => { setOpen(false); window.open('https://www.linkedin.com/in/himanshu-mishra-0b2795191/', '_blank'); } },
@@ -73,6 +74,19 @@ export function CommandPalette() {
       if (e.key === 'ArrowDown') { e.preventDefault(); setSelected(s => Math.min(s + 1, filtered.length - 1)); }
       if (e.key === 'ArrowUp')   { e.preventDefault(); setSelected(s => Math.max(s - 1, 0)); }
       if (e.key === 'Enter')     { filtered[selected]?.action(); }
+      if (e.key === 'Tab' && paletteRef.current) {
+        const focusable = Array.from(
+          paletteRef.current.querySelectorAll<HTMLElement>('button, input, [href], [tabindex]:not([tabindex="-1"])')
+        );
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last  = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault(); first.focus();
+        }
+      }
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -110,7 +124,13 @@ export function CommandPalette() {
               transition={{ duration: 0.18, ease: 'easeOut' }}
               className="fixed top-[12%] left-0 right-0 mx-auto z-[9001] w-[calc(100%-2rem)] max-w-[560px]"
             >
-              <div className="rounded-2xl border border-white/15 bg-[#0a0c1e]/95 shadow-[0_24px_80px_rgba(0,0,0,0.6)] overflow-hidden">
+              <div
+                ref={paletteRef}
+                role="dialog"
+                aria-modal="true"
+                aria-label="Command palette"
+                className="rounded-2xl border border-white/15 bg-[#0a0c1e]/95 shadow-[0_24px_80px_rgba(0,0,0,0.6)] overflow-hidden"
+              >
                 {/* Search bar */}
                 <div className="flex items-center gap-3 px-5 py-4 border-b border-white/[0.06]">
                   <HiSearch className="w-4 h-4 text-white/30 shrink-0" />

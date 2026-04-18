@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(node -e ' *)",
+      "Bash(node *)",
+      "WebFetch(domain:tanmaynargas.engineer)",
+      "Bash(curl -s \"https://tanmaynargas.engineer/\")",
+      "Bash(grep -oE \"\\(font-family|fonts\\\\.googleapis\\\\.com|fonts\\\\.gstatic\\\\.com|@font-face|font-display\\)[^;\\\\\"<>]{0,200}\")",
+      "Bash(grep -oE \"font[^<\\\\\"]{0,300}\")",
+      "Bash(grep -oE \"ShinierPersonal[^<\\\\\"]{0,500}\")",
+      "Bash(grep -oE \"src:[^}]{0,300}\")",
+      "Bash(grep -oE \"\\\\.\\(woff2?|ttf|otf\\)[^\\\\\"<]{0,100}\")",
+      "Bash(curl -s \"https://tanmaynargas.engineer/static/css/main.3c613401.css\")"
+    ]
+  }
+}

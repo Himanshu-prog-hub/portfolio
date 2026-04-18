@@ -77,10 +77,10 @@ const DevStats = () => {
 
   return (
     <div className="py-20" id="stats" ref={sectionRef}>
-      <h1 className="heading">
+      <h2 className="heading">
         By The{' '}
         <span className="text-purple">Numbers</span>
-      </h1>
+      </h2>
       <p className="text-center text-white/40 mt-3 text-sm md:text-base max-w-lg mx-auto">
         A snapshot of my journey as a software engineer
       </p>

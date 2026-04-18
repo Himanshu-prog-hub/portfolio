@@ -21,9 +21,9 @@ const Experience = () => {
 
   return (
     <div className="py-20" id="experience" ref={sectionRef}>
-      <h1 className="heading">
+      <h2 className="heading">
         My <span className="text-purple">Work Experience</span>
-      </h1>
+      </h2>
       <p className="text-center text-white/40 mt-3 text-sm md:text-base max-w-lg mx-auto">
         The places that shaped how I build software
       </p>
