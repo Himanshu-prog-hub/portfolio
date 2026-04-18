@@ -13,9 +13,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+const BASE_URL = "https://himanshumishra.site";
+const OG_IMAGE = "https://himanshumishra.site/HimanshuOG.png";
 
 const TITLE = "Himanshu Mishra | Backend Developer at Serko, India";
 const DESCRIPTION =
@@ -76,9 +75,9 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: [
       {
-        url: "/og-image.png",
-        width: 1080,
-        height: 1080,
+        url: OG_IMAGE,
+        width: 1792,
+        height: 2398,
         alt: "Himanshu Mishra — Software Developer at Serko",
       },
     ],
@@ -91,7 +90,7 @@ export const metadata: Metadata = {
     creator: "@manshu_1100",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["/og-image.png"],
+    images: [OG_IMAGE],
   },
 
   // ── Verification (add tokens once you verify in Google / Bing) ───────────
@@ -107,7 +106,7 @@ const jsonLd = {
   "@type": "Person",
   name: "Himanshu Mishra",
   url: BASE_URL,
-  image: `${BASE_URL}/HimanshuPhoto.png`,
+  image: OG_IMAGE,
   jobTitle: "Software Developer",
   worksFor: {
     "@type": "Organization",
