@@ -230,7 +230,6 @@ const RecentProjects = () => {
                 animate={{ opacity: [1, 0.3, 1], scale: [1, 0.8, 1] }}
                 transition={{ duration: 1.8, repeat: Infinity }}
               />
-              <span className="text-[10px] text-purple/60 font-mono uppercase tracking-widest hidden sm:block">AI</span>
             </div>
             <input
               ref={inputRef}
