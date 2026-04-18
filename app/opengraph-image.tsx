@@ -24,7 +24,7 @@ export default function OGImage() {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center 15%",
+            objectPosition: "center 40%",
           }}
         />
       </div>
