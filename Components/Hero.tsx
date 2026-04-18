@@ -84,7 +84,9 @@ const Hero = () => {
         <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center gap-4">
 
           <motion.a
-            href="mailto:mishra00.11himanshu@gmail.com?subject=Freelance%20Opportunity&body=Hi%20Himanshu%2C%20I%27d%20love%20to%20discuss%20a%20potential%20project%20with%20you."
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=mishra00.11himanshu%40gmail.com&su=Freelance%20Opportunity&body=Hi%20Himanshu%2C%20I%27d%20love%20to%20discuss%20a%20potential%20project%20with%20you."
+            target="_blank"
+            rel="noopener noreferrer"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
