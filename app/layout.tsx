@@ -73,14 +73,7 @@ export const metadata: Metadata = {
     siteName: "Himanshu Mishra",
     title: TITLE,
     description: DESCRIPTION,
-    images: [
-      {
-        url: OG_IMAGE,
-        width: 1792,
-        height: 2398,
-        alt: "Himanshu Mishra — Software Developer at Serko",
-      },
-    ],
+    // og:image auto-generated at 1200×630 from app/opengraph-image.tsx
   },
 
   // ── Twitter / X Card ─────────────────────────────────────────────────────
@@ -90,7 +83,7 @@ export const metadata: Metadata = {
     creator: "@manshu_1100",
     title: TITLE,
     description: DESCRIPTION,
-    images: [OG_IMAGE],
+    // twitter:image auto-generated from app/opengraph-image.tsx
   },
 
   // ── Verification (add tokens once you verify in Google / Bing) ───────────
