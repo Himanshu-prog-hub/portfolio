@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 const BASE_URL = "https://himanshumishra.site";
-const OG_IMAGE = "https://himanshumishra.site/HimanshuOG.png";
+const OG_IMAGE = "https://himanshumishra.site/HimanshuOG.jpg";
 
 const TITLE = "Himanshu Mishra | Backend Developer at Serko, India";
 const DESCRIPTION =
