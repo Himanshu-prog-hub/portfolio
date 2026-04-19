@@ -111,10 +111,10 @@ export const BentoGridItem = ({
                     className="absolute inset-0 w-full h-full object-cover object-[50%_5%] md:object-[65%_45%] transition-transform duration-700 ease-out group-hover/bento:scale-[1.03]"
                   />
 
-                  {/* Mobile: gradient only covers bottom third so photo is clearly visible at top */}
+                  {/* Mobile: gradient — solid only in text zone, photo visible above */}
                   <div className="absolute inset-0 sm:hidden pointer-events-none"
                        style={{ background: isLight
-                         ? 'linear-gradient(to top, rgba(255,255,255,0.88) 10%, rgba(255,255,255,0.62) 26%, rgba(255,255,255,0.02) 48%, transparent 100%)'
+                         ? 'linear-gradient(to top, #FDFAF5 12%, rgba(253,250,245,0.88) 22%, rgba(253,250,245,0.52) 36%, rgba(253,250,245,0.14) 50%, transparent 65%)'
                          : 'linear-gradient(to top, #0D0A18 18%, rgba(13,10,24,0.82) 34%, rgba(13,10,24,0.03) 52%, transparent 100%)' }} />
 
                   {/* Desktop: left-to-right gradient so text on left half is readable */}
