@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Himanshu Mishra — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ── Tokens ──────────────────────────────────────────────────────── */
+:root {
+  --bg:    #0D0A18; --card:  #141020; --card2: #1C172E;
+  --bdr:   rgba(255,255,255,0.08); --bdhi: rgba(255,255,255,0.14);
+  --tx:    #F2EEFF; --sub:   rgba(242,238,255,0.50); --dim:  rgba(242,238,255,0.25);
+  --acc:   oklch(68% 0.22 8);   --adim: oklch(68% 0.22 8 / 0.14);
+  --vio:   oklch(72% 0.16 290); --vdim: oklch(72% 0.16 290 / 0.12);
+  --grn:   oklch(72% 0.15 155); --gdim: oklch(72% 0.15 155 / 0.12);
+  --r: 14px;
+}
+[data-theme="light"] {
+  --bg:    #FAF8F3; --card:  #FFFFFF; --card2: #F2EFE7;
+  --bdr:   rgba(12,8,28,0.09); --bdhi: rgba(12,8,28,0.18);
+  --tx:    #0C081C; --sub:   rgba(12,8,28,0.55); --dim:  rgba(12,8,28,0.30);
+  --acc:   oklch(50% 0.22 8);  --adim: oklch(50% 0.22 8 / 0.10);
+  --vio:   oklch(45% 0.16 290);--vdim: oklch(45% 0.16 290 / 0.10);
+  --grn:   oklch(45% 0.15 155);--gdim: oklch(45% 0.15 155 / 0.10);
+}
+/* ── Reset ───────────────────────────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--tx);font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;line-height:1.65;overflow-x:hidden;transition:background .35s,color .35s;}
+a{color:inherit;text-decoration:none;} button{font-family:inherit;cursor:pointer;}
+/* ── Scroll bar ──────────────────────────────────────────────────── */
+#spbar{position:fixed;top:0;left:0;height:2px;background:var(--acc);z-index:9999;width:0;transition:width .08s;}
+::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--bdhi);border-radius:99px;}
+/* ── Nav ─────────────────────────────────────────────────────────── */
+.fnav{position:fixed;top:1.25rem;left:50%;transform:translateX(-50%);z-index:9000;
+  display:flex;align-items:center;gap:1.5rem;padding:.6rem 1.75rem;
+  background:oklch(9% 0.02 280 / 0.85);backdrop-filter:blur(18px);
+  border:1px solid var(--bdr);border-radius:999px;transition:all .3s;white-space:nowrap;}
+.fnav a{font-size:.78rem;font-weight:500;color:var(--sub);transition:color .2s;}
+.fnav a:hover{color:var(--tx);}
+.toggle{width:36px;height:20px;border-radius:10px;background:var(--card2);border:1px solid var(--bdr);position:relative;transition:background .25s;}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--acc);transition:transform .25s;}
+[data-theme="light"] .toggle::after{transform:translateX(16px);}
+/* ── Section ─────────────────────────────────────────────────────── */
+.sec{padding:5rem 0;} .wrap{max-width:1100px;margin:0 auto;padding:0 2rem;}
+.sh{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;text-align:center;letter-spacing:-.03em;}
+.sh em{font-style:normal;color:var(--acc);}
+.sp{text-align:center;color:var(--sub);margin-top:.75rem;font-size:.9rem;}
+/* ── Card ────────────────────────────────────────────────────────── */
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);transition:border-color .2s,box-shadow .2s;}
+.card:hover{border-color:var(--bdhi);}
+.card-glow:hover{border-color:var(--acc);box-shadow:0 0 0 1px var(--adim),0 12px 40px var(--adim);}
+/* ── Tag ─────────────────────────────────────────────────────────── */
+.tag{font-family:'DM Mono',monospace;font-size:.65rem;padding:.25rem .65rem;border:1px solid var(--bdr);border-radius:4px;color:var(--dim);}
+/* ── Badge ───────────────────────────────────────────────────────── */
+.badge{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem .9rem;border-radius:999px;border:1px solid;font-size:.68rem;font-weight:600;letter-spacing:.08em;}
+.badge-grn{border-color:var(--grn);background:var(--gdim);color:var(--grn);}
+.badge-acc{border-color:var(--acc);background:var(--adim);color:var(--acc);}
+.ping{width:8px;height:8px;border-radius:50%;background:var(--grn);position:relative;flex-shrink:0;}
+.ping::before{content:'';position:absolute;inset:-3px;border-radius:50%;background:var(--grn);opacity:.4;animation:ping 1.5s infinite;}
+@keyframes ping{0%{transform:scale(.8);opacity:.8;}100%{transform:scale(2.2);opacity:0;}}
+/* ── Magic button ────────────────────────────────────────────────── */
+@keyframes spin-conic{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.mbtn{position:relative;display:inline-block;padding:1px;border-radius:12px;overflow:hidden;}
+.mbtn-glow{position:absolute;inset:-120%;background:conic-gradient(transparent 0%,var(--acc) 50%,transparent 60%);animation:spin-conic 3s linear infinite;}
+.mbtn-inner{position:relative;background:var(--card2);border-radius:11px;padding:.75rem 2rem;display:flex;align-items:center;gap:.5rem;font-weight:600;font-size:.9rem;color:var(--tx);}
+/* ── Copy pill ───────────────────────────────────────────────────── */
+.copy-pill{display:flex;align-items:center;gap:.6rem;padding:.4rem 1rem;border:1px solid var(--bdr);border-radius:999px;background:var(--adim);cursor:pointer;font-size:.75rem;color:var(--sub);transition:all .2s;}
+.copy-pill:hover{border-color:var(--bdhi);color:var(--tx);}
+/* ── Bento ───────────────────────────────────────────────────────── */
+.bento{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;}
+.b1{grid-column:span 3;grid-row:span 4;} .b2{grid-column:span 2;grid-row:span 2;}
+.b3{grid-column:span 2;grid-row:span 2;} .b4{grid-column:span 2;}
+.b5{grid-column:span 3;grid-row:span 2;} .b6{grid-column:span 2;}
+@media(max-width:900px){.bento{grid-template-columns:1fr 1fr;}.b1,.b5{grid-column:span 2;}.b3,.b4,.b6{grid-column:span 1;}}
+@media(max-width:600px){.bento{grid-template-columns:1fr;}.b1,.b2,.b3,.b4,.b5,.b6{grid-column:span 1;grid-row:span 1;}}
+/* ── Marquee ─────────────────────────────────────────────────────── */
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.mq-wrap{overflow:hidden;} .mq-track{display:flex;width:max-content;animation:mq 18s linear infinite;gap:1rem;}
+/* ── Status ──────────────────────────────────────────────────────── */
+.status{display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;}
+.sdot{width:6px;height:6px;border-radius:50%;}
+.s-live .sdot{background:var(--grn);box-shadow:0 0 6px var(--grn);} .s-live{color:var(--grn);}
+.s-ship .sdot{background:var(--acc);}                                .s-ship{color:var(--acc);}
+.s-wip  .sdot{background:var(--dim);}                                .s-wip{color:var(--dim);}
+/* ── Timeline ────────────────────────────────────────────────────── */
+.tl-line{position:absolute;left:1.5rem;top:.5rem;bottom:.5rem;width:1px;background:linear-gradient(to bottom,var(--acc),var(--vio) 50%,transparent);}
+.tl-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;margin-top:.25rem;box-shadow:0 0 0 4px var(--bg);}
+/* ── Form ────────────────────────────────────────────────────────── */
+.flabel{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:.45rem;}
+.finput{width:100%;background:var(--card2);border:1px solid var(--bdr);color:var(--tx);font-family:inherit;font-size:.9rem;padding:.8rem 1rem;border-radius:8px;outline:none;transition:border-color .2s;resize:none;}
+.finput:focus{border-color:var(--acc);}
+.finput::placeholder{color:var(--dim);}
+/* ── Guitar hologram ─────────────────────────────────────────────── */
+@keyframes hfloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+@keyframes hscan{0%{top:-20%;opacity:0;}15%{opacity:.7;}85%{opacity:.4;}100%{top:110%;opacity:0;}}
+.holo-w{position:relative;height:100%;display:flex;align-items:center;justify-content:center;min-height:300px;}
+.holo-svg{animation:hfloat 4s ease-in-out infinite;filter:drop-shadow(0 0 7px var(--grn)) drop-shadow(0 0 20px oklch(72% 0.15 155 / 0.25));}
+.holo-scan{position:absolute;left:0;right:0;height:3px;background:linear-gradient(to right,transparent,var(--grn),transparent);animation:hscan 3.5s ease-in-out infinite;}
+.holo-grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--gdim) 1px,transparent 1px),linear-gradient(90deg,var(--gdim) 1px,transparent 1px);background-size:30px 30px;mask-image:radial-gradient(ellipse 70% 90% at 50% 50%,black 20%,transparent 75%);opacity:.3;}
+/* ── Music bars ──────────────────────────────────────────────────── */
+@keyframes mbar{0%,100%{scaleY:1;}50%{scaleY:1.8;}}
+/* ── Tweaks ──────────────────────────────────────────────────────── */
+.twp{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:1.25rem;width:215px;z-index:9998;box-shadow:0 8px 40px rgba(0,0,0,.35);}
+.twh{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.18em;color:var(--acc);text-transform:uppercase;margin-bottom:1rem;}
+.twr{display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem;}
+.twl{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--sub);}
+.sw{width:18px;height:18px;border-radius:50%;border:2px solid transparent;transition:border-color .15s,transform .1s;}
+.sw:hover{transform:scale(1.15);} .sw.on{border-color:var(--tx);}
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media(max-width:700px){.fnav-links{display:none;}.hero-name{font-size:clamp(2.5rem,14vw,5rem);}.music-layout{grid-template-columns:1fr!important;}.hobby-grid{grid-template-columns:1fr!important;}.contact-grid{grid-template-columns:1fr!important;}.form-row{grid-template-columns:1fr!important;}}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="spbar"></div>
+<div id="root"></div>
+
+<!-- ── Data + Shared ─────────────────────────────────────────────────── -->
+<script type="text/babel">
+const {useState,useEffect,useRef,useCallback}=React;
+
+const TWEAK_DEFAULTS=/*EDITMODE-BEGIN*/{
+  "theme": "light",
+  "accent": "rose"
+}/*EDITMODE-END*/;
+
+const ACCENTS={
+  rose: {dark:'oklch(68% 0.22 8)', light:'oklch(50% 0.22 8)', sw:'#C0384A'},
+  amber:{dark:'oklch(74% 0.17 74)',light:'oklch(50% 0.19 72)',sw:'#C8850A'},
+  lime: {dark:'oklch(77% 0.17 135)',light:'oklch(50% 0.17 135)',sw:'#4D9024'},
+};
+
+const ME={
+  name:'Himanshu Mishra', role:'Software Developer 2', co:'Serko',
+  loc:'Bengaluru, India', email:'mishra00.11himanshu@gmail.com',
+  github:'https://github.com/Himanshu-prog-hub',
+  linkedin:'https://www.linkedin.com/in/himanshu-mishra-0b2795191/',
+  twitter:'https://x.com/manshu_1100',
+};
+
+const SKILLS=['Java','Spring Boot','GCP','Kubernetes','PostgreSQL','React','Next.js','TypeScript','Three.js','Framer Motion','REST APIs','Docker','LLM / GenAI'];
+
+const PROJECTS=[
+  {id:1,title:'LLD Playground Hub',des:'React + Vite visualiser for Java LLD implementations. Walk through Spotify, KV-Store, and Distributed MQ designs with pattern maps, execution flows, and AI chat.',tech:['/re.svg','/ts.svg','/three.svg'],tags:['React','TypeScript','Java'],status:'Live',github:'https://github.com/Himanshu-prog-hub/LLDPlayground',live:'/lld-playground/'},
+  {id:2,title:'LinkedIn Post Generator',des:'Generates LinkedIn posts from topic + tone. Backed by Groq LLM via FastAPI, with a focused React UI built for quick drafting and copy-paste output.',tech:['/re.svg','/ts.svg','/next.svg'],tags:['Python','Groq','FastAPI'],status:'In Progress',github:'https://github.com/Himanshu-prog-hub/LinkedinPostGenerator'},
+  {id:3,title:'Interactive Developer Portfolio',des:'This site. Next.js 15, Three.js, Framer Motion. 3D instrument canvas, constellation bg, AI chat over LLD code, command palette, terminal easter egg.',tech:['/next.svg','/tail.svg','/ts.svg'],tags:['Next.js','Three.js','TypeScript'],status:'Live',github:'https://github.com/Himanshu-prog-hub/portfolio'},
+  {id:4,title:'Policy Compliance Agent',des:'Internal tool at Serko. Reads corporate travel policies in plain English and filters live flight results using LLM-based policy parsing.',tech:['/re.svg','/tail.svg','/ts.svg'],tags:['Java','Spring Boot','LLM'],status:'Shipped',internal:true},
+];
+
+const EXP=[
+  {id:1,role:'Software Developer 2',co:'Serko',dur:'2023 — Present',loc:'Bengaluru',desc:'Building scalable microservices and cloud-native systems for travel & expense management on GCP. Designing booking and payment workflows, CI/CD pipelines, and observability.',tech:['Java','Spring Boot','GCP','Kubernetes','React'],color:'#C0384A'},
+  {id:2,role:'Software Developer',co:'Sabre GetThere',dur:'2022 — 2023',loc:'Bengaluru',desc:'Integrated NDC-based airline content alongside ATPCO fares. Led PCI compliance initiatives and improved fare visibility across the GetThere booking platform.',tech:['Java','Spring Boot','MySQL','REST APIs'],color:'#6B48D0'},
+  {id:3,role:'Software Developer Intern',co:'Sabre GetThere',dur:'2021 — 2022',loc:'Bengaluru',desc:'Contributed to backend features and bug fixes on GetThere. Built foundations in Java, microservices, and agile delivery at enterprise scale.',tech:['Java','Spring Boot','MySQL'],color:'#0891b2'},
+];
+
+Object.assign(window,{useState,useEffect,useRef,useCallback,ME,SKILLS,PROJECTS,EXP,ACCENTS,TWEAK_DEFAULTS});
+</script>
+
+<!-- ── Nav + Hero ─────────────────────────────────────────────────────── -->
+<script type="text/babel">
+function Stars(){
+  const ref=useRef();
+  useEffect(()=>{
+    const c=ref.current; const ctx=c.getContext('2d');
+    const resize=()=>{c.width=window.innerWidth;c.height=window.innerHeight;};
+    resize(); window.addEventListener('resize',resize);
+    const stars=Array.from({length:130},()=>({x:Math.random(),y:Math.random(),r:Math.random()*1.2+.3,a:Math.random(),da:(Math.random()-.5)*.004}));
+    let raf;
+    const tick=()=>{
+      ctx.clearRect(0,0,c.width,c.height);
+      stars.forEach(s=>{
+        s.a=Math.max(.05,Math.min(.85,s.a+s.da));
+        if(s.a<=.05||s.a>=.85)s.da*=-1;
+        ctx.beginPath();ctx.arc(s.x*c.width,s.y*c.height,s.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(242,238,255,${s.a*.65})`;ctx.fill();
+      });
+      raf=requestAnimationFrame(tick);
+    };
+    tick();
+    return()=>{cancelAnimationFrame(raf);window.removeEventListener('resize',resize);};
+  },[]);
+  return <canvas ref={ref} style={{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none',zIndex:0}}/>;
+}
+
+function TextGen({text}){
+  const [shown,setShown]=useState('');
+  useEffect(()=>{
+    let i=0; setShown('');
+    const id=setInterval(()=>{setShown(text.slice(0,++i));if(i>=text.length)clearInterval(id);},55);
+    return()=>clearInterval(id);
+  },[text]);
+  return <span>{shown}{shown.length<text.length&&<span style={{opacity:.7,animation:'blink 1s step-end infinite'}}>|</span>}</span>;
+}
+
+function MagicBtn({title,href}){
+  return(
+    <a href={href} style={{display:'inline-block'}}>
+      <div className="mbtn">
+        <div className="mbtn-glow"/>
+        <div className="mbtn-inner">{title} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+    </a>
+  );
+}
+
+function CopyEmail(){
+  const [ok,setOk]=useState(false);
+  const copy=()=>{navigator.clipboard?.writeText(ME.email);setOk(true);setTimeout(()=>setOk(false),2000);};
+  return(
+    <button className="copy-pill" onClick={copy}>
+      <span style={{fontFamily:'DM Mono,monospace',fontSize:'.7rem',color:'var(--dim)'}}>{ME.email}</span>
+      <span style={{color:'var(--acc)',fontSize:'.7rem'}}>{ok?'✓':'⧉'}</span>
+    </button>
+  );
+}
+
+function Nav({toggleTheme}){
+  return(
+    <nav className="fnav">
+      <span style={{fontWeight:800,fontSize:'.95rem',letterSpacing:'-.02em'}}>HM<span style={{color:'var(--acc)'}}>.</span></span>
+      <div className="fnav-links" style={{display:'flex',gap:'1.5rem'}}>
+        {[['About','#about'],['Projects','#projects'],['Experience','#experience'],['Music','#beyond'],['Contact','#contact']].map(([l,h])=>(
+          <a key={l} href={h}>{l}</a>
+        ))}
+      </div>
+      <button className="toggle" onClick={toggleTheme} aria-label="Toggle theme"/>
+    </nav>
+  );
+}
+
+function Hero(){
+  return(
+    <section style={{minHeight:'100svh',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',paddingTop:'80px',paddingBottom:'3rem',position:'relative',overflow:'hidden',textAlign:'center'}}>
+      <Stars/>
+      {/* Spotlights */}
+      <div style={{position:'absolute',top:'-10%',left:'-15%',width:'50vw',height:'80vh',borderRadius:'50%',background:'oklch(72% 0.16 290 / 0.06)',filter:'blur(80px)',pointerEvents:'none',zIndex:1}}/>
+      <div style={{position:'absolute',top:'-5%',right:'-10%',width:'40vw',height:'60vh',borderRadius:'50%',background:'oklch(68% 0.22 8 / 0.05)',filter:'blur(70px)',pointerEvents:'none',zIndex:1}}/>
+
+      <div style={{position:'relative',zIndex:2,display:'flex',flexDirection:'column',alignItems:'center',gap:'1.25rem',maxWidth:'56rem',padding:'0 2rem'}}>
+        <a href={`mailto:${ME.email}`} className="badge badge-grn">
+          <span className="ping"/><span>Open to Freelance Opportunities</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </a>
+
+        <h1 style={{fontSize:'clamp(2.6rem,7vw,5.5rem)',fontWeight:800,letterSpacing:'-.03em',lineHeight:1.1}}>
+          <TextGen text="Hi! I'm Himanshu"/>
+        </h1>
+
+        <p style={{fontSize:'clamp(1rem,2.5vw,1.4rem)',color:'var(--sub)',fontWeight:500}}>
+          Fullstack Developer &amp; Classical Vocalist · Bengaluru
+        </p>
+
+        <CopyEmail/>
+
+        <p style={{fontSize:'.65rem',fontFamily:'DM Mono,monospace',color:'var(--dim)',letterSpacing:'.15em'}}>
+          psst — try typing your name on the keyboard 🤫
+        </p>
+
+        <MagicBtn title="Show my work" href="#about"/>
+      </div>
+
+      <style>{`@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}`}</style>
+    </section>
+  );
+}
+
+Object.assign(window,{Nav,Hero,Stars,MagicBtn,CopyEmail,TextGen});
+</script>
+
+<!-- ── About (Bento Grid) ─────────────────────────────────────────────── -->
+<script type="text/babel">
+function Globe(){
+  const ref=useRef();
+  useEffect(()=>{
+    const c=ref.current; const ctx=c.getContext('2d');
+    c.width=200;c.height=200;
+    let angle=0;
+    const draw=()=>{
+      ctx.clearRect(0,0,200,200);
+      const cx=100,cy=100,r=70;
+      ctx.strokeStyle=`oklch(72% 0.16 290 / 0.6)`;
+      ctx.lineWidth=1;
+      // Globe outline
+      ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
+      // Latitude lines
+      for(let lat=-60;lat<=60;lat+=30){
+        const y=cy+r*Math.sin(lat*Math.PI/180);
+        const rx=r*Math.cos(lat*Math.PI/180);
+        if(rx>0){ctx.beginPath();ctx.ellipse(cx,y,rx,rx*.25,0,0,Math.PI*2);ctx.stroke();}
+      }
+      // Longitude lines
+      for(let i=0;i<4;i++){
+        const a=angle+i*(Math.PI/4);
+        ctx.beginPath();ctx.ellipse(cx,cy,r*Math.abs(Math.cos(a)),r,.3+a,0,Math.PI*2);ctx.stroke();
+      }
+      angle+=.005;
+      requestAnimationFrame(draw);
+    };
+    draw();
+  },[]);
+  return <canvas ref={ref} style={{width:200,height:200,opacity:.75}}/>;
+}
+
+function TechMarquee(){
+  const items=[...SKILLS,...SKILLS];
+  return(
+    <div className="mq-wrap" style={{position:'absolute',bottom:'1.5rem',left:0,right:0}}>
+      <div className="mq-track">
+        {items.map((s,i)=>(
+          <span key={i} className="tag" style={{flexShrink:0}}>{s}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function About(){
+  const [copied,setCopied]=useState(false);
+  const copy=()=>{navigator.clipboard?.writeText(ME.email);setCopied(true);setTimeout(()=>setCopied(false),2000);};
+  const cardBase={padding:'1.5rem',height:'100%',borderRadius:'var(--r)',border:'1px solid var(--bdr)',background:'var(--card)',transition:'border-color .2s'};
+
+  return(
+    <section className="sec" id="about" style={{borderTop:'1px solid var(--bdr)'}}>
+      <div className="wrap">
+        <div className="bento">
+          {/* Card 1: Bio */}
+          <div className="b1" style={{...cardBase,display:'flex',flexDirection:'column',gap:'1rem',minHeight:'380px'}}>
+            {/* Photo placeholder */}
+            <div style={{width:'100%',flex:'0 0 200px',borderRadius:10,overflow:'hidden',background:'repeating-linear-gradient(-45deg,var(--card2) 0,var(--card2) 8px,var(--bg) 8px,var(--bg) 16px)',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'.5rem',color:'var(--dim)',border:'1px solid var(--bdr)'}}>
+              <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="18" r="9" stroke="currentColor" strokeWidth="1.5"/><path d="M6 42c0-9.941 8.059-18 18-18s18 8.059 18 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+              <span style={{fontFamily:'DM Mono,monospace',fontSize:'.55rem',letterSpacing:'.1em'}}>HimanshuPhoto.png</span>
+            </div>
+            <p style={{color:'var(--sub)',lineHeight:1.8,fontSize:'.95rem',flex:1}}>
+              {ME.name} — {ME.role} at <strong style={{color:'var(--tx)'}}>{ME.co}</strong>. Building scalable microservices and cloud-native systems for global travel tech. Trained Indian classical vocalist and guitar enthusiast.
+            </p>
+            <a href="/resume.pdf" download style={{display:'inline-flex',alignItems:'center',gap:'.4rem',padding:'.6rem 1.2rem',background:'var(--adim)',border:'1px solid var(--acc)',borderRadius:8,color:'var(--acc)',fontWeight:600,fontSize:'.8rem'}}>
+              ↓ Download Résumé
+            </a>
+          </div>
+
+          {/* Card 2: Globe */}
+          <div className="b2" style={{...cardBase,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'1rem',overflow:'hidden'}}>
+            <Globe/>
+            <p style={{fontWeight:700,fontSize:'1rem',textAlign:'center',letterSpacing:'-.01em'}}>Building for a globally connected world</p>
+          </div>
+
+          {/* Card 3: Tech Stack */}
+          <div className="b3" style={{...cardBase,position:'relative',overflow:'hidden'}}>
+            <p style={{fontFamily:'DM Mono,monospace',fontSize:'.6rem',color:'var(--acc)',letterSpacing:'.15em',textTransform:'uppercase',marginBottom:'.75rem'}}>Tech Stack</p>
+            <div style={{display:'flex',flexWrap:'wrap',gap:'.4rem'}}>
+              {SKILLS.slice(0,8).map(s=><span key={s} className="tag">{s}</span>)}
+            </div>
+            <TechMarquee/>
+          </div>
+
+          {/* Card 4: Passion */}
+          <div className="b4" style={{...cardBase,display:'flex',flexDirection:'column',justifyContent:'center'}}>
+            <div style={{fontSize:'1.5rem',marginBottom:'.5rem'}}>💡</div>
+            <p style={{fontWeight:600,fontSize:'.9rem'}}>Tech enthusiast with a passion for development.</p>
+          </div>
+
+          {/* Card 5: Current Project */}
+          <div className="b5" style={{...cardBase,position:'relative',overflow:'hidden'}}>
+            <p style={{fontFamily:'DM Mono,monospace',fontSize:'.6rem',color:'var(--acc)',letterSpacing:'.15em',textTransform:'uppercase',marginBottom:'.5rem'}}>The Inside Scoop</p>
+            <p style={{fontWeight:700,fontSize:'1rem',lineHeight:1.4}}>Building an AI Travel Agent that autonomously plans trips using LLMs, RAG &amp; real-time flight data</p>
+            <div style={{display:'flex',flexWrap:'wrap',gap:'.4rem',marginTop:'1rem'}}>
+              {['LLM','RAG','Python','Flight APIs'].map(t=><span key={t} className="tag">{t}</span>)}
+            </div>
+            <div style={{position:'absolute',bottom:0,right:0,width:'120px',height:'120px',background:'radial-gradient(var(--adim),transparent)',borderRadius:'50%',transform:'translate(30%,30%)'}}/>
+          </div>
+
+          {/* Card 6: CTA */}
+          <div className="b6" style={{...cardBase,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'1rem',textAlign:'center',cursor:'pointer'}} onClick={copy}>
+            <div style={{fontSize:'1.4rem'}}>🤝</div>
+            <p style={{fontWeight:700,fontSize:'.95rem'}}>Do you want to start a project together?</p>
+            <button className="badge badge-acc" onClick={copy}>{copied?'Copied! ✓':'Copy my email'}</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window,{About,Globe});
+</script>
+
+<!-- ── Projects ─────────────────────────────────────────────────────────── -->
+<script type="text/babel">
+const AI_RULES=[
+  {kw:['ai','llm','rag','ml','gpt'],tags:['LLM','Python','Groq'],reply:"Found projects where I worked with AI, LLMs, and Retrieval-Augmented Generation."},
+  {kw:['backend','java','spring','api','microservice'],tags:['Java','Spring Boot'],reply:"Here are my backend-heavy projects — Java, Spring Boot, microservices."},
+  {kw:['frontend','react','next','ui','three'],tags:['React','TypeScript','Next.js','Three.js'],reply:"Here are the frontend and UI-heavy projects using React, Next.js, Three.js."},
+  {kw:['cloud','gcp','kubernetes','docker'],tags:['GCP','Kubernetes','Docker'],reply:"Showing cloud-native and DevOps-focused work."},
+];
+function matchQ(q){const ql=q.toLowerCase();for(const r of AI_RULES)if(r.kw.some(k=>ql.includes(k)))return r;return{tags:[],reply:`Showing all projects — no match for "${q}". Try "AI", "backend", or "cloud".`};}
+
+function useTypewriter(text,speed=25){
+  const [d,setD]=useState('');
+  useEffect(()=>{setD('');if(!text)return;let i=0;const id=setInterval(()=>{setD(text.slice(0,++i));if(i>=text.length)clearInterval(id);},speed);return()=>clearInterval(id);},[text]);
+  return d;
+}
+
+const SC={'In Progress':'s-wip','Shipped':'s-ship','Live':'s-live'};
+
+function ProjCard({p,hl}){
+  const [tilt,setTilt]=useState({x:0,y:0});
+  const onMM=e=>{const r=e.currentTarget.getBoundingClientRect();setTilt({x:((e.clientY-r.top)/r.height-.5)*8,y:-((e.clientX-r.left)/r.width-.5)*8});};
+  const onML=()=>setTilt({x:0,y:0});
+  return(
+    <div onMouseMove={onMM} onMouseLeave={onML}
+      style={{transform:`perspective(600px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,transition:'transform .1s',height:'100%'}}>
+      <div className={`card card-glow`} style={{padding:'1.5rem',height:'100%',display:'flex',flexDirection:'column',gap:'1rem',border:`1px solid ${hl?'var(--acc)':'var(--bdr)'}`,boxShadow:hl?'0 0 30px var(--adim)':'none'}}>
+        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+          <span className={`status ${SC[p.status]||'s-wip'}`}><span className="sdot"/>{p.status}</span>
+          <span style={{fontFamily:'DM Mono,monospace',fontSize:'.55rem',color:'var(--dim)'}}>P{String(p.id).padStart(2,'0')}</span>
+        </div>
+        <div>
+          <h3 style={{fontWeight:700,fontSize:'1rem',letterSpacing:'-.01em',marginBottom:'.5rem'}}>{p.title}</h3>
+          <p style={{color:'var(--sub)',fontSize:'.875rem',lineHeight:1.75,flex:1}}>{p.des}</p>
+        </div>
+        <div style={{display:'flex',flexWrap:'wrap',gap:'.4rem',marginTop:'auto'}}>
+          {p.tags.map(t=><span key={t} className="tag">{t}</span>)}
+        </div>
+        <div style={{display:'flex',gap:'1rem',paddingTop:'.75rem',borderTop:'1px solid var(--bdr)',flexWrap:'wrap'}}>
+          {p.live&&<a href={p.live} style={{fontFamily:'DM Mono,monospace',fontSize:'.63rem',color:'var(--grn)',letterSpacing:'.06em'}}>↗ Launch</a>}
+          {p.github&&<a href={p.github} target="_blank" rel="noopener noreferrer" style={{fontFamily:'DM Mono,monospace',fontSize:'.63rem',color:'var(--dim)',letterSpacing:'.06em'}}>GitHub ↗</a>}
+          {p.internal&&<span style={{fontFamily:'DM Mono,monospace',fontSize:'.6rem',color:'var(--dim)',fontStyle:'italic'}}>Internal · not public</span>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Projects(){
+  const [q,setQ]=useState('');const [sub,setSub]=useState('');const [reply,setReply]=useState('');const [tags,setTags]=useState([]);const [thinking,setThinking]=useState(false);
+  const typed=useTypewriter(reply);
+  const ask=(val=q)=>{if(!val.trim())return;setSub(val);setReply('');setThinking(true);setTimeout(()=>{const r=matchQ(val);setThinking(false);setTags(r.tags);setReply(r.reply);},700);};
+  const chips=['AI & LLM','Backend / Java','Cloud & GCP','Frontend'];
+  const shown=tags.length?PROJECTS.filter(p=>p.tags.some(t=>tags.includes(t))):PROJECTS;
+  return(
+    <section className="sec" id="projects" style={{borderTop:'1px solid var(--bdr)'}}>
+      <div className="wrap">
+        <h2 className="sh">Things I&apos;ve <em>Built</em></h2>
+        <p className="sp">From enterprise travel tech to personal experiments</p>
+
+        {/* AI Search */}
+        <div style={{maxWidth:'42rem',margin:'2.5rem auto 0',padding:'0 1rem'}}>
+          <div style={{position:'relative',borderRadius:14,border:'1px solid var(--bdr)',background:'var(--card)',padding:'.75rem 1rem',display:'flex',gap:'.75rem',alignItems:'center'}}>
+            <div style={{display:'flex',gap:3,flexShrink:0}}>
+              {[0,1,2].map(i=><div key={i} style={{width:6,height:6,borderRadius:'50%',background:'var(--acc)',opacity:thinking?1:.4,animation:thinking?`pulse ${.6+i*.2}s ease-in-out infinite alternate`:''}}/>)}
+            </div>
+            <input value={q} onChange={e=>setQ(e.target.value)} onKeyDown={e=>e.key==='Enter'&&ask()}
+              placeholder='Ask about my projects... e.g. "show me AI projects"'
+              style={{flex:1,background:'none',border:'none',color:'var(--tx)',fontSize:'.875rem',outline:'none'}}/>
+            <button onClick={()=>ask()} style={{background:'none',border:'none',color:'var(--acc)',fontFamily:'DM Mono,monospace',fontSize:'.7rem',letterSpacing:'.06em'}}>Ask →</button>
+          </div>
+          <div style={{display:'flex',flexWrap:'wrap',gap:'.5rem',marginTop:'.75rem',justifyContent:'center'}}>
+            {chips.map(c=><button key={c} onClick={()=>{setQ(c);ask(c);}} style={{fontFamily:'DM Mono,monospace',fontSize:'.65rem',padding:'.3rem .8rem',border:'1px solid var(--bdr)',borderRadius:999,background:'none',color:'var(--dim)',cursor:'pointer'}}>
+              {c}
+            </button>)}
+            {sub&&<button onClick={()=>{setQ('');setSub('');setReply('');setTags([]);}} style={{fontFamily:'DM Mono,monospace',fontSize:'.65rem',padding:'.3rem .8rem',border:'1px solid var(--bdr)',borderRadius:999,background:'none',color:'var(--dim)',cursor:'pointer'}}>✕ Clear</button>}
+          </div>
+          {(thinking||typed)&&(
+            <div style={{marginTop:'.75rem',display:'flex',gap:'.75rem',padding:'.75rem 1rem',background:'var(--adim)',border:'1px solid var(--bdr)',borderRadius:10,alignItems:'flex-start'}}>
+              <div style={{width:24,height:24,borderRadius:'50%',background:'var(--adim)',border:'1px solid var(--acc)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                <div style={{width:6,height:6,borderRadius:'50%',background:'var(--acc)'}}/>
+              </div>
+              <p style={{fontSize:'.85rem',color:'var(--sub)',lineHeight:1.7}}>{thinking?<span style={{color:'var(--dim)'}}>Thinking...</span>:typed}</p>
+            </div>
+          )}
+        </div>
+
+        <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'1.25rem',maxWidth:'62rem',margin:'2rem auto 0',padding:'0 1rem'}}>
+          {shown.map((p,i)=><ProjCard key={p.id} p={p} hl={tags.length>0&&p.tags.some(t=>tags.includes(t))} index={i}/>)}
+        </div>
+      </div>
+      <style>{`@keyframes pulse{from{opacity:.3}to{opacity:1}}`}</style>
+    </section>
+  );
+}
+
+Object.assign(window,{Projects,ProjCard});
+</script>
+
+<!-- ── Experience + Music + Footer ───────────────────────────────────────── -->
+<script type="text/babel">
+function Experience(){
+  return(
+    <section className="sec" id="experience" style={{borderTop:'1px solid var(--bdr)'}}>
+      <div className="wrap">
+        <h2 className="sh">My <em>Work Experience</em></h2>
+        <p className="sp">The places that shaped how I build software</p>
+        <div style={{position:'relative',maxWidth:'48rem',margin:'3.5rem auto 0',paddingLeft:'3rem'}}>
+          <div className="tl-line"/>
+          <div style={{display:'flex',flexDirection:'column',gap:'3rem'}}>
+            {EXP.map(e=>(
+              <div key={e.id} style={{display:'flex',gap:'1.5rem',alignItems:'flex-start'}}>
+                <div className="tl-dot" style={{background:e.color}}/>
+                <div className="card" style={{flex:1,padding:'1.5rem 1.75rem'}}>
+                  <div style={{display:'flex',flexWrap:'wrap',gap:'.5rem 1.5rem',marginBottom:'.75rem',alignItems:'baseline'}}>
+                    <h3 style={{fontWeight:700,fontSize:'1.1rem',letterSpacing:'-.01em'}}>{e.role}</h3>
+                    <span style={{color:'var(--acc)',fontWeight:600,fontSize:'.9rem'}}>{e.co}</span>
+                    <span style={{marginLeft:'auto',fontFamily:'DM Mono,monospace',fontSize:'.62rem',color:'var(--dim)',background:'var(--card2)',padding:'.2rem .6rem',borderRadius:999}}>{e.dur}</span>
+                  </div>
+                  <p style={{color:'var(--sub)',fontSize:'.9rem',lineHeight:1.8,marginBottom:'1rem'}}>{e.desc}</p>
+                  <div style={{display:'flex',flexWrap:'wrap',gap:'.4rem'}}>
+                    {e.tech.map(t=><span key={t} className="tag">{t}</span>)}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GuitarHolo(){
+  return(
+    <div className="holo-w">
+      <div className="holo-grid-bg"/>
+      <div className="holo-scan"/>
+      <svg className="holo-svg" viewBox="0 0 140 420" width="110" height="320" fill="none">
+        <path d="M70 185 C36 185 14 162 14 135 C14 108 36 88 70 88 C104 88 126 108 126 135 C126 162 104 185 70 185Z" stroke="var(--grn)" strokeWidth="1.4" opacity=".75"/>
+        <path d="M70 200 C28 200 8 228 8 260 C8 310 32 345 70 345 C108 345 132 310 132 260 C132 228 112 200 70 200Z" stroke="var(--grn)" strokeWidth="1.4" opacity=".75"/>
+        <path d="M14 185 C22 196 52 200 70 200 C88 200 118 196 126 185" stroke="var(--grn)" strokeWidth=".9" opacity=".5"/>
+        <path d="M56 88 L56 28 M84 88 L84 28" stroke="var(--grn)" strokeWidth="1.2" opacity=".6"/>
+        {[40,52,64,76,88].map((y,i)=><line key={i} x1={56} y1={y} x2={84} y2={y} stroke="var(--grn)" strokeWidth=".9" opacity=".45"/>)}
+        <path d="M52 28 L44 10 L96 10 L88 28Z" stroke="var(--grn)" strokeWidth="1.2" opacity=".65"/>
+        {[14,22,30].map(y=><React.Fragment key={y}><circle cx={48} cy={y} r={3.5} stroke="var(--grn)" strokeWidth=".9" opacity=".5"/><circle cx={92} cy={y} r={3.5} stroke="var(--grn)" strokeWidth=".9" opacity=".5"/></React.Fragment>)}
+        <circle cx={70} cy={240} r={28} stroke="var(--grn)" strokeWidth="1" opacity=".45"/>
+        <circle cx={70} cy={240} r={16} stroke="var(--grn)" strokeWidth=".6" opacity=".25"/>
+        {[60,64,68,72,76,80].map((x,i)=><line key={i} x1={x} y1={12} x2={x} y2={300} stroke="var(--grn)" strokeWidth=".5" opacity={.28-i*.02}/>)}
+        <rect x={52} y={296} width={36} height={6} rx={2} stroke="var(--grn)" strokeWidth="1" opacity=".6"/>
+        <line x1={56} y1={29} x2={84} y2={29} stroke="var(--grn)" strokeWidth="1.5" opacity=".6"/>
+        <circle cx={70} cy={46} r={2} fill="var(--grn)" opacity=".4"/>
+        <circle cx={70} cy={70} r={2} fill="var(--grn)" opacity=".4"/>
+      </svg>
+      <div style={{position:'absolute',bottom:8,left:0,right:0,textAlign:'center',fontFamily:'DM Mono,monospace',fontSize:'.52rem',color:'var(--grn)',opacity:.5,letterSpacing:'.2em'}}>HOLOGRAPHIC · RENDER</div>
+    </div>
+  );
+}
+
+const GENRES=['Bollywood / Hindi Film','Ghazal / Sufi','Hindustani Classical','Punjabi Pop','Indian Indie','Western Pop','Cinematic / OST','Jazz & Blues','Electronic / EDM','Metal / Heavy Rock'];
+const GSC={'Bollywood / Hindi Film':94,'Ghazal / Sufi':93,'Hindustani Classical':95,'Punjabi Pop':91,'Indian Indie':87,'Western Pop':80,'Cinematic / OST':71,'Jazz & Blues':66,'Electronic / EDM':22,'Metal / Heavy Rock':15};
+const VIBES=['Soulful & emotional','Meditative & peaceful','Late-night feels','Energetic & upbeat','Raw & acoustic','Dark & moody'];
+const VSC={'Soulful & emotional':12,'Meditative & peaceful':12,'Late-night feels':10,'Energetic & upbeat':4,'Raw & acoustic':10,'Dark & moody':6};
+
+function CollabMatcher(){
+  const [step,setStep]=useState(0);const [genre,setGenre]=useState('');const [vibe,setVibe]=useState('');
+  const score=genre?Math.min(99,(GSC[genre]||35)+(VSC[vibe]||5)):0;
+  const hl=score>=88?"We're basically listening to the same playlist.":score>=70?"Our music worlds definitely overlap.":score>=50?"Different worlds, interesting intersection.":"Opposite ends of the spectrum.";
+  const pick=(v,t)=>{if(t==='genre'){setGenre(v);setStep(2);}else{setVibe(v);setStep(3);}};
+  const reset=()=>{setStep(0);setGenre('');setVibe('');};
+  return(
+    <div style={{background:'var(--card)',border:'1px solid var(--bdr)',borderRadius:14,overflow:'hidden',marginTop:'1.5rem'}}>
+      <div style={{borderBottom:'1px solid var(--bdr)',padding:'.75rem 1.25rem',display:'flex',alignItems:'center',gap:'2rem',overflowX:'auto'}}>
+        <span style={{fontFamily:'DM Mono,monospace',fontSize:'.6rem',color:'var(--grn)',flexShrink:0}}>● Spotify Data</span>
+        {[['35,222','Plays'],['1,474','Hours'],['Pritam','#1 Artist']].map(([v,l])=>(
+          <div key={l} style={{flexShrink:0}}>
+            <div style={{fontWeight:700,fontSize:'.85rem'}}>{v}</div>
+            <div style={{fontFamily:'DM Mono,monospace',fontSize:'.55rem',color:'var(--dim)',textTransform:'uppercase',letterSpacing:'.1em'}}>{l}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{padding:'1.5rem',minHeight:200}}>
+        {step===0&&<div style={{textAlign:'center',padding:'1rem 0',display:'flex',flexDirection:'column',alignItems:'center',gap:'1rem'}}>
+          <p style={{fontWeight:700,fontSize:'1rem'}}>Music Collab Matcher</p>
+          <p style={{color:'var(--sub)',fontSize:'.85rem'}}>Matched against my real Spotify history · 3 quick questions</p>
+          <button className="badge badge-acc" onClick={()=>setStep(1)}>Check our compatibility →</button>
+        </div>}
+        {step===1&&<><p style={{fontWeight:700,marginBottom:'.35rem'}}>What music moves you most?</p><p style={{fontFamily:'DM Mono,monospace',fontSize:'.6rem',color:'var(--dim)',marginBottom:'1rem'}}>Pick the genre closest to your heart</p><div style={{display:'flex',flexWrap:'wrap',gap:'.45rem'}}>{GENRES.map(g=><button key={g} onClick={()=>pick(g,'genre')} style={{fontFamily:'DM Mono,monospace',fontSize:'.62rem',padding:'.3rem .8rem',border:`1px solid ${genre===g?'var(--acc)':'var(--bdr)'}`,borderRadius:999,background:genre===g?'var(--adim)':'none',color:genre===g?'var(--acc)':'var(--sub)',cursor:'pointer'}}>{g}</button>)}</div></>}
+        {step===2&&<><p style={{fontWeight:700,marginBottom:'.35rem'}}>What vibe do you live in?</p><p style={{fontFamily:'DM Mono,monospace',fontSize:'.6rem',color:'var(--dim)',marginBottom:'1rem'}}>The feeling you chase when you hit play</p><div style={{display:'flex',flexWrap:'wrap',gap:'.45rem'}}>{VIBES.map(v=><button key={v} onClick={()=>pick(v,'vibe')} style={{fontFamily:'DM Mono,monospace',fontSize:'.62rem',padding:'.3rem .8rem',border:`1px solid ${vibe===v?'var(--acc)':'var(--bdr)'}`,borderRadius:999,background:vibe===v?'var(--adim)':'none',color:vibe===v?'var(--acc)':'var(--sub)',cursor:'pointer'}}>{v}</button>)}</div></>}
+        {step===3&&<div style={{display:'flex',flexDirection:'column',gap:'1rem'}}>
+          <div style={{display:'flex',alignItems:'center',gap:'1.5rem',flexWrap:'wrap'}}>
+            <div style={{fontWeight:800,fontSize:'3.5rem',color:'var(--acc)',letterSpacing:'-.04em',lineHeight:1}}>{score}%</div>
+            <div style={{flex:1,minWidth:150}}>
+              <p style={{fontWeight:700,marginBottom:'.35rem'}}>{hl}</p>
+              <p style={{color:'var(--sub)',fontSize:'.875rem',lineHeight:1.7}}>{score>=70?`${genre} + a ${vibe} listener — that's a real conversation.`:"Even opposite tastes make interesting fusion."}</p>
+            </div>
+          </div>
+          <div style={{display:'flex',gap:'.75rem',flexWrap:'wrap'}}>
+            <a href="https://www.instagram.com/himanshumishra4257/" target="_blank" rel="noopener noreferrer" className="badge badge-acc">Collab on Instagram →</a>
+            <button onClick={reset} style={{fontFamily:'DM Mono,monospace',fontSize:'.65rem',padding:'.35rem .9rem',border:'1px solid var(--bdr)',borderRadius:999,background:'none',color:'var(--dim)',cursor:'pointer'}}>Try again</button>
+          </div>
+        </div>}
+      </div>
+    </div>
+  );
+}
+
+function Music(){
+  const HOBBIES=[
+    {icon:'🎤',label:'Classical Vocalist',title:'Hindustani Classical Singing',desc:'Trained in Khayal — the meditative North Indian classical vocal tradition. Music for me is what debugging is to code: a deeply focused pursuit of something precise and beautiful.',tags:['Khayal','Raga','Hindustani','Classical'],link:'https://www.youtube.com/@himanshumishra8864',ll:'Watch on YouTube'},
+    {icon:'🎸',label:'Guitar Enthusiast',title:'Exploring Strings & Ragas',desc:"Self-taught guitarist experimenting at the intersection of Western chord progressions and Indian classical ragas. The same systematic thinking that makes a good engineer makes a disciplined musician.",tags:['Guitar','Fusion','Raga','Instrumental'],link:'https://www.instagram.com/himanshumishra4257/',ll:'Follow on Instagram'},
+  ];
+  return(
+    <section className="sec" id="beyond" style={{borderTop:'1px solid var(--bdr)',overflow:'hidden'}}>
+      <div className="wrap">
+        <h2 className="sh">Beyond <em>The Code</em></h2>
+        <p className="sp">The disciplines that keep me sharp — and human</p>
+        <div style={{display:'grid',gridTemplateColumns:'200px 1fr',gap:'3rem',alignItems:'start',marginTop:'3rem'}} className="music-layout">
+          <GuitarHolo/>
+          <div>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1rem',marginBottom:'1.5rem'}} className="hobby-grid">
+              {HOBBIES.map(h=>(
+                <div key={h.title} className="card" style={{padding:'1.5rem',display:'flex',flexDirection:'column',gap:'.85rem'}}>
+                  <div style={{display:'flex',alignItems:'center',gap:'.75rem'}}>
+                    <div style={{width:40,height:40,borderRadius:8,background:'var(--adim)',border:'1px solid var(--bdr)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'1.2rem'}}>{h.icon}</div>
+                    <div>
+                      <div style={{fontFamily:'DM Mono,monospace',fontSize:'.58rem',color:'var(--dim)',letterSpacing:'.12em',textTransform:'uppercase'}}>{h.label}</div>
+                      <div style={{fontWeight:700,fontSize:'.9rem'}}>{h.title}</div>
+                    </div>
+                  </div>
+                  <p style={{color:'var(--sub)',fontSize:'.82rem',lineHeight:1.75,flex:1}}>{h.desc}</p>
+                  <div style={{display:'flex',flexWrap:'wrap',gap:'.4rem'}}>{h.tags.map(t=><span key={t} className="tag">{t}</span>)}</div>
+                  <a href={h.link} target="_blank" rel="noopener noreferrer" style={{fontFamily:'DM Mono,monospace',fontSize:'.63rem',color:'var(--dim)',display:'flex',alignItems:'center',gap:'.4rem'}}>↗ {h.ll}</a>
+                </div>
+              ))}
+            </div>
+            <CollabMatcher/>
+            <p style={{fontFamily:'DM Mono,monospace',fontSize:'.7rem',color:'var(--dim)',marginTop:'2rem',lineHeight:1.9,fontStyle:'italic',textAlign:'center'}}>
+              "The same discipline that holds a raga together holds a system together — precision, patience, and the courage to improvise."
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer(){
+  const [form,setForm]=useState({name:'',email:'',message:''});
+  const [st,setSt]=useState('idle');
+  const set=k=>e=>setForm(f=>({...f,[k]:e.target.value}));
+  const submit=async e=>{e.preventDefault();if(!form.name||!form.email||!form.message)return;setSt('sending');await new Promise(r=>setTimeout(r,1100));setSt('sent');};
+  const socials=[
+    {l:'GitHub',h:ME.github,ico:<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>},
+    {l:'LinkedIn',h:ME.linkedin,ico:<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>},
+    {l:'X',h:ME.twitter,ico:<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>},
+  ];
+  return(
+    <footer id="contact" style={{borderTop:'1px solid var(--bdr)',paddingBottom:'3rem'}}>
+      <div style={{width:'100%',height:1,background:'linear-gradient(to right,transparent,var(--bdhi),transparent)',marginBottom:'4rem'}}/>
+      <div className="wrap">
+        <h2 className="sh">Let&apos;s <em>Connect</em></h2>
+        <p className="sp">Have a project in mind, or just want to say hi? Drop me a message.</p>
+        <div style={{maxWidth:'32rem',margin:'2.5rem auto 0'}}>
+          {st==='sent'?(
+            <div style={{textAlign:'center',padding:'3rem',border:'1px solid var(--bdr)',borderRadius:14}}>
+              <div style={{fontSize:'2rem',color:'var(--acc)',marginBottom:'.75rem'}}>✓</div>
+              <p style={{fontWeight:600,marginBottom:'.5rem'}}>Message sent!</p>
+              <p style={{color:'var(--sub)',fontSize:'.875rem'}}>I'll get back to you within 24 hours.</p>
+              <button onClick={()=>{setSt('idle');setForm({name:'',email:'',message:''}); }} style={{marginTop:'1.5rem',fontFamily:'DM Mono,monospace',fontSize:'.65rem',color:'var(--dim)',background:'none',border:'none',cursor:'pointer'}}>Send another →</button>
+            </div>
+          ):(
+            <form onSubmit={submit} style={{display:'flex',flexDirection:'column',gap:'1rem'}}>
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1rem'}} className="form-row">
+                <div><label className="flabel">Name</label><input className="finput" value={form.name} onChange={set('name')} placeholder="John Doe" required/></div>
+                <div><label className="flabel">Email</label><input className="finput" type="email" value={form.email} onChange={set('email')} placeholder="john@example.com" required/></div>
+              </div>
+              <div><label className="flabel">Message</label><textarea className="finput" rows={4} value={form.message} onChange={set('message')} placeholder="Hi Himanshu, I'd love to work together on..." required/></div>
+              <button type="submit" disabled={st==='sending'} style={{background:'linear-gradient(to right,var(--acc),var(--vio))',color:'#fff',border:'none',borderRadius:10,padding:'.9rem',fontWeight:600,fontSize:'.9rem',cursor:'pointer',opacity:st==='sending'?.6:1}}>
+                {st==='sending'?'Sending...':'Send Message →'}
+              </button>
+            </form>
+          )}
+        </div>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:'4rem',paddingTop:'2rem',borderTop:'1px solid var(--bdr)',flexWrap:'wrap',gap:'1rem'}}>
+          <p style={{fontFamily:'DM Mono,monospace',fontSize:'.62rem',color:'var(--dim)'}}>© 2026 Himanshu Mishra · Built with Next.js &amp; coffee</p>
+          <div style={{display:'flex',gap:'.75rem'}}>
+            {socials.map(s=>(
+              <a key={s.l} href={s.h} target="_blank" rel="noopener noreferrer" aria-label={s.l}
+                style={{width:42,height:42,border:'1px solid var(--bdr)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dim)',transition:'all .2s'}}
+                onMouseEnter={e=>{e.currentTarget.style.borderColor='var(--acc)';e.currentTarget.style.color='var(--acc)';}}
+                onMouseLeave={e=>{e.currentTarget.style.borderColor='var(--bdr)';e.currentTarget.style.color='var(--dim)';}}>
+                {s.ico}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+Object.assign(window,{Experience,Music,Footer,GuitarHolo,CollabMatcher});
+</script>
+
+<!-- ── App ─────────────────────────────────────────────────────────────────── -->
+<script type="text/babel">
+function Tweaks({theme,setTheme,accent,setAccent}){
+  return(
+    <div className="twp">
+      <div className="twh">◈ Tweaks</div>
+      <div className="twr"><span className="twl">Theme</span><button className="toggle" onClick={()=>setTheme(t=>t==='dark'?'light':'dark')} aria-label="Toggle"/></div>
+      <div className="twr">
+        <span className="twl">Accent</span>
+        <div style={{display:'flex',gap:'.4rem'}}>
+          {Object.entries(ACCENTS).map(([k,v])=>(
+            <button key={k} className={`sw${accent===k?' on':''}`} style={{background:v.sw,width:18,height:18,border:'2px solid transparent',borderRadius:'50%'}} onClick={()=>setAccent(k)} title={k}/>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function App(){
+  const [theme,setTheme]=useState(TWEAK_DEFAULTS.theme||'dark');
+  const [accent,setAccent]=useState(TWEAK_DEFAULTS.accent||'rose');
+  const [tweaks,setTweaks]=useState(false);
+
+  useEffect(()=>{ document.documentElement.setAttribute('data-theme',theme); },[theme]);
+
+  useEffect(()=>{
+    const a=ACCENTS[accent];
+    const r=document.documentElement.style;
+    r.setProperty('--acc',theme==='dark'?a.dark:a.light);
+    r.setProperty('--adim',a.sw+'20');
+  },[accent,theme]);
+
+  useEffect(()=>{
+    const bar=document.getElementById('spbar');
+    const fn=()=>{const{scrollTop,scrollHeight,clientHeight}=document.documentElement;bar&&(bar.style.width=(scrollTop/(scrollHeight-clientHeight)*100)+'%');};
+    window.addEventListener('scroll',fn,{passive:true});
+    return()=>window.removeEventListener('scroll',fn);
+  },[]);
+
+  useEffect(()=>{
+    const h=e=>{if(e.data?.type==='__activate_edit_mode')setTweaks(true);if(e.data?.type==='__deactivate_edit_mode')setTweaks(false);};
+    window.addEventListener('message',h);
+    window.parent.postMessage({type:'__edit_mode_available'},'*');
+    return()=>window.removeEventListener('message',h);
+  },[]);
+
+  useEffect(()=>{ window.parent.postMessage({type:'__edit_mode_set_keys',edits:{theme,accent}},'*'); },[theme,accent]);
+
+  return(
+    <>
+      <Nav toggleTheme={()=>setTheme(t=>t==='dark'?'light':'dark')}/>
+      <main>
+        <Hero/><About/><Projects/><Experience/><Music/><Footer/>
+      </main>
+      {tweaks&&<Tweaks theme={theme} setTheme={setTheme} accent={accent} setAccent={setAccent}/>}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

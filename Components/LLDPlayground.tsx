@@ -122,7 +122,7 @@ function ChatBubble({ msg }: { msg: Message }) {
       <div className={`max-w-[82%] rounded-2xl px-4 py-3 text-sm leading-relaxed
         ${isUser
           ? 'bg-purple/15 border border-purple/25 text-white/85 rounded-tr-sm'
-          : 'bg-[#0d0f23] border border-white/[0.08] text-white/80 rounded-tl-sm'}`}>
+          : 'bg-[#141020] border border-white/[0.08] text-white/80 rounded-tl-sm'}`}>
         {msg.text.split('\n').map((line, i) => {
           const formatted = esc(line).replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>');
           return <p key={i} className={i > 0 ? 'mt-1.5' : ''} dangerouslySetInnerHTML={{ __html: formatted }} />;
@@ -141,7 +141,7 @@ function FlowBar({ problem, onClassClick }: { problem: LLDProblem; onClassClick:
           <button
             onClick={() => onClassClick(step.classes[0])}
             className="group relative flex flex-col items-start px-3 py-2 rounded-xl border border-white/[0.08]
-                       bg-[#0d0f23] hover:border-purple/40 hover:bg-purple/[0.06] transition-all duration-200 text-left"
+                       bg-[#141020] hover:border-purple/40 hover:bg-purple/[0.06] transition-all duration-200 text-left"
           >
             <span className="text-[9px] uppercase tracking-widest text-white/30 font-semibold mb-0.5">Step {i + 1}</span>
             <span className="text-xs text-white/70 font-medium">{step.label}</span>
@@ -251,7 +251,7 @@ export default function LLDPlayground() {
               className={`flex items-center gap-2 px-4 py-2.5 rounded-full border text-xs font-semibold transition-all duration-200
                 ${selectedProblem.id === p.id
                   ? 'border-purple bg-purple/20 text-white'
-                  : 'border-white/10 text-white/50 hover:border-purple/40 hover:text-white/80'}`}
+                  : 'border-white/[0.05] text-white/50 hover:border-purple/40 hover:text-white/80'}`}
             >
               <FaCode className="w-3 h-3" />
               {p.name.split(' ').slice(0, 3).join(' ')}
@@ -268,7 +268,7 @@ export default function LLDPlayground() {
           {/* ── LEFT — Chat panel ── */}
           <div className="flex flex-col gap-4">
             {/* Problem info */}
-            <div className="rounded-2xl border border-white/[0.07] bg-[#0a0c1e] p-5">
+            <div className="rounded-2xl border border-white/[0.05] bg-[#0D0A18] p-5">
               <div className="flex items-start justify-between gap-4 flex-wrap">
                 <div>
                   <h3 className="text-lg font-bold text-white mb-1">{selectedProblem.name}</h3>
@@ -289,7 +289,7 @@ export default function LLDPlayground() {
                     key={kc.name}
                     onClick={() => handleClassClick(kc.name)}
                     title={kc.role}
-                    className="text-[10px] px-2.5 py-1 rounded-lg border border-white/[0.07] bg-white/[0.03]
+                    className="text-[10px] px-2.5 py-1 rounded-lg border border-white/[0.05] bg-white/[0.03]
                                text-white/50 hover:border-cyan-400/40 hover:text-cyan-400/80 transition-all duration-150 font-mono"
                   >
                     {kc.name}
@@ -310,7 +310,7 @@ export default function LLDPlayground() {
                   aria-pressed={mode === m.id}
                   onClick={() => setMode(m.id)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200
-                    ${mode === m.id ? 'bg-purple/20 border border-purple/40 text-white' : 'border border-white/[0.07] text-white/40 hover:text-white/60'}`}
+                    ${mode === m.id ? 'bg-purple/20 border border-purple/40 text-white' : 'border border-white/[0.05] text-white/40 hover:text-white/60'}`}
                 >
                   {m.icon}{m.label}
                 </button>
@@ -318,7 +318,7 @@ export default function LLDPlayground() {
             </div>
 
             {/* Tabs: Chat / Flow / Patterns */}
-            <div role="tablist" className="flex gap-1 border-b border-white/[0.07]">
+            <div role="tablist" className="flex gap-1 border-b border-white/[0.05]">
               {([
                 { id: 'chat',     label: 'AI Chat',         icon: <FaRobot className="w-3 h-3" /> },
                 { id: 'flow',     label: 'Execution Flow',  icon: <FaProjectDiagram className="w-3 h-3" /> },
@@ -351,7 +351,7 @@ export default function LLDPlayground() {
                       <div className="flex flex-wrap gap-2">
                         {selectedProblem.interviewQuestions.slice(0, 3).map(q => (
                           <button key={q} onClick={() => sendMessage(q)}
-                            className="text-left text-xs px-3 py-2 rounded-xl border border-white/[0.07] bg-[#0a0c1e]
+                            className="text-left text-xs px-3 py-2 rounded-xl border border-white/[0.05] bg-[#0D0A18]
                                        text-white/50 hover:border-purple/40 hover:text-white/75 hover:bg-purple/[0.04]
                                        transition-all duration-200 max-w-xs">
                             {q}
@@ -369,7 +369,7 @@ export default function LLDPlayground() {
                         <div className="w-7 h-7 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
                           <FaRobot className="w-3.5 h-3.5" />
                         </div>
-                        <div className="bg-[#0d0f23] border border-white/[0.08] rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5 items-center">
+                        <div className="bg-[#141020] border border-white/[0.08] rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5 items-center">
                           {[0, 0.15, 0.3].map(d => (
                             <motion.div key={d} className="w-1.5 h-1.5 rounded-full bg-white/30"
                               animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 0.9, repeat: Infinity, delay: d }} />
@@ -390,7 +390,7 @@ export default function LLDPlayground() {
                         mode === 'whatif'    ? 'What if 10k concurrent users?' :
                         'Ask about design, patterns, tradeoffs…'
                       }
-                      className="flex-1 bg-[#0a0c1e] border border-white/[0.08] rounded-xl px-4 py-2.5
+                      className="flex-1 bg-[#0D0A18] border border-white/[0.08] rounded-xl px-4 py-2.5
                                  text-sm text-white/80 placeholder:text-white/25 outline-none
                                  focus:border-purple/40 transition-colors duration-200"
                     />
@@ -413,7 +413,7 @@ export default function LLDPlayground() {
                   <p className="text-[10px] text-white/30 mb-3">Click a step to view its class implementation →</p>
                   <FlowBar problem={selectedProblem} onClassClick={handleClassClick} />
                   {/* Complexity table */}
-                  <div className="mt-5 rounded-xl border border-white/[0.07] bg-[#0a0c1e] overflow-hidden">
+                  <div className="mt-5 rounded-xl border border-white/[0.05] bg-[#0D0A18] overflow-hidden">
                     <div className="border-b border-white/[0.06] px-4 py-2">
                       <span className="text-[10px] uppercase tracking-widest text-white/30 font-semibold">Key Classes</span>
                     </div>
@@ -440,8 +440,8 @@ export default function LLDPlayground() {
                   className="flex flex-col gap-3">
                   {selectedProblem.interviewQuestions.map((q, i) => (
                     <button key={i} onClick={() => { setActiveTab('chat'); sendMessage(q); }}
-                      className="flex items-start gap-3 text-left px-4 py-3 rounded-xl border border-white/[0.07]
-                                 bg-[#0a0c1e] hover:border-purple/40 hover:bg-purple/[0.04] transition-all duration-200 group">
+                      className="flex items-start gap-3 text-left px-4 py-3 rounded-xl border border-white/[0.05]
+                                 bg-[#0D0A18] hover:border-purple/40 hover:bg-purple/[0.04] transition-all duration-200 group">
                       <FaPlay className="w-2.5 h-2.5 text-purple/50 group-hover:text-purple shrink-0 mt-0.5 transition-colors" />
                       <span className="text-xs text-white/60 group-hover:text-white/85 transition-colors">{q}</span>
                     </button>
@@ -462,7 +462,7 @@ export default function LLDPlayground() {
                   className={`text-[10px] font-mono px-3 py-1.5 rounded-lg border transition-all duration-150
                     ${activeFile.name === f.name
                       ? 'border-cyan-400/50 bg-cyan-400/10 text-cyan-400'
-                      : 'border-white/[0.07] text-white/35 hover:border-white/20 hover:text-white/60'}`}
+                      : 'border-white/[0.05] text-white/35 hover:border-white/20 hover:text-white/60'}`}
                 >
                   {f.name}
                 </button>
@@ -477,7 +477,7 @@ export default function LLDPlayground() {
             </div>
 
             {/* Code block */}
-            <div className="relative rounded-2xl border border-white/[0.07] bg-[#080a18] overflow-hidden flex-1 min-w-0">
+            <div className="relative rounded-2xl border border-white/[0.05] bg-[#0D0A18] overflow-hidden flex-1 min-w-0">
               {/* Top bar */}
               <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/[0.06]">
                 {['#ff5f56', '#ffbd2e', '#27c93f'].map(c => (

@@ -11,7 +11,12 @@
       "Bash(grep -oE \"ShinierPersonal[^<\\\\\"]{0,500}\")",
       "Bash(grep -oE \"src:[^}]{0,300}\")",
       "Bash(grep -oE \"\\\\.\\(woff2?|ttf|otf\\)[^\\\\\"<]{0,100}\")",
-      "Bash(curl -s \"https://tanmaynargas.engineer/static/css/main.3c613401.css\")"
+      "Bash(curl -s \"https://tanmaynargas.engineer/static/css/main.3c613401.css\")",
+      "WebFetch(domain:www.reddit.com)",
+      "WebFetch(domain:old.reddit.com)",
+      "WebFetch(domain:colorhunt.co)",
+      "Bash(grep -v \"//.*#\")",
+      "Bash(grep -v \"//.*rgba\")"
     ]
   }
 }

@@ -1,33 +1,41 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
+import { useTheme } from "next-themes";
 
 // Vanilla Three.js — no R3F, so no React 18.3 internal conflicts
 const World = dynamic(() => import("./Globe").then((m) => m.World), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="w-8 h-8 rounded-full border border-cyan-400/30 border-t-cyan-400 animate-spin" />
+      <div className="w-8 h-8 rounded-full border border-amber-400/30 border-t-amber-400 animate-spin" />
     </div>
   ),
 });
 
 const GridGlobe = () => {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  const isLight = mounted && resolvedTheme === 'light';
+
+  const cardBg = isLight ? '#FDFAF5' : '#0D0A18';
+
   const globeConfig = {
     pointSize: 3,
-    globeColor: "#020818",          // near-black dark navy
+    globeColor: isLight ? "#E8E2F8" : "#0D0A18",
     showAtmosphere: true,
-    atmosphereColor: "#00d4ff",     // cyan holographic atmosphere
-    atmosphereAltitude: 0.18,
-    emissive: "#020818",
+    atmosphereColor: isLight ? "#E8366A" : "#00d4ff",
+    atmosphereAltitude: isLight ? 0.22 : 0.18,
+    emissive: isLight ? "#DDD5F0" : "#0D0A18",
     emissiveIntensity: 0.05,
-    shininess: 0.9,
-    polygonColor: "rgba(0,212,255,0.12)",  // faint cyan wireframe continents
-    ambientLight: "#00d4ff",
-    directionalLeftLight: "#7c3aed",
-    directionalTopLight: "#06b6d4",
-    pointLight: "#06b6d4",
+    shininess: isLight ? 30 : 0.9,
+    polygonColor: isLight ? "rgba(158,24,71,0.45)" : "rgba(232,54,106,0.12)",
+    ambientLight: isLight ? "#f0ecff" : "#E8366A",
+    directionalLeftLight: isLight ? "#E8366A" : "#c4204f",
+    directionalTopLight: isLight ? "#e8e0d8" : "#9e1847",
+    pointLight: isLight ? "#e8e0d8" : "#9e1847",
     arcTime: 1200,
     arcLength: 0.9,
     rings: 1,
@@ -35,9 +43,10 @@ const GridGlobe = () => {
     initialPosition: { lat: 12.9716, lng: 77.5946 },  // Bengaluru
     autoRotate: true,
     autoRotateSpeed: 0.4,
+    gridOpacity: isLight ? 0.18 : 0.08,
   };
 
-  const colors = ["#00d4ff", "#7c3aed", "#06b6d4", "#818cf8"];
+  const colors = ["#E8366A", "#c4204f", "#f06288", "#9e1847"];
 
   const sampleArcs = [
     // Bengaluru → New York
@@ -71,24 +80,29 @@ const GridGlobe = () => {
   ];
 
   return (
-    // Sits in the bottom 55% of the card — text above is always clear
     <div className="absolute bottom-0 left-0 right-0 h-[60%] overflow-hidden z-0">
-      {/* Actual globe canvas */}
-      <div className="absolute inset-0">
+      {/* Globe canvas */}
+      <div key={isLight ? 'light' : 'dark'} className="absolute inset-0">
         <World data={sampleArcs} globeConfig={globeConfig} />
       </div>
 
-      {/* Top fade so it blends into the dark card above */}
-      <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#04071d] to-transparent pointer-events-none z-10" />
+      {/* Top fade — blends globe into card above */}
+      <div
+        className="absolute inset-x-0 top-0 h-16 pointer-events-none z-10"
+        style={{ background: `linear-gradient(to bottom, ${cardBg}, transparent)` }}
+      />
 
       {/* Bottom fade */}
-      <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#04071d] to-transparent pointer-events-none z-10" />
+      <div
+        className="absolute inset-x-0 bottom-0 h-12 pointer-events-none z-10"
+        style={{ background: `linear-gradient(to top, ${cardBg}, transparent)` }}
+      />
 
-      {/* Holographic base glow under globe */}
+      {/* Base glow */}
       <motion.div
         className="absolute bottom-2 left-1/2 -translate-x-1/2 w-36 h-4 rounded-full pointer-events-none z-10"
         style={{
-          background: "radial-gradient(ellipse at center, rgba(0,212,255,0.45) 0%, transparent 70%)",
+          background: `radial-gradient(ellipse at center, ${isLight ? 'rgba(232,54,106,0.25)' : 'rgba(232,54,106,0.35)'} 0%, transparent 70%)`,
           filter: "blur(8px)",
         }}
         animate={{ opacity: [0.3, 0.8, 0.3], scaleX: [1, 1.2, 1] }}
@@ -97,7 +111,7 @@ const GridGlobe = () => {
 
       {/* Sweep line */}
       <motion.div
-        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent pointer-events-none z-10"
+        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple/30 to-transparent pointer-events-none z-10"
         animate={{ top: ["5%", "95%", "5%"] }}
         transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
       />

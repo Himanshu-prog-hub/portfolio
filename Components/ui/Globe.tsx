@@ -24,6 +24,7 @@ export type GlobeConfig = {
   initialPosition?: { lat: number; lng: number };
   autoRotate?: boolean;
   autoRotateSpeed?: number;
+  gridOpacity?: number;
 };
 
 type Position = {
@@ -130,8 +131,8 @@ export function World({ globeConfig, data }: WorldProps) {
     camera.position.z = 280;
 
     // ── Lights ────────────────────────────────────────────────────────────────
-    scene.add(new THREE.AmbientLight("#00d4ff", 0.4));
-    const dl = new THREE.DirectionalLight("#7c3aed", 1.2);
+    scene.add(new THREE.AmbientLight(globeConfig.ambientLight ?? "#E8366A", 0.4));
+    const dl = new THREE.DirectionalLight(globeConfig.directionalLeftLight ?? "#c4204f", 1.2);
     dl.position.set(-400, 100, 400);
     scene.add(dl);
 
@@ -143,8 +144,8 @@ export function World({ globeConfig, data }: WorldProps) {
     const baseMesh = new THREE.Mesh(
       new THREE.SphereGeometry(100, 64, 64),
       new THREE.MeshPhongMaterial({
-        color:       new THREE.Color(globeConfig.globeColor ?? "#020818"),
-        emissive:    new THREE.Color("#020d24"),
+        color:       new THREE.Color(globeConfig.globeColor ?? "#0D0A18"),
+        emissive:    new THREE.Color(globeConfig.emissive ?? "#0a0704"),
         shininess:   60,
         transparent: true,
         opacity:     0.92,
@@ -156,7 +157,7 @@ export function World({ globeConfig, data }: WorldProps) {
     const gridMat = new THREE.LineBasicMaterial({
       color: new THREE.Color(globeConfig.atmosphereColor ?? "#00d4ff"),
       transparent: true,
-      opacity: 0.08,
+      opacity: globeConfig.gridOpacity ?? 0.08,
     });
     // Latitude lines
     for (let lat = -80; lat <= 80; lat += 20) {
@@ -185,7 +186,7 @@ export function World({ globeConfig, data }: WorldProps) {
 
     // 4. Arcs + dots
     const arcLines: THREE.Line[] = [];
-    const allColors = ["#00d4ff", "#7c3aed", "#06b6d4", "#818cf8"];
+    const allColors = ["#E8366A", "#c4204f", "#f06288", "#9e1847"];
     data.forEach((arc, i) => {
       const color = allColors[i % allColors.length];
       const line  = buildArc(arc.startLat, arc.startLng, arc.endLat, arc.endLng, arc.arcAlt, color);

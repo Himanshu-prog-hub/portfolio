@@ -198,7 +198,7 @@ function MusicCollabChat() {
           <span className="w-1.5 h-1.5 rounded-full bg-purple animate-pulse" />
           Music Collab Matcher · Powered by Spotify Data
         </span>
-        <h2 className="text-2xl md:text-3xl font-bold text-white dark:text-white">
+        <h2 className="text-2xl md:text-3xl font-heading text-white dark:text-white">
           Want to <span className="text-purple">Collaborate?</span>
         </h2>
         <p className="text-white/40 text-sm mt-2 max-w-sm mx-auto">
@@ -206,7 +206,7 @@ function MusicCollabChat() {
         </p>
       </div>
 
-      <div className="relative rounded-2xl border border-white/10 bg-[#0a0c1e] overflow-hidden">
+      <div className="relative rounded-2xl border border-white/[0.05] bg-[#0D0A18] overflow-hidden">
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-80 h-40 bg-purple/8 blur-3xl rounded-full pointer-events-none" />
 
         {/* Real Spotify stats bar */}
@@ -228,7 +228,7 @@ function MusicCollabChat() {
           ))}
           <div className="ml-auto shrink-0 flex gap-1.5">
             {TOP_ARTISTS.slice(0, 4).map(a => (
-              <span key={a} className="text-[9px] px-2 py-0.5 rounded-full border border-white/10 text-white/30 hidden md:block">{a}</span>
+              <span key={a} className="text-[9px] px-2 py-0.5 rounded-full border border-white/[0.05] text-white/30 hidden md:block">{a}</span>
             ))}
           </div>
         </div>
@@ -240,7 +240,7 @@ function MusicCollabChat() {
                 className="flex flex-col items-center justify-center flex-1 text-center gap-6">
                 <div className="flex items-end gap-1 h-12">
                   {[35, 60, 45, 80, 55, 90, 65, 75, 40, 60, 50, 85, 45].map((h, i) => (
-                    <motion.div key={i} className="w-1.5 rounded-full bg-gradient-to-t from-purple/60 to-cyan-400/60"
+                    <motion.div key={i} className="w-1.5 rounded-full bg-gradient-to-t from-purple/50 to-purple/90"
                       animate={{ scaleY: [0.4, h / 60, 0.3, h / 70, 0.5] }}
                       transition={{ duration: 1.8 + i * 0.12, repeat: Infinity, ease: 'easeInOut', delay: i * 0.08 }}
                       style={{ height: `${h}%`, originY: 1 }} />
@@ -276,7 +276,7 @@ function MusicCollabChat() {
                   <span className="text-white/25 text-xs">{step} / 3</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white">{currentStep.question}</h3>
+                  <h3 className="text-lg font-heading text-white">{currentStep.question}</h3>
                   <p className="text-white/35 text-xs mt-1">{currentStep.sub}</p>
                 </div>
                 <div className="flex flex-wrap gap-2.5 flex-1 content-start">
@@ -284,7 +284,7 @@ function MusicCollabChat() {
                     const selected = answers[currentStep.key] === opt;
                     return (
                       <motion.button key={opt} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.96 }} onClick={() => select(currentStep.key, opt)}
-                        className={`px-4 py-2 rounded-full border text-xs font-medium transition-all duration-200 ${selected ? 'border-purple bg-purple/25 text-white' : 'border-white/10 text-white/50 hover:border-purple/40 hover:text-white/80 hover:bg-purple/8'}`}>
+                        className={`px-4 py-2 rounded-full border text-xs font-medium transition-all duration-200 ${selected ? 'border-purple bg-purple/25 text-white' : 'border-white/[0.05] text-white/50 hover:border-purple/40 hover:text-white/80 hover:bg-purple/8'}`}>
                         {opt}
                       </motion.button>
                     );
@@ -304,7 +304,7 @@ function MusicCollabChat() {
                       initial={{ strokeDashoffset: 2 * Math.PI * 42 }}
                       animate={{ strokeDashoffset: 2 * Math.PI * 42 * (1 - result.score / 100) }}
                       transition={{ duration: 1.2, ease: 'easeOut', delay: 0.2 }} />
-                    <defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="#7c3aed" /><stop offset="100%" stopColor="#22d3ee" /></linearGradient></defs>
+                    <defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="#E8366A" /><stop offset="100%" stopColor="#f06288" /></linearGradient></defs>
                   </svg>
                   <div className="flex flex-col items-center">
                     <span className="text-2xl font-bold text-white">{result.score}%</span>
@@ -313,12 +313,12 @@ function MusicCollabChat() {
                 </div>
                 <div className="max-w-sm">
                   <p className="text-xl mb-1">{result.copy.emoji}</p>
-                  <h3 className="text-lg font-bold text-white mb-2">{result.copy.headline}</h3>
+                  <h3 className="text-lg font-heading text-white mb-2">{result.copy.headline}</h3>
                   <p className="text-white/50 text-sm leading-relaxed">{result.copy.body}</p>
                 </div>
                 <div className="flex flex-wrap justify-center gap-2">
                   {Object.values(answers).map((v, i) => (
-                    <span key={i} className="text-[10px] px-2.5 py-1 rounded-full border border-white/10 text-white/30">{v}</span>
+                    <span key={i} className="text-[10px] px-2.5 py-1 rounded-full border border-white/[0.05] text-white/30">{v}</span>
                   ))}
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-3">
@@ -328,7 +328,7 @@ function MusicCollabChat() {
                     {result.copy.cta}
                   </a>
                   <a href="https://www.youtube.com/@himanshumishra8864" target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 hover:border-white/25 text-white/50 hover:text-white/80 text-xs transition-all duration-200">
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/[0.05] hover:border-white/25 text-white/50 hover:text-white/80 text-xs transition-all duration-200">
                     <FaYoutube className="w-3.5 h-3.5" />
                     Hear my music
                   </a>
@@ -417,7 +417,7 @@ const BeyondCode = () => {
           Beyond{' '}
           <span className="text-purple">The Code</span>
         </h2>
-        <p className="text-center text-white/40 mt-3 text-sm md:text-base max-w-lg mx-auto">
+        <p className="text-center text-white/65 mt-3 text-sm md:text-base max-w-lg mx-auto">
           The disciplines that keep me sharp — and human
         </p>
 
@@ -429,29 +429,29 @@ const BeyondCode = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.2, duration: 0.6, ease: 'easeOut' }}
-              className={`relative group rounded-2xl border border-white/10 bg-[#0d0f23] p-5 sm:p-7 flex flex-col gap-4 sm:gap-5 transition-all duration-300 overflow-hidden hover:shadow-[0_0_28px_rgba(124,58,237,0.1)] ${h.border}`}
+              className={`relative group rounded-2xl border border-white/[0.05] bg-[#141020] p-5 sm:p-7 flex flex-col gap-4 sm:gap-5 transition-all duration-300 overflow-hidden hover:shadow-[0_0_28px_rgba(124,58,237,0.1)] ${h.border}`}
             >
               <div className={`absolute -top-8 -right-8 w-40 h-40 rounded-full bg-gradient-to-br ${h.accent} blur-2xl pointer-events-none`} />
               <div className="flex items-start justify-between relative z-10">
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${h.accent} border border-white/10 flex items-center justify-center text-white/80`}>{h.icon}</div>
+                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${h.accent} border border-white/[0.05] flex items-center justify-center text-white/80`}>{h.icon}</div>
                   <div>
                     <span className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest font-semibold">
                       <span className={`w-1.5 h-1.5 rounded-full ${h.dot}`} />
                       <span className="text-white/40">{h.label}</span>
                     </span>
-                    <h3 className="text-base font-bold text-white mt-0.5">{h.title}</h3>
+                    <h3 className="text-base font-heading text-white mt-0.5">{h.title}</h3>
                   </div>
                 </div>
                 {h.id === 1 && <MusicBars />}
               </div>
               <p className="text-sm text-white/50 leading-relaxed relative z-10">{h.description}</p>
               <div className="flex flex-wrap gap-2 relative z-10">
-                {h.tags.map(t => <span key={t} className="text-[10px] px-2.5 py-1 rounded-full border border-white/10 text-white/40 hover:border-purple/40 hover:text-white/65 transition-all duration-200 cursor-default">{t}</span>)}
+                {h.tags.map(t => <span key={t} className="text-[10px] px-2.5 py-1 rounded-full border border-white/[0.05] text-white/40 hover:border-purple/40 hover:text-white/65 transition-all duration-200 cursor-default">{t}</span>)}
               </div>
               <div className="flex items-center gap-3 mt-auto relative z-10">
                 <a href={h.cta.href} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-xs font-semibold text-white/70 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-full transition-all duration-200">
+                  className="flex items-center gap-2 text-xs font-semibold text-white/70 hover:text-white bg-white/5 hover:bg-white/10 border border-white/[0.05] px-4 py-2 rounded-full transition-all duration-200">
                   {h.cta.icon}{h.cta.label}
                 </a>
                 {h.ctaSecondary && (

@@ -28,7 +28,7 @@ function CopyEmail() {
       animate={{ opacity: 1 }}
       transition={{ delay: 1.8, duration: 0.6 }}
       onClick={handleCopy}
-      className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/20 transition-all duration-200 group"
+      className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.05] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/20 transition-all duration-200 group"
     >
       <span className="text-xs text-white/40 group-hover:text-white/70 font-mono transition-colors duration-200">
         {EMAIL}
@@ -106,11 +106,11 @@ const Hero = () => {
           </motion.a>
 
           <TextGenerateEffect
-            className="text-center text-[40px] md:text-5xl lg:text-6xl"
+            className="text-center text-[40px] md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl"
             words="Hi! I'm Himanshu"
           />
 
-          <p className="text-center md:tracking-wider text-sm md:text-lg lg:text-2xl text-white/80">
+          <p className="text-center md:tracking-wider text-sm md:text-lg lg:text-2xl xl:text-3xl text-white/85">
             Fullstack Developer &amp; Classical Vocalist · Bengaluru
           </p>
 

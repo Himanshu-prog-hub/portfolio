@@ -12,7 +12,7 @@ export function ScrollProgress() {
         className="fixed top-0 left-0 right-0 h-[2px] z-[9998] origin-left"
         style={{
           scaleX,
-          background: 'linear-gradient(90deg, #7c3aed, #06b6d4)',
+          background: '#E8366A',
         }}
       />
       {/* Glowing tip that follows the bar's right edge */}
@@ -22,7 +22,7 @@ export function ScrollProgress() {
           left: 0,
           scaleX,
           transformOrigin: 'left',
-          background: 'rgba(124,58,237,0)',
+          background: 'rgba(232,54,106,0)',
         }}
       />
     </>

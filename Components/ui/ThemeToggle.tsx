@@ -18,7 +18,7 @@ export function ThemeToggle() {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="relative w-8 h-8 flex items-center justify-center rounded-full border border-white/10 dark:border-white/10 light:border-black/10 hover:border-purple/40 transition-colors duration-200 overflow-hidden"
+      className="relative w-8 h-8 flex items-center justify-center rounded-full border border-white/[0.05] dark:border-white/[0.05] light:border-black/10 hover:border-purple/40 transition-colors duration-200 overflow-hidden"
       aria-label="Toggle theme"
       title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >

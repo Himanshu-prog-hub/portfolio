@@ -50,13 +50,13 @@ const techData: Record<Category, Tech[]> = {
 };
 
 const levelStyle: Record<string, string> = {
-  core:       "border-purple/50 text-white/80 bg-purple/10 hover:border-purple/80 hover:bg-purple/20",
-  proficient: "border-blue-500/40 text-white/60 bg-blue-500/5 hover:border-blue-500/70 hover:bg-blue-500/10",
-  familiar:   "border-white/10 text-white/40 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.05]",
+  core:       "border-purple/50 text-white/85 bg-purple/10 hover:border-purple/80 hover:bg-purple/20",
+  proficient: "border-white/20 text-white/65 bg-white/[0.04] hover:border-white/35 hover:bg-white/[0.08]",
+  familiar:   "border-white/[0.08] text-white/45 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.05]",
 };
 
 const levelDot: Record<string, string> = {
-  core: 'bg-purple', proficient: 'bg-blue-500', familiar: 'bg-white/30',
+  core: 'bg-purple', proficient: 'bg-white/50', familiar: 'bg-white/25',
 };
 
 // ─── Skill chip with portal tooltip ─────────────────────────────────────────
@@ -100,7 +100,7 @@ function SkillChip({ item }: { item: Tech }) {
             maxWidth:      '200px',
           }}
         >
-          <div className="bg-[#0d0f23] border border-white/10 rounded-xl px-3.5 py-2.5 shadow-xl shadow-black/40 text-left">
+          <div className="bg-[#141020] border border-white/[0.05] rounded-xl px-3.5 py-2.5 shadow-xl shadow-black/40 text-left">
             <div className="flex items-center gap-1.5 mb-1">
               <span className={`w-1.5 h-1.5 rounded-full ${levelDot[item.level ?? 'familiar']}`} />
               <span className="text-[10px] font-bold text-white/70 uppercase tracking-wider">{item.level}</span>
@@ -151,16 +151,16 @@ export const TechStack = () => {
           <button
             key={cat}
             onClick={() => setActive(cat)}
-            className={`relative px-3 py-1.5 text-xs font-semibold rounded-full border transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple/60 focus-visible:outline-none ${
+            className={`relative px-4 py-2 text-sm font-semibold rounded-full border transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple/60 focus-visible:outline-none ${
               active === cat
                 ? "text-white border-transparent"
-                : "text-white/40 border-white/10 hover:text-white/70 hover:border-white/20"
+                : "text-white/60 border-white/[0.08] hover:text-white/90 hover:border-white/25"
             }`}
           >
             {active === cat && (
               <motion.span
                 layoutId="pill"
-                className="absolute inset-0 rounded-full bg-gradient-to-r from-purple/80 to-blue-600/80"
+                className="absolute inset-0 rounded-full bg-purple/80"
                 style={{ zIndex: -1 }}
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
               />

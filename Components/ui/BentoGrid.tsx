@@ -6,7 +6,8 @@ import GridGlobe from "./GridGlobe";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 import animationData from "@/data/confetti.json"
 import MagicButton from "./MagicButton";
 import { IoCopyOutline } from "react-icons/io5";
@@ -53,6 +54,10 @@ export const BentoGridItem = ({
   index?: number;
 }) => {
   const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
+  useEffect(() => { setMounted(true); }, []);
+  const isLight = mounted && resolvedTheme === 'light';
 
   const handleCopy = () => {
     navigator.clipboard.writeText('mishra00.11himanshu@gmail.com');
@@ -71,15 +76,14 @@ export const BentoGridItem = ({
       }}
       className={cn(
         "row-span-1 relative overflow-hidden rounded-3xl",
-        "border border-white/[0.1] group/bento",
+        "border border-white/[0.05] group/bento",
         "hover:shadow-xl transition duration-200 shadow-input dark:shadow-none",
         "justify-between flex flex-col space-y-4",
         id === 1 && "hover:border-purple/30",
         className
       )}
       style={{
-        background: "rgb(4,7,29)",
-        backgroundColor: "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
+        background: isLight ? '#FDFAF5' : '#0D0A18',
       }}
     >
       <div className={`${id === 6 ? 'flex justify-center' : ''} h-full`}>
@@ -91,7 +95,7 @@ export const BentoGridItem = ({
               {id === 1 ? (
                 <>
                   {/* Solid dark base */}
-                  <div className="absolute inset-0 bg-[#04071d]" />
+                  <div className="absolute inset-0 bg-[#0D0A18]" />
 
                   {/* Photo — full-bleed background.
                       Desktop: object-position pushes face to right half of card so left text area is clean.
@@ -109,15 +113,19 @@ export const BentoGridItem = ({
 
                   {/* Mobile: gradient only covers bottom third so photo is clearly visible at top */}
                   <div className="absolute inset-0 sm:hidden pointer-events-none"
-                       style={{ background: 'linear-gradient(to top, #04071d 18%, rgba(4,7,29,0.82) 34%, rgba(4,7,29,0.03) 52%, transparent 100%)' }} />
+                       style={{ background: isLight
+                         ? 'linear-gradient(to top, rgba(255,255,255,0.88) 10%, rgba(255,255,255,0.62) 26%, rgba(255,255,255,0.02) 48%, transparent 100%)'
+                         : 'linear-gradient(to top, #0D0A18 18%, rgba(13,10,24,0.82) 34%, rgba(13,10,24,0.03) 52%, transparent 100%)' }} />
 
                   {/* Desktop: left-to-right gradient so text on left half is readable */}
                   <div className="absolute inset-0 hidden sm:block pointer-events-none"
-                       style={{ background: 'linear-gradient(to right, #04071d 18%, rgba(4,7,29,0.85) 28%, rgba(4,7,29,0.6) 40%, rgba(4,7,29,0.3) 54%, rgba(4,7,29,0.1) 66%, rgba(4,7,29,0.03) 76%, transparent 88%)' }} />
+                       style={{ background: isLight
+                         ? 'linear-gradient(to right, rgba(255,255,255,0.80) 0%, rgba(255,255,255,0.60) 16%, rgba(255,255,255,0.35) 30%, rgba(255,255,255,0.12) 48%, rgba(255,255,255,0.02) 62%, transparent 78%)'
+                         : 'linear-gradient(to right, #0D0A18 18%, rgba(13,10,24,0.85) 28%, rgba(13,10,24,0.6) 40%, rgba(13,10,24,0.3) 54%, rgba(13,10,24,0.1) 66%, rgba(13,10,24,0.03) 76%, transparent 88%)' }} />
 
-                  {/* Ambient purple glow (right side / face area) */}
-                  <div className="absolute inset-0 pointer-events-none opacity-20"
-                       style={{ background: 'radial-gradient(ellipse at 75% 25%, rgba(120,80,255,0.4) 0%, transparent 60%)' }} />
+                  {/* Ambient warm glow (right side / face area) */}
+                  <div className="absolute inset-0 pointer-events-none opacity-15"
+                       style={{ background: 'radial-gradient(ellipse at 75% 25%, rgba(232,54,106,0.3) 0%, transparent 60%)' }} />
 
                   {/* Hover shimmer */}
                   <div className="absolute inset-0 bg-gradient-to-br from-purple/[0.06] via-transparent to-transparent z-[1] opacity-0 transition-opacity duration-700 group-hover/bento:opacity-100" />
@@ -146,7 +154,19 @@ export const BentoGridItem = ({
           )}
         </div>
 
-        {id === 6 && <BackgroundGradientAnimation />}
+        {id === 6 && (
+          <BackgroundGradientAnimation
+            key={isLight ? 'light' : 'dark'}
+            gradientBackgroundStart={isLight ? "rgb(248, 240, 255)" : "rgb(108, 0, 162)"}
+            gradientBackgroundEnd={isLight ? "rgb(235, 228, 255)" : "rgb(0, 17, 82)"}
+            firstColor={isLight ? "210, 140, 180" : "18, 113, 255"}
+            secondColor={isLight ? "185, 140, 215" : "221, 74, 255"}
+            thirdColor={isLight ? "145, 190, 230" : "100, 220, 255"}
+            fourthColor={isLight ? "210, 130, 140" : "200, 50, 50"}
+            fifthColor={isLight ? "190, 160, 120" : "180, 180, 50"}
+            pointerColor={isLight ? "170, 110, 200" : "140, 100, 255"}
+          />
+        )}
 
         {/* Content layer */}
         <div
@@ -168,10 +188,18 @@ export const BentoGridItem = ({
                 transition={{ duration: 0.6, delay: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
                 className="flex flex-col gap-4 z-10"
               >
-                <span className="inline-flex items-center gap-1.5 w-fit text-[9px] px-2.5 py-1 rounded-full border border-white/10 bg-white/[0.04] text-white/40 font-semibold uppercase tracking-widest">
+                <span className={cn(
+                  "inline-flex items-center gap-1.5 w-fit text-[9px] px-2.5 py-1 rounded-full font-semibold uppercase tracking-widest",
+                  isLight
+                    ? "border border-[#1A1208]/[0.12] bg-[#1A1208]/[0.06] text-[#1A1208]/60"
+                    : "border border-white/[0.05] bg-white/[0.04] text-white/40"
+                )}>
                   About me
                 </span>
-                <div className="font-sans text-sm lg:text-[15px] font-normal text-white/80 leading-relaxed">
+                <div className={cn(
+                  "font-sans text-sm lg:text-[15px] font-normal leading-relaxed",
+                  isLight ? "text-[#1A1208]/85" : "text-white/80"
+                )}>
                   {title}
                 </div>
                 <span className="inline-flex items-center gap-1.5 w-fit whitespace-nowrap text-[10px] px-3 py-1.5 rounded-full border border-purple/35 bg-purple/[0.08] text-purple/80 font-semibold uppercase tracking-widest">
@@ -194,8 +222,8 @@ export const BentoGridItem = ({
                   className={cn(
                     "flex items-center justify-center gap-2 w-full py-2.5 rounded-full",
                     "text-xs font-semibold text-white",
-                    "bg-gradient-to-r from-purple/80 to-indigo-500/80",
-                    "hover:from-purple hover:to-indigo-500",
+                    "bg-purple/80 text-black",
+                    "hover:bg-purple",
                     "transition-all duration-200"
                   )}
                 >
@@ -213,9 +241,10 @@ export const BentoGridItem = ({
                   rel="noopener noreferrer"
                   className={cn(
                     "flex items-center justify-center gap-2 w-full py-2.5 rounded-full",
-                    "text-xs font-semibold text-white/70",
-                    "bg-white/[0.05] hover:bg-white/[0.09] hover:text-white",
-                    "transition-all duration-200"
+                    "text-xs font-semibold transition-all duration-200",
+                    isLight
+                      ? "text-[#1A1208]/65 bg-[#1A1208]/[0.06] border border-[#1A1208]/[0.10] hover:bg-[#1A1208]/[0.10] hover:text-[#1A1208]/85"
+                      : "text-white/70 bg-white/[0.05] hover:bg-white/[0.09] hover:text-white"
                   )}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
@@ -230,7 +259,7 @@ export const BentoGridItem = ({
               <div className="font-sans font-extralight text-[#c1c2d3] text-sm md:text-xs lg:text-base z-10">
                 {description}
               </div>
-              <div className="font-sans font-bold text-lg lg:text-3xl max-w-96 z-10">
+              <div className="font-heading text-lg lg:text-3xl max-w-96 z-10">
                 {title}
               </div>
             </>
@@ -253,7 +282,7 @@ export const BentoGridItem = ({
                 title={copied ? 'Email copied' : 'Copy my email'}
                 icon={<IoCopyOutline />}
                 position="left"
-                otherClasses="bg-[#161a31]"
+                otherClasses="bg-[#1C172E]"
                 handleClick={handleCopy}
               />
             </div>

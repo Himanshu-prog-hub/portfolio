@@ -32,13 +32,13 @@ export function HolographicCello() {
     const mkLine = (hex: number, alpha: number) =>
       new THREE.LineBasicMaterial({ color: hex, transparent: true, opacity: alpha });
 
-    // Theme-aware palette: deep indigo/teal tones on light bg, cyan on dark
+    // Golden hologram palette — amber/warm gold on dark, deep amber on light
     const isDark = document.documentElement.classList.contains('dark');
-    const cyanBright  = isDark ? mkLine(0x00e5ff, 0.92) : mkLine(0x1d4ed8, 0.88);
-    const cyanMid     = isDark ? mkLine(0x00bcd4, 0.52) : mkLine(0x2563eb, 0.52);
-    const cyanFaint   = isDark ? mkLine(0x00acc1, 0.26) : mkLine(0x3b82f6, 0.30);
-    const purple      = isDark ? mkLine(0xab47bc, 0.48) : mkLine(0x7c3aed, 0.52);
-    const purpleFaint = isDark ? mkLine(0x9c27b0, 0.20) : mkLine(0x8b5cf6, 0.24);
+    const cyanBright  = isDark ? mkLine(0xf59e0b, 0.92) : mkLine(0xb45309, 0.88);
+    const cyanMid     = isDark ? mkLine(0xd97706, 0.52) : mkLine(0x92400e, 0.52);
+    const cyanFaint   = isDark ? mkLine(0xb45309, 0.26) : mkLine(0x78350f, 0.30);
+    const purple      = isDark ? mkLine(0xfbbf24, 0.48) : mkLine(0xd97706, 0.52);
+    const purpleFaint = isDark ? mkLine(0xf59e0b, 0.20) : mkLine(0xb45309, 0.24);
 
     // ── Helpers ───────────────────────────────────────────────────────────
     function lineSegment(pts: THREE.Vector3[], mat: THREE.LineBasicMaterial) {
@@ -188,7 +188,7 @@ export function HolographicCello() {
     ], cyanBright));
 
     // ─ Position markers (simplified — 4 thumb positions) ─────────────────
-    const markerColor = isDark ? 0x00bcd4 : 0x2563eb;
+    const markerColor = isDark ? 0xd97706 : 0x92400e;
     [1.22, 1.58, 1.90, 2.22, 2.52, 2.80, 3.08, 3.30, 3.45].forEach(fy => {
       const t2 = (fy - 0.85) / (3.55 - 0.85);
       const w  = neckW * (1 - t2 * 0.15);
@@ -234,7 +234,7 @@ export function HolographicCello() {
     if (scrollPts.length > 1) cello.add(lineSegment(scrollPts, cyanBright));
 
     // ─ 4 Strings ──────────────────────────────────────────────────────────
-    const stringColor = isDark ? 0x00e5ff : 0x1d4ed8;
+    const stringColor = isDark ? 0xfbbf24 : 0xd97706;
     const stringXs4 = [-0.08, -0.027, 0.027, 0.08];
     stringXs4.forEach((sx, i) => {
       cello.add(lineSegment([

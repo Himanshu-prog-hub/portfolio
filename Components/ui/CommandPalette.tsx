@@ -129,7 +129,7 @@ export function CommandPalette() {
                 role="dialog"
                 aria-modal="true"
                 aria-label="Command palette"
-                className="rounded-2xl border border-white/15 bg-[#0a0c1e]/95 shadow-[0_24px_80px_rgba(0,0,0,0.6)] overflow-hidden"
+                className="rounded-2xl border border-white/15 bg-[#0D0A18]/95 shadow-[0_24px_80px_rgba(0,0,0,0.6)] overflow-hidden"
               >
                 {/* Search bar */}
                 <div className="flex items-center gap-3 px-5 py-4 border-b border-white/[0.06]">
@@ -141,7 +141,7 @@ export function CommandPalette() {
                     placeholder="Search commands, sections, links…"
                     className="flex-1 bg-transparent text-sm text-white placeholder:text-white/25 outline-none"
                   />
-                  <kbd className="text-[10px] text-white/20 border border-white/10 px-2 py-0.5 rounded font-mono">ESC</kbd>
+                  <kbd className="text-[10px] text-white/20 border border-white/[0.05] px-2 py-0.5 rounded font-mono">ESC</kbd>
                 </div>
 
                 {/* Results */}
@@ -174,7 +174,7 @@ export function CommandPalette() {
                                 )}
                               </span>
                               {isSelected && (
-                                <kbd className="text-[10px] text-white/20 border border-white/10 px-1.5 py-0.5 rounded font-mono shrink-0">↵</kbd>
+                                <kbd className="text-[10px] text-white/20 border border-white/[0.05] px-1.5 py-0.5 rounded font-mono shrink-0">↵</kbd>
                               )}
                             </button>
                           );
@@ -218,7 +218,7 @@ function KbdHint({ onClick }: { onClick: () => void }) {
           exit={{ opacity: 0, y: 10 }}
           transition={{ duration: 0.3 }}
           onClick={onClick}
-          className="fixed bottom-6 right-6 z-[8000] flex items-center gap-2 px-3 py-2 rounded-full border border-white/10 bg-[#0d0f23]/90 backdrop-blur-sm text-white/30 hover:text-white/60 hover:border-purple/30 transition-all duration-200 shadow-lg"
+          className="fixed bottom-6 right-6 z-[8000] flex items-center gap-2 px-3 py-2 rounded-full border border-white/[0.05] bg-[#141020]/90 backdrop-blur-sm text-white/30 hover:text-white/60 hover:border-purple/30 transition-all duration-200 shadow-lg"
         >
           <HiSearch className="w-3.5 h-3.5" />
           <kbd className="text-[10px] font-mono">⌘K</kbd>

@@ -1,6 +1,7 @@
 "use client";
 import React, { JSX, useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { useTheme } from "next-themes";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
 
@@ -16,6 +17,9 @@ export const FloatingNav = ({
   const { scrollYProgress } = useScroll();
   const [activeSection, setActiveSection] = useState<string>('');
   const [menuOpen, setMenuOpen]       = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   // Navbar is always visible; close mobile menu on scroll-down only
   useMotionValueEvent(scrollYProgress, "change", (current) => {
@@ -55,7 +59,7 @@ export const FloatingNav = ({
         style={{ width: 'fit-content' }}
       >
         {/* Pill */}
-        <div className="flex items-center gap-1 border rounded-full px-4 py-2.5 border-white/[0.12] bg-black-100/80 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.22)]">
+        <div className="flex items-center gap-1 border rounded-full px-4 py-2.5 border-white/[0.08] bg-black-100/80 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.22)]">
 
           {/* Logo */}
           <a href="#" className="group select-none px-2" aria-label="Home">
@@ -84,7 +88,7 @@ export const FloatingNav = ({
                   {isActive && (
                     <motion.span
                       layoutId="nav-active-pill"
-                      className="absolute inset-0 rounded-full bg-white/[0.07] border border-white/10"
+                      className="absolute inset-0 rounded-full bg-white/[0.07] border border-white/[0.05]"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -94,6 +98,22 @@ export const FloatingNav = ({
             })}
             <div className="w-px h-4 bg-white/10 mx-1 shrink-0" />
           </div>
+
+          {/* Theme toggle */}
+          {mounted && (
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              aria-label="Toggle theme"
+              className="relative flex items-center w-10 h-5 rounded-full border border-white/[0.12] bg-white/[0.06] dark:bg-white/[0.06] hover:bg-white/[0.10] transition-colors duration-200 mx-1 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple/60"
+            >
+              <motion.span
+                layout
+                transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                className="absolute w-3.5 h-3.5 rounded-full bg-purple shadow-sm"
+                style={{ left: theme === 'dark' ? 'calc(100% - 18px)' : '3px' }}
+              />
+            </button>
+          )}
 
           {/* Mobile hamburger */}
           <button
@@ -130,7 +150,7 @@ export const FloatingNav = ({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.97 }}
               transition={{ duration: 0.18, ease: 'easeOut' }}
-              className="sm:hidden mt-2 w-[min(calc(100vw-2rem),12rem)] rounded-2xl border border-white/[0.12] bg-black-100/90 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.3)] overflow-hidden"
+              className="sm:hidden mt-2 w-[min(calc(100vw-2rem),12rem)] rounded-2xl border border-white/[0.08] bg-black-100/90 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.3)] overflow-hidden"
             >
               {navItems.map((navItem, idx) => {
                 const sectionId = linkToId(navItem.link);

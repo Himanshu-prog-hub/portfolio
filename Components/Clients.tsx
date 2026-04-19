@@ -49,15 +49,15 @@ function StatCard({ stat, index, inView }: { stat: typeof stats[0]; index: numbe
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: index * 0.15, duration: 0.6, ease: 'easeOut' }}
-      className="relative group flex flex-col items-center text-center p-8 rounded-2xl border border-white/10 bg-[#0d0f23] hover:border-purple/40 transition-all duration-300"
+      className="relative group flex flex-col items-center text-center p-8 rounded-2xl border border-white/[0.05] bg-[#141020] hover:border-purple/40 transition-all duration-300"
     >
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <span className="text-5xl md:text-6xl font-bold text-white tabular-nums">
+      <span className="text-5xl md:text-6xl font-heading text-white tabular-nums">
         {count}
         <span className="text-purple">{stat.suffix}</span>
       </span>
-      <span className="mt-3 text-base font-semibold text-white/80">{stat.label}</span>
-      <span className="mt-1 text-sm text-white/40">{stat.description}</span>
+      <span className="mt-3 text-base font-heading text-white/80">{stat.label}</span>
+      <span className="mt-1 text-sm text-white/60">{stat.description}</span>
     </motion.div>
   );
 }
@@ -81,7 +81,7 @@ const DevStats = () => {
         By The{' '}
         <span className="text-purple">Numbers</span>
       </h2>
-      <p className="text-center text-white/40 mt-3 text-sm md:text-base max-w-lg mx-auto">
+      <p className="text-center text-white/65 mt-3 text-sm md:text-base max-w-lg mx-auto">
         A snapshot of my journey as a software engineer
       </p>
 
@@ -94,7 +94,7 @@ const DevStats = () => {
 
       {/* Focus areas */}
       <div className="mt-16 max-w-4xl mx-auto px-4">
-        <p className="text-center text-white/50 text-xs uppercase tracking-widest mb-6">
+        <p className="font-heading text-center text-white/50 text-sm uppercase tracking-widest mb-6">
           Technical Focus Areas
         </p>
         <div className="flex flex-wrap justify-center gap-3">
@@ -104,7 +104,7 @@ const DevStats = () => {
               initial={{ opacity: 0, scale: 0.85 }}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
               transition={{ delay: 0.6 + i * 0.06, duration: 0.35 }}
-              className="px-4 py-2 text-sm rounded-full border border-white/10 text-white/60 bg-[#0d0f23] hover:border-purple/50 hover:text-white transition-all duration-200"
+              className="px-4 py-2 text-sm rounded-full border border-white/[0.05] text-white/60 bg-[#141020] hover:border-purple/50 hover:text-white transition-all duration-200"
             >
               {area}
             </motion.span>

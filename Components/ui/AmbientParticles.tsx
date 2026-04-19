@@ -26,8 +26,8 @@ interface Particle {
 }
 
 const COLORS = {
-  purple: 'rgba(124,58,237,0.55)',
-  cyan:   'rgba(34,211,238,0.50)',
+  purple: 'rgba(232,54,106,0.55)',
+  cyan:   'rgba(217,119,6,0.50)',
   white:  'rgba(255,255,255,0.30)',
 };
 

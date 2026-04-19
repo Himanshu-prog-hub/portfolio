@@ -132,11 +132,11 @@ export function TerminalEgg() {
             aria-label="Terminal easter egg"
             initial={{ y: 20 }}
             animate={{ y: 0 }}
-            className="w-full max-w-xl rounded-2xl border border-white/10 bg-[#0a0c1a] overflow-hidden shadow-2xl"
+            className="w-full max-w-xl rounded-2xl border border-white/[0.05] bg-[#0D0A18] overflow-hidden shadow-2xl"
             onClick={e => e.stopPropagation()}
           >
             {/* Title bar */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.05] bg-white/[0.03]">
               <button
                 ref={closeButtonRef}
                 onClick={() => setOpen(false)}

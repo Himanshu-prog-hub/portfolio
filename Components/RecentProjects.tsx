@@ -75,7 +75,7 @@ function useTypewriter(text: string, speed = 28) {
 const statusColor: Record<string, string> = {
   'In Progress': 'text-amber-400 border-amber-400/30 bg-amber-400/5',
   'Shipped':     'text-emerald-400 border-emerald-400/30 bg-emerald-400/5',
-  'Live':        'text-cyan-400 border-cyan-400/30 bg-cyan-400/5',
+  'Live':        'text-amber-400 border-amber-400/30 bg-amber-400/5',
 };
 
 // ─── Project Card ──────────────────────────────────────────────────────────
@@ -90,17 +90,17 @@ function ProjectCard({ project, highlighted, index }: { project: Project; highli
       className={`relative group rounded-2xl border p-6 flex flex-col gap-4 h-full transition-all duration-300 ${
         highlighted
           ? 'border-purple/60 bg-purple/5 shadow-[0_0_30px_rgba(124,58,237,0.15)]'
-          : 'border-white/10 bg-[#0d0f23] hover:border-white/20'
+          : 'border-white/[0.05] bg-[#141020] hover:border-white/20'
       }`}
     >
       {/* Status + icons row */}
       <div className="flex items-center justify-between">
-        <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-full border ${statusColor[project.status] ?? 'text-white/40 border-white/10'}`}>
+        <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-full border ${statusColor[project.status] ?? 'text-white/40 border-white/[0.05]'}`}>
           {project.status}
         </span>
         <div className="flex gap-1.5">
           {project.iconLists.map((icon, i) => (
-            <div key={i} className="w-6 h-6 rounded-full bg-black/40 border border-white/10 flex items-center justify-center">
+            <div key={i} className="w-6 h-6 rounded-full bg-black/40 border border-white/[0.05] flex items-center justify-center">
               <img src={icon} alt="" loading="lazy" className="w-3.5 h-3.5 object-contain" />
             </div>
           ))}
@@ -108,7 +108,7 @@ function ProjectCard({ project, highlighted, index }: { project: Project; highli
       </div>
 
       {/* Title */}
-      <h3 className="text-base md:text-lg font-bold text-white leading-snug group-hover:text-purple transition-colors duration-200">
+      <h3 className="text-base md:text-lg font-heading text-white leading-snug group-hover:text-purple transition-colors duration-200">
         {project.title}
       </h3>
 
@@ -120,7 +120,7 @@ function ProjectCard({ project, highlighted, index }: { project: Project; highli
       {/* Tags */}
       <div className="flex flex-wrap gap-1.5">
         {(project.tags ?? []).map((tag: string) => (
-          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full border border-white/10 text-white/40">
+          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full border border-white/[0.05] text-white/40">
             {tag}
           </span>
         ))}
@@ -135,10 +135,10 @@ function ProjectCard({ project, highlighted, index }: { project: Project; highli
             target={project.liveUrl.startsWith('/') ? '_self' : '_blank'}
             rel="noopener noreferrer"
             className="group/launch flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold
-                       bg-gradient-to-r from-purple/25 to-cyan-500/15 border border-purple/40
-                       text-white hover:from-purple/40 hover:to-cyan-500/25 hover:border-purple/70
-                       transition-all duration-200 shadow-[0_0_12px_rgba(124,58,237,0.15)]
-                       hover:shadow-[0_0_20px_rgba(124,58,237,0.3)]"
+                       bg-purple/15 border border-purple/40
+                       text-white hover:bg-purple/25 hover:border-purple/70
+                       transition-all duration-200 shadow-[0_0_12px_rgba(232,54,106,0.12)]
+                       hover:shadow-[0_0_20px_rgba(232,54,106,0.25)]"
           >
             <FaPlay className="w-2.5 h-2.5 text-purple group-hover/launch:scale-110 transition-transform duration-150" />
             {project.liveLabel ?? 'Launch App'}
@@ -221,8 +221,8 @@ const RecentProjects = () => {
       <FadeIn direction="up" delay={0.2} duration={0.55}>
       <div className="mt-12 max-w-2xl mx-auto px-4">
         <div className="relative">
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple/20 to-cyan-500/10 blur-sm" />
-          <div className="relative flex items-center gap-3 rounded-2xl border border-white/10 bg-[#080b1a] px-4 py-3">
+          <div className="absolute inset-0 rounded-2xl bg-purple/15 blur-sm" />
+          <div className="relative flex items-center gap-3 rounded-2xl border border-white/[0.05] bg-[#0D0A18] px-4 py-3">
             {/* Animated AI dot */}
             <div className="flex-shrink-0 flex items-center gap-1">
               <motion.div
@@ -254,7 +254,7 @@ const RecentProjects = () => {
             <button
               key={chip}
               onClick={() => { setQuery(chip); handleSubmit(chip); }}
-              className="text-xs px-3 py-1.5 rounded-full border border-white/10 text-white/40 hover:border-purple/40 hover:text-white/70 transition-all duration-200"
+              className="text-xs px-3 py-1.5 rounded-full border border-white/[0.05] text-white/40 hover:border-purple/40 hover:text-white/70 transition-all duration-200"
             >
               {chip}
             </button>
@@ -262,7 +262,7 @@ const RecentProjects = () => {
           {submitted && (
             <button
               onClick={() => { setQuery(''); setSubmitted(''); setAiReply(''); setHighlighted([]); }}
-              className="text-xs px-3 py-1.5 rounded-full border border-white/10 text-white/30 hover:text-white/60 transition-all"
+              className="text-xs px-3 py-1.5 rounded-full border border-white/[0.05] text-white/30 hover:text-white/60 transition-all"
             >
               ✕ Clear
             </button>

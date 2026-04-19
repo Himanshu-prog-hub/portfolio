@@ -28,13 +28,14 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-spectral)', 'Georgia', 'serif'],
+        sans: ['var(--font-roboto)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        heading: ['var(--font-bebas-neue)', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
       },
       colors: {
         black: {
           DEFAULT: "#000",
-          100: "#000319",
+          100: "#0D0A18",
           200: "rgba(17, 25, 40, 0.75)",
           300: "rgba(255, 255, 255, 0.125)",
         },
@@ -46,7 +47,7 @@ const config = {
         blue: {
           "100": "#E4ECFF",
         },
-        purple: "#7c3aed",
+        purple: "#E8366A",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

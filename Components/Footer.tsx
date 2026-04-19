@@ -23,7 +23,7 @@ function Field({ label, id, type = 'text', rows, value, onChange, error, placeho
     "w-full rounded-xl bg-white/[0.04] border px-4 py-3",
     "text-sm text-white/80 placeholder:text-white/20 outline-none",
     "transition-all duration-200 focus:border-purple/60 focus:bg-purple/[0.06] focus:shadow-[0_0_14px_rgba(124,58,237,0.14)]",
-    error ? 'border-red-500/50' : 'border-white/10',
+    error ? 'border-red-500/50' : 'border-white/[0.05]',
   ].join(' ');
   return (
     <div className="flex flex-col gap-1.5">
@@ -141,7 +141,7 @@ function ContactForm() {
             disabled={status === 'sending'}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="flex items-center justify-center gap-2 w-full rounded-xl bg-gradient-to-r from-purple to-indigo-500 py-3.5 text-sm font-semibold text-white disabled:opacity-60 transition-all duration-200 hover:shadow-[0_0_24px_rgba(124,58,237,0.35)]"
+            className="flex items-center justify-center gap-2 w-full rounded-xl bg-purple py-3.5 text-sm font-semibold text-black disabled:opacity-60 transition-all duration-200 hover:bg-amber-400 hover:shadow-[0_0_24px_rgba(232,54,106,0.35)]"
           >
             {status === 'sending' ? (
               <>
@@ -181,7 +181,7 @@ const Footer = () => {
           <h2 className="heading">
             Let&apos;s <span className="text-purple">Connect</span>
           </h2>
-          <p className="text-white/40 text-sm md:text-base text-center max-w-md">
+          <p className="text-white/65 text-sm md:text-base text-center max-w-md">
             Have a project in mind, or just want to say hi? Drop me a message.
           </p>
         </div>
@@ -208,7 +208,7 @@ const Footer = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 + i * 0.08, duration: 0.4 }}
-                className="w-11 h-11 flex items-center justify-center rounded-lg border border-white/10 text-white/40 hover:text-white hover:border-purple/40 hover:bg-purple/10 transition-all duration-200"
+                className="w-11 h-11 flex items-center justify-center rounded-lg border border-white/[0.05] text-white/40 hover:text-white hover:border-purple/40 hover:bg-purple/10 transition-all duration-200"
               >
                 {s.icon}
               </motion.a>

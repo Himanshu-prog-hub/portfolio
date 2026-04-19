@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, stagger, useAnimate } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 import { cn } from "@/utils/cn";
 
 export const TextGenerateEffect = ({
@@ -11,47 +10,54 @@ export const TextGenerateEffect = ({
   words: string;
   className?: string;
 }) => {
-  const [scope, animate] = useAnimate();
-  const wordsArray = words.split(" ");
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [charCount, setCharCount] = useState(0);
+  const totalChars = words.length;
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsAnimating(true); // Ensures animations only happen on the client
-      animate(
-        "span",
-        {
-          opacity: 1,
-        },
-        {
-          duration: 2,
-          delay: stagger(0.2),
-        }
-      );
-    }
-  }, [animate, wordsArray]);
+    if (typeof window === 'undefined') return;
+    let count = 0;
+    intervalRef.current = setInterval(() => {
+      count += 1;
+      setCharCount(count);
+      if (count >= totalChars) {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+      }
+    }, 55);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [totalChars]);
 
-  const renderWords = () => (
-    <motion.div ref={scope}>
-      {wordsArray.map((word, idx) => (
-        <motion.span
-          key={word + idx}
-          className={cn(
-            idx > 3 ? "text-purple" : "dark:text-white text-black",
-            isAnimating ? "opacity-0" : "opacity-100" // Matches SSR state
-          )}
-        >
-          {word}{" "}
-        </motion.span>
-      ))}
-    </motion.div>
-  );
+  const wordsArray = words.split(" ");
+
+  let charsLeft = charCount;
+  const rendered = wordsArray.map((word, idx) => {
+    const segment = word + (idx < wordsArray.length - 1 ? " " : "");
+    if (charsLeft <= 0) return null;
+    const visible = segment.slice(0, charsLeft);
+    charsLeft -= segment.length;
+    const isColored = idx > 3;
+    return (
+      <span key={idx} className={isColored ? "text-purple" : "dark:text-white text-black"}>
+        {visible}
+      </span>
+    );
+  });
+
+  const isDone = charCount >= totalChars;
 
   return (
-    <div className={cn("font-bold", className)}>
+    <div className={cn("font-heading", className)}>
       <div className="my-4">
         <div className="dark:text-white text-black leading-snug tracking-wide">
-          {renderWords()}
+          {rendered}
+          {!isDone && (
+            <span
+              className="inline-block w-[3px] bg-purple align-middle animate-pulse"
+              style={{ height: "0.85em", marginLeft: "2px" }}
+            />
+          )}
         </div>
       </div>
     </div>

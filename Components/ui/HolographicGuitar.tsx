@@ -33,13 +33,13 @@ export function HolographicGuitar() {
     const mkLine = (hex: number, alpha: number) =>
       new THREE.LineBasicMaterial({ color: hex, transparent: true, opacity: alpha });
 
-    // Theme-aware palette: deep indigo/teal tones on light bg, cyan on dark
+    // Golden hologram palette — amber/warm gold on dark, deep amber on light
     const isDark = document.documentElement.classList.contains('dark');
-    const cyanBright  = isDark ? mkLine(0x00e5ff, 0.95) : mkLine(0x1d4ed8, 0.90);
-    const cyanMid     = isDark ? mkLine(0x00bcd4, 0.55) : mkLine(0x2563eb, 0.55);
-    const cyanFaint   = isDark ? mkLine(0x00acc1, 0.28) : mkLine(0x3b82f6, 0.32);
-    const purple      = isDark ? mkLine(0xab47bc, 0.50) : mkLine(0x7c3aed, 0.55);
-    const purpleFaint = isDark ? mkLine(0x9c27b0, 0.22) : mkLine(0x8b5cf6, 0.26);
+    const cyanBright  = isDark ? mkLine(0xf59e0b, 0.95) : mkLine(0xb45309, 0.90);
+    const cyanMid     = isDark ? mkLine(0xd97706, 0.55) : mkLine(0x92400e, 0.55);
+    const cyanFaint   = isDark ? mkLine(0xb45309, 0.28) : mkLine(0x78350f, 0.32);
+    const purple      = isDark ? mkLine(0xfbbf24, 0.50) : mkLine(0xd97706, 0.55);
+    const purpleFaint = isDark ? mkLine(0xf59e0b, 0.22) : mkLine(0xb45309, 0.26);
 
     // ── Helper: closed line loop from 2D points (at z offset) ─────────────
     function lineLoop(pts2d: THREE.Vector2[], z: number, mat: THREE.LineBasicMaterial) {
@@ -101,12 +101,12 @@ export function HolographicGuitar() {
 
     /* ── Sound hole ─── */
     const holeGeo  = new THREE.TorusGeometry(0.24, 0.018, 8, 48);
-    const holeMesh = new THREE.LineSegments(new THREE.WireframeGeometry(holeGeo), mkLine(isDark ? 0x00e5ff : 0x1d4ed8, 0.70));
+    const holeMesh = new THREE.LineSegments(new THREE.WireframeGeometry(holeGeo), mkLine(isDark ? 0xf59e0b : 0xb45309, 0.70));
     holeMesh.position.set(0, -0.35, 0.09);
     guitar.add(holeMesh);
     // inner ring
     const holeInner = new THREE.TorusGeometry(0.14, 0.010, 6, 32);
-    const holeInnerMesh = new THREE.LineSegments(new THREE.WireframeGeometry(holeInner), mkLine(isDark ? 0x00bcd4 : 0x2563eb, 0.40));
+    const holeInnerMesh = new THREE.LineSegments(new THREE.WireframeGeometry(holeInner), mkLine(isDark ? 0xd97706 : 0x92400e, 0.40));
     holeInnerMesh.position.set(0, -0.35, 0.09);
     guitar.add(holeInnerMesh);
 
@@ -146,7 +146,7 @@ export function HolographicGuitar() {
     ], cyanBright));
 
     /* ── Frets (12 frets, spaced by equal temperament approximation) ─── */
-    const fretColor = isDark ? 0x00bcd4 : 0x2563eb;
+    const fretColor = isDark ? 0xd97706 : 0x92400e;
     const fretYs = [1.28, 1.52, 1.74, 1.94, 2.12, 2.28, 2.44, 2.58, 2.71, 2.82, 2.94, 3.04, 3.20, 3.40, 3.60, 3.80];
     fretYs.forEach(fy => {
       const t = (fy - 1.05) / (3.80 - 1.05);
@@ -158,7 +158,7 @@ export function HolographicGuitar() {
     });
 
     /* ── Strings (6) ─── */
-    const stringColor = isDark ? 0x00e5ff : 0x1d4ed8;
+    const stringColor = isDark ? 0xfbbf24 : 0xd97706;
     const stringXs = [-0.11, -0.066, -0.022, 0.022, 0.066, 0.11];
     stringXs.forEach((sx, i) => {
       const opacity = 0.22 + i * 0.08;

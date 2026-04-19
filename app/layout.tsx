@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
-import { Spectral, Geist_Mono } from "next/font/google";
+import { Bebas_Neue, Roboto, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 
-const spectral = Spectral({
-  variable: "--font-spectral",
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas-neue",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: "400",
+});
+
+const roboto = Roboto({
+  variable: "--font-roboto",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -152,12 +158,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${spectral.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${bebasNeue.variable} ${roboto.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem={false}
-          forcedTheme="dark"
           disableTransitionOnChange
         >
           {children}
