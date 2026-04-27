@@ -211,7 +211,7 @@ export default function LLDPlayground() {
       const data = await res.json();
       setMessages(prev => [...prev, { role: 'ai', text: data.answer || data.error, timestamp: new Date() }]);
     } catch {
-      setMessages(prev => [...prev, { role: 'ai', text: 'Network error — please try again.', timestamp: new Date() }]);
+      setMessages(prev => [...prev, { role: 'ai', text: 'Network error. Please try again.', timestamp: new Date() }]);
     } finally {
       setLoading(false);
     }
@@ -472,7 +472,7 @@ export default function LLDPlayground() {
             {/* File info */}
             <div className="flex items-center gap-2 px-1">
               <span className="text-[10px] text-white/25 font-mono">{activeFile.name}</span>
-              <span className="text-[10px] text-white/20">—</span>
+              <span className="text-[10px] text-white/20">·</span>
               <span className="text-[10px] text-white/30 italic">{activeFile.role}</span>
             </div>
 

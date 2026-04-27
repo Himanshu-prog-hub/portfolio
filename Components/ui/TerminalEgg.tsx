@@ -145,7 +145,7 @@ export function TerminalEgg() {
               />
               <div className="w-3 h-3 rounded-full bg-amber-500/40" />
               <div className="w-3 h-3 rounded-full bg-emerald-500/40" />
-              <span className="ml-2 text-[11px] text-white/30 font-mono">himanshu — zsh</span>
+              <span className="ml-2 text-[11px] text-white/30 font-mono">himanshu · zsh</span>
               <span className="ml-auto text-[10px] text-white/20 font-mono">ESC to close</span>
             </div>
 
@@ -169,7 +169,7 @@ export function TerminalEgg() {
 
             {/* Hint */}
             <div className="px-5 pb-4 text-[10px] text-white/20 font-mono">
-              💡 You found a secret — type <span className="text-purple/60">himanshu</span> anywhere to open this
+              💡 You found a secret: type <span className="text-purple/60">himanshu</span> anywhere to open this
             </div>
           </motion.div>
         </motion.div>

@@ -85,7 +85,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1080,
         height: 1440,
-        alt: "Himanshu Mishra — Backend Developer at Serko",
+        alt: "Himanshu Mishra, Backend Developer at Serko",
       },
     ],
   },

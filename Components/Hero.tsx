@@ -122,7 +122,7 @@ const Hero = () => {
             transition={{ delay: 2.5, duration: 1 }}
             className="text-[10px] text-white/20 font-mono tracking-widest mt-1"
           >
-            psst — try typing your name on the keyboard 🤫
+            psst: try typing your name on the keyboard 🤫
           </motion.p>
 
           <MagneticButton strength={22}>

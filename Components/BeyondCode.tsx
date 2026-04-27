@@ -31,7 +31,7 @@ const hobbies = [
     label: 'Classical Vocalist',
     title: 'Hindustani Classical Singing',
     description:
-      'Trained in Khayal — the meditative North Indian classical vocal tradition. Music for me is what debugging is to code: a deeply focused pursuit of something precise and beautiful.',
+      'Trained in Khayal, the meditative North Indian classical vocal tradition. Music for me is what debugging is to code: a deeply focused pursuit of something precise and beautiful.',
     cta: { label: 'Watch on YouTube', href: 'https://www.youtube.com/@himanshumishra8864', icon: <FaYoutube className="w-4 h-4" /> },
     ctaSecondary: { label: 'Instagram', href: 'https://www.instagram.com/himanshumishra4257/', icon: <FaInstagram className="w-4 h-4" /> },
     tags: ['Khayal', 'Raga', 'Hindustani', 'Classical'],
@@ -74,7 +74,7 @@ const SPOTIFY_STATS = {
   totalPlays:  35222,
   totalHours:  1474,
   topArtist:   'Pritam',
-  topTrack:    'Excuses — AP Dhillon',
+  topTrack:    'Excuses by AP Dhillon',
   topGenres:   ['Bollywood', 'Punjabi Pop', 'Indian Indie', 'Ghazal'],
 };
 
@@ -128,7 +128,7 @@ function getResultCopy(score: number, genre: string, vibe: string) {
   if (score >= 72) return {
     emoji: '🎸',
     headline: 'Our music worlds definitely overlap.',
-    body: `${vibe} energy + ${genre} — there's a real conversation here. The intersection of your sound and mine could be interesting.`,
+    body: `${vibe} energy + ${genre}. There's a real conversation here. The intersection of your sound and mine could be interesting.`,
     cta: 'Start the Conversation →',
   };
   if (score >= 50) return {
@@ -179,7 +179,7 @@ function MusicCollabChat() {
 
   const steps = [
     { key: 'genre'      as const, question: 'What music moves you most?',    sub: 'Pick the genre closest to your heart',        options: Object.keys(GENRE_SCORES) },
-    { key: 'instrument' as const, question: 'Do you play anything?',          sub: 'Instruments, voice — anything counts',        options: Object.keys(INSTRUMENT_BONUS) },
+    { key: 'instrument' as const, question: 'Do you play anything?',          sub: 'Instruments, voice, anything counts',         options: Object.keys(INSTRUMENT_BONUS) },
     { key: 'vibe'       as const, question: 'What vibe do you live in?',      sub: 'The feeling you chase when you hit play',     options: Object.keys(VIBE_SCORES) },
   ];
 
@@ -202,7 +202,7 @@ function MusicCollabChat() {
           Want to <span className="text-purple">Collaborate?</span>
         </h2>
         <p className="text-white/40 text-sm mt-2 max-w-sm mx-auto">
-          Tell me your music taste — I&apos;ll match it against my real Spotify listening history.
+          Tell me your music taste. I&apos;ll match it against my real Spotify listening history.
         </p>
       </div>
 
@@ -219,7 +219,7 @@ function MusicCollabChat() {
             { label: 'Plays', value: '35,222' },
             { label: 'Hours', value: '1,474' },
             { label: '#1 Artist', value: 'Pritam' },
-            { label: 'Most Played', value: 'Excuses — AP Dhillon', hideMobile: true },
+            { label: 'Most Played', value: 'Excuses by AP Dhillon', hideMobile: true },
           ].map(s => (
             <div key={s.label} className={`shrink-0 ${(s as any).hideMobile ? 'hidden sm:block' : ''}`}>
               <span className="text-[9px] text-white/25 uppercase tracking-wider block">{s.label}</span>
@@ -248,7 +248,7 @@ function MusicCollabChat() {
                 </div>
                 <p className="text-white/60 text-sm leading-relaxed max-w-xs">
                   <span className="text-white/90 font-medium">1,474 hours</span>{' '}of Spotify, Khayal training, and guitar experiments.
-                  My taste is all over the place — let&apos;s see if yours overlaps.
+                  My taste is all over the place, let&apos;s see if yours overlaps.
                 </p>
                 <div className="flex flex-wrap justify-center gap-1.5">
                   {SPOTIFY_STATS.topGenres.map(g => (
@@ -418,7 +418,7 @@ const BeyondCode = () => {
           <span className="text-purple">The Code</span>
         </h2>
         <p className="text-center text-white/65 mt-3 text-sm md:text-base max-w-lg mx-auto">
-          The disciplines that keep me sharp — and human
+          The disciplines that keep me sharp and human
         </p>
 
         {/* Hobby cards */}
@@ -476,7 +476,7 @@ const BeyondCode = () => {
           className="mt-12 max-w-2xl mx-auto px-4 text-center"
         >
           <p className="text-white/20 text-sm italic leading-relaxed">
-            &ldquo;The same discipline that holds a raga together holds a system together —
+            &ldquo;The same discipline that holds a raga together holds a system together:
             precision, patience, and the courage to improvise.&rdquo;
           </p>
         </motion.div>

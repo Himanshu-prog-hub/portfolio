@@ -44,7 +44,7 @@ const techData: Record<Category, Tech[]> = {
     { name: "GCP",        level: "core",       years: "2 yrs",  note: "Cloud Run, Pub/Sub, BigQuery, GKE" },
     { name: "Git",        level: "core",       years: "4+ yrs", note: "GitOps, PR reviews, trunk-based dev" },
     { name: "Jenkins",    level: "proficient", years: "2 yrs",  note: "CI/CD pipelines at Sabre" },
-    { name: "AWS",        level: "proficient", years: "1 yr",   note: "EC2, S3, Lambda — side projects" },
+    { name: "AWS",        level: "proficient", years: "1 yr",   note: "EC2, S3, Lambda (side projects)" },
     { name: "Azure",      level: "familiar",   years: "6 mo",   note: "Azure DevOps, basic resource mgmt" },
   ],
 };

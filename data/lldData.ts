@@ -1,4 +1,4 @@
-// ── Pre-processed LLD codebase — actual code from Himanshu's implementations ──
+﻿// ── Pre-processed LLD codebase: actual code from Himanshu's implementations ──
 // Sourced from D:\Study\Low Level Design
 
 export interface LLDFile {
@@ -51,7 +51,7 @@ export const lldProblems: LLDProblem[] = [
       { name: 'BluetoothSpeakerAdapter',  role: 'Adapts 3rd-party BT API', pattern: 'Adapter', file: 'BluetoothSpeakerAdapter.java' },
     ],
     flowSteps: [
-      { label: 'Client calls Facade',   detail: 'MusicPlayerFacade.getInstance() — single entry-point', classes: ['MusicPlayerFacade'] },
+      { label: 'Client calls Facade',   detail: 'MusicPlayerFacade.getInstance(): single entry-point', classes: ['MusicPlayerFacade'] },
       { label: 'Connect output device', detail: 'OutputDeviceManager + AudioOutputDeviceFactory creates the right Adapter', classes: ['OutputDeviceManager', 'AudioOutputDeviceFactory'] },
       { label: 'Select play strategy',  detail: 'StrategyManager returns Sequential or Random IPlayStrategy', classes: ['StrategyManager', 'IPlayStrategy'] },
       { label: 'Load playlist',         detail: 'PlaylistManager.getPlaylist() → strategy.setPlayList()', classes: ['PlaylistManager'] },
@@ -67,7 +67,7 @@ export const lldProblems: LLDProblem[] = [
     files: [
       {
         name: 'MusicPlayerFacade.java',
-        role: 'Singleton façade — single entry-point for all operations',
+        role: 'Singleton façade: single entry-point for all operations',
         language: 'java',
         content: `package app;
 
@@ -149,7 +149,7 @@ public class MusicPlayerFacade {
       },
       {
         name: 'AudioEngine.java',
-        role: 'Core engine — manages play/pause state for a single song',
+        role: 'Core engine: manages play/pause state for a single song',
         language: 'java',
         content: `package Core;
 
@@ -197,7 +197,7 @@ public class AudioEngine {
       },
       {
         name: 'IPlayStrategy.java',
-        role: 'Strategy interface — decouples play-order from AudioEngine',
+        role: 'Strategy interface: decouples play-order from AudioEngine',
         language: 'java',
         content: `package Strategies;
 
@@ -217,7 +217,7 @@ public interface IPlayStrategy {
       },
       {
         name: 'AudioOutputDeviceFactory.java',
-        role: 'Factory — creates the correct Adapter for each device type',
+        role: 'Factory: creates the correct Adapter for each device type',
         language: 'java',
         content: `package factories;
 
@@ -253,7 +253,7 @@ public class AudioOutputDeviceFactory {
     difficulty: 'Hard',
     patterns: ['Strategy', 'Template Method', 'Daemon Thread'],
     keyClasses: [
-      { name: 'KVStore',           role: 'Orchestrator — get/set/delete with eviction', pattern: 'Facade',   file: 'KVStore.java' },
+      { name: 'KVStore',           role: 'Orchestrator: get/set/delete with eviction', pattern: 'Facade',   file: 'KVStore.java' },
       { name: 'EvictionPolicy',    role: 'Strategy interface for eviction',             pattern: 'Strategy', file: 'EvictionPolicy.java' },
       { name: 'LRUEvictionPolicy', role: 'Doubly-linked list + HashMap for O(1) LRU',  pattern: 'Strategy', file: 'LRUEvictionPolicy.java' },
       { name: 'TTLManager',        role: 'PriorityQueue + daemon thread for TTL expiry', pattern: 'Active Object', file: 'TTLManager.java' },
@@ -276,7 +276,7 @@ public class AudioOutputDeviceFactory {
     files: [
       {
         name: 'KVStore.java',
-        role: 'Main store — delegates eviction and TTL to strategy/manager',
+        role: 'Main store: delegates eviction and TTL to strategy/manager',
         language: 'java',
         content: `import java.util.HashMap;
 import java.util.Map;
@@ -408,7 +408,7 @@ public class LRUEvictionPolicy implements EvictionPolicy {
       },
       {
         name: 'TTLManager.java',
-        role: 'Daemon thread — PriorityQueue-based TTL expiry monitor',
+        role: 'Daemon thread: PriorityQueue-based TTL expiry monitor',
         language: 'java',
         content: `import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -428,7 +428,7 @@ public class TTLManager implements Runnable {
 
     public TTLManager(KVStore store) {
         this.store = store;
-        // Min-heap by expiry time — O(log n) insert, O(1) peek
+        // Min-heap by expiry time: O(log n) insert, O(1) peek
         this.pq = new PriorityQueue<>(Comparator.comparingLong(e -> e.expiryTimeMillis));
     }
 
@@ -456,11 +456,11 @@ public class TTLManager implements Runnable {
       },
       {
         name: 'EvictionPolicy.java',
-        role: 'Strategy interface — swap eviction algorithm without changing KVStore',
+        role: 'Strategy interface: swap eviction algorithm without changing KVStore',
         language: 'java',
         content: `// Strategy Pattern: EvictionPolicy is the interface;
 // LRUEvictionPolicy, LFUEvictionPolicy are concrete strategies.
-// KVStore depends only on this interface — Open/Closed principle.
+// KVStore depends only on this interface: Open/Closed principle.
 public interface EvictionPolicy {
     void onGet(String key);
     void onPut(String key, CacheEntry entry);
@@ -484,14 +484,14 @@ public interface EvictionPolicy {
       { name: 'ParkingLot',  role: 'Orchestrates levels, issues tickets', pattern: 'Facade', file: 'ParkingLot.java' },
       { name: 'Level',       role: 'Contains spots, finds available spot by type', file: 'Level.java' },
       { name: 'ParkingSpot', role: 'Holds vehicle, tracks availability', file: 'ParkingSpot.java' },
-      { name: 'Vehicle',     role: 'Abstract base — Car / Bike / Truck extend it', pattern: 'Polymorphism', file: 'Vehicle.java' },
+      { name: 'Vehicle',     role: 'Abstract base: Car / Bike / Truck extend it', pattern: 'Polymorphism', file: 'Vehicle.java' },
       { name: 'Ticket',      role: 'Records entry time, spot, and vehicle', file: 'Ticket.java' },
     ],
     flowSteps: [
       { label: 'parkVehicle(vehicle)',   detail: 'Iterate levels → Level.findAvailableSpot(vehicleType)', classes: ['ParkingLot', 'Level'] },
-      { label: 'Spot matching',          detail: 'Level checks SpotType vs VehicleType — no spot = RuntimeException', classes: ['Level', 'ParkingSpot'] },
+      { label: 'Spot matching',          detail: 'Level checks SpotType vs VehicleType: no spot = RuntimeException', classes: ['Level', 'ParkingSpot'] },
       { label: 'Assign vehicle',         detail: 'spot.assignVehicle(vehicle) marks spot occupied', classes: ['ParkingSpot'] },
-      { label: 'Issue ticket',           detail: 'new Ticket(vehicle, spot) — records entry timestamp', classes: ['Ticket'] },
+      { label: 'Issue ticket',           detail: 'new Ticket(vehicle, spot): records entry timestamp', classes: ['Ticket'] },
       { label: 'unparkVehicle(ticket)',  detail: 'Retrieve spot from ticket → removeVehicle() → setExitTime()', classes: ['ParkingLot', 'ParkingSpot', 'Ticket'] },
     ],
     interviewQuestions: [
@@ -504,7 +504,7 @@ public interface EvictionPolicy {
     files: [
       {
         name: 'ParkingLot.java',
-        role: 'Top-level orchestrator — iterates levels to park/unpark',
+        role: 'Top-level orchestrator: iterates levels to park/unpark',
         language: 'java',
         content: `import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -547,7 +547,7 @@ public class ParkingLot {
       },
       {
         name: 'Level.java',
-        role: 'Contains a floor of spots — finds first matching spot by vehicle type',
+        role: 'Contains a floor of spots: finds first matching spot by vehicle type',
         language: 'java',
         content: `import java.util.ArrayList;
 import java.util.List;
@@ -579,7 +579,7 @@ public class Level {
       },
       {
         name: 'ParkingSpot.java',
-        role: 'Atomic unit — tracks occupancy and vehicle compatibility',
+        role: 'Atomic unit: tracks occupancy and vehicle compatibility',
         language: 'java',
         content: `public class ParkingSpot {
     private SpotType spotType;
@@ -633,23 +633,23 @@ public class Level {
       { name: 'Consumer',     role: 'Polls partition by offset (like Kafka)', file: 'Consumer.java' },
     ],
     flowSteps: [
-      { label: 'Create topic',      detail: 'QueueManager.createTopic(name, numPartitions) — ConcurrentHashMap stores topics', classes: ['QueueManager', 'Topic'] },
+      { label: 'Create topic',      detail: 'QueueManager.createTopic(name, numPartitions): ConcurrentHashMap stores topics', classes: ['QueueManager', 'Topic'] },
       { label: 'Producer publishes', detail: 'producer.publish(topic, key, msg) → hash(key) % partitions → partition.publish()', classes: ['Producer', 'Partition'] },
       { label: 'Thread-safe write', detail: 'Partition uses ReentrantLock to serialize concurrent writes', classes: ['Partition'] },
       { label: 'Consumer polls',    detail: 'consumer.consume(topic, partitionId, offset) → partition.consume(offset)', classes: ['Consumer', 'Partition'] },
-      { label: 'Offset tracking',   detail: 'Consumer tracks its own offset — allows replay and at-least-once delivery', classes: ['Consumer'] },
+      { label: 'Offset tracking',   detail: 'Consumer tracks its own offset: allows replay and at-least-once delivery', classes: ['Consumer'] },
     ],
     interviewQuestions: [
       'Why use ReentrantLock over synchronized blocks in Partition?',
       'How does key-based partitioning guarantee ordering within a partition?',
       'How would you implement consumer groups for load balancing?',
-      'What happens if a consumer crashes mid-consumption — how do you ensure durability?',
+      'What happens if a consumer crashes mid-consumption: how do you ensure durability?',
       'How would you add persistence (disk-backed messages) to this design?',
     ],
     files: [
       {
         name: 'QueueManager.java',
-        role: 'Registry — creates topics, producers, consumers via ConcurrentHashMap',
+        role: 'Registry: creates topics, producers, consumers via ConcurrentHashMap',
         language: 'java',
         content: `package MultiThreadedPartitieonedDesign;
 
@@ -699,7 +699,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Partition {
     private List<Message> messages;
     private int partitionId;
-    private ReentrantLock lock;   // Fair? No — prefer throughput over strict ordering
+    private ReentrantLock lock;   // Fair? No: prefer throughput over strict ordering
 
     public Partition(int partitionId) {
         this.partitionId = partitionId;
@@ -707,7 +707,7 @@ public class Partition {
         this.lock = new ReentrantLock();
     }
 
-    // Producer side — serialized writes
+    // Producer side: serialized writes
     public void publish(Message message) {
         lock.lock();
         try {
@@ -718,7 +718,7 @@ public class Partition {
         }
     }
 
-    // Consumer side — read by offset (immutable after written)
+    // Consumer side: read by offset (immutable after written)
     public Message consume(int offset) {
         lock.lock();
         try {
@@ -748,15 +748,15 @@ public class Partition {
     difficulty: 'Medium',
     patterns: ['Singleton', 'Strategy', 'Chain of Responsibility'],
     keyClasses: [
-      { name: 'LogManager',      role: 'Singleton — manages strategies and log level', pattern: 'Singleton + Strategy', file: 'LogManager.java' },
+      { name: 'LogManager',      role: 'Singleton: manages strategies and log level', pattern: 'Singleton + Strategy', file: 'LogManager.java' },
       { name: 'ILoggingStrategy', role: 'Strategy interface for log destinations',   pattern: 'Strategy', file: 'ILoggingStrategy.java' },
       { name: 'ConsoleLogging',  role: 'Logs to stdout',  file: 'ConsoleLogging.java' },
-      { name: 'LogLevel',        role: 'Priority enum — DEBUG < INFO < WARN < ERROR', file: 'LogLevel.java' },
+      { name: 'LogLevel',        role: 'Priority enum: DEBUG < INFO < WARN < ERROR', file: 'LogLevel.java' },
     ],
     flowSteps: [
-      { label: 'Get LogManager',     detail: 'LogManager.getInstance() — lazy-init singleton', classes: ['LogManager'] },
-      { label: 'Add strategies',     detail: 'addStrategy(new ConsoleLogging()) — can chain multiple', classes: ['LogManager', 'ILoggingStrategy'] },
-      { label: 'Set log level',      detail: 'setLogLevel(LogLevel.WARN) — only WARN+ logs pass through', classes: ['LogManager', 'LogLevel'] },
+      { label: 'Get LogManager',     detail: 'LogManager.getInstance(): lazy-init singleton', classes: ['LogManager'] },
+      { label: 'Add strategies',     detail: 'addStrategy(new ConsoleLogging()): can chain multiple', classes: ['LogManager', 'ILoggingStrategy'] },
+      { label: 'Set log level',      detail: 'setLogLevel(LogLevel.WARN): only WARN+ logs pass through', classes: ['LogManager', 'LogLevel'] },
       { label: 'logger(level, msg)', detail: 'level.getPriority() >= currentLevel.getPriority() → dispatch to all strategies', classes: ['LogManager'] },
     ],
     interviewQuestions: [
@@ -768,7 +768,7 @@ public class Partition {
     files: [
       {
         name: 'LogManager.java',
-        role: 'Singleton — routes log calls to registered strategies by log level',
+        role: 'Singleton: routes log calls to registered strategies by log level',
         language: 'java',
         content: `import Strategies.ILoggingStrategy;
 import Strategies.LogLevel;
@@ -786,7 +786,7 @@ public class LogManager {
         currentLevel = LogLevel.INFO;
     }
 
-    // Lazy-init singleton — NOT thread-safe; use DCL or enum for production
+    // Lazy-init singleton: NOT thread-safe; use DCL or enum for production
     public static LogManager getInstance() {
         if (instance == null) {
             instance = new LogManager();
@@ -802,7 +802,7 @@ public class LogManager {
         currentLevel = level;
     }
 
-    // Dispatches to all strategies — like Chain of Responsibility fan-out
+    // Dispatches to all strategies: like Chain of Responsibility fan-out
     public void logger(LogLevel level, String msg) {
         if (level.getPriority() >= currentLevel.getPriority()) {
             for (ILoggingStrategy s : strategyList) {
@@ -814,7 +814,7 @@ public class LogManager {
       },
       {
         name: 'ILoggingStrategy.java',
-        role: 'Strategy interface — add new log destinations without changing LogManager',
+        role: 'Strategy interface: add new log destinations without changing LogManager',
         language: 'java',
         content: `package Strategies;
 

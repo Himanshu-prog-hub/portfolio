@@ -17,12 +17,12 @@ const aiRules: { keywords: string[]; tags: string[]; reply: string }[] = [
   {
     keywords: ['backend', 'java', 'spring', 'api', 'microservice', 'server'],
     tags: ['Java', 'Spring Boot', 'Microservices', 'REST API', 'Backend'],
-    reply: 'Here are my backend-heavy projects — Java, Spring Boot, microservices architecture.',
+    reply: 'Here are my backend-heavy projects: Java, Spring Boot, microservices architecture.',
   },
   {
     keywords: ['cloud', 'gcp', 'kubernetes', 'k8s', 'docker', 'devops', 'ci', 'cd'],
     tags: ['GCP', 'Kubernetes', 'Cloud', 'CI/CD'],
-    reply: 'Showing cloud-native and DevOps-focused work — GCP, Kubernetes, CI/CD pipelines.',
+    reply: 'Showing cloud-native and DevOps-focused work: GCP, Kubernetes, CI/CD pipelines.',
   },
   {
     keywords: ['frontend', 'react', 'next', 'ui', 'three', 'animation', 'portfolio'],
@@ -32,7 +32,7 @@ const aiRules: { keywords: string[]; tags: string[]; reply: string }[] = [
   {
     keywords: ['travel', 'booking', 'serko', 'sabre', 'corporate', 'flight'],
     tags: ['Microservices', 'REST API', 'Backend', 'Cloud'],
-    reply: 'Showing projects related to travel tech — booking systems, corporate travel platforms.',
+    reply: 'Showing projects related to travel tech: booking systems, corporate travel platforms.',
   },
   {
     keywords: ['typescript', 'ts', 'javascript', 'js'],
@@ -51,7 +51,7 @@ function matchQuery(query: string): { matchedTags: string[]; reply: string } | n
   }
   return {
     matchedTags: [],
-    reply: `Showing all projects — I couldn't find a specific match for "${query}". Try keywords like "AI", "backend", or "cloud".`,
+    reply: `Showing all projects. No specific match for "${query}". Try keywords like "AI", "backend", or "cloud".`,
   };
 }
 

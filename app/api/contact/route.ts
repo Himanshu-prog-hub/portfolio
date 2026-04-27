@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
       from:    `"Portfolio Contact" <${gmailUser}>`,
       to:      'mishra00.11himanshu@gmail.com',
       replyTo: `"${name}" <${email}>`,
-      subject: `📬 New message from ${name} — Portfolio`,
+      subject: `📬 New message from ${name} | Portfolio`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -141,7 +141,7 @@ export async function POST(req: NextRequest) {
             </div>
 
             <p style="margin-top: 28px; font-size: 12px; color: #334155;">
-              — Himanshu Mishra · Fullstack Developer & Classical Vocalist · Bengaluru
+              Himanshu Mishra · Fullstack Developer & Classical Vocalist · Bengaluru
             </p>
           </body>
         </html>

@@ -16,7 +16,7 @@ function isRateLimited(ip: string): boolean {
 export async function POST(req: NextRequest) {
   const ip = req.headers.get('x-forwarded-for') ?? 'local';
   if (isRateLimited(ip)) {
-    return NextResponse.json({ error: 'Rate limit — try again in a minute.' }, { status: 429 });
+    return NextResponse.json({ error: 'Rate limit reached. Try again in a minute.' }, { status: 429 });
   }
 
   const { problemId, question, mode } = await req.json();
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
   const systemPrompt = `You are an expert software architect reviewing Himanshu Mishra's Low Level Design implementation.
 You have the actual source code of his "${problem.name}" implementation.
-Your job: answer questions about design decisions, patterns, trade-offs, and implementation details — always grounding your answer in the specific class names, method names, and code patterns from the provided code.
+Your job: answer questions about design decisions, patterns, trade-offs, and implementation details. Always ground your answer in the specific class names, method names, and code patterns from the provided code.
 Be concise (3-6 sentences per point), technically precise, and reference actual code symbols.
 ${mode === 'interview' ? 'You are now in INTERVIEW MODE: ask probing follow-up questions after answering, like a real interviewer would.' : ''}
 ${mode === 'whatif' ? 'You are in WHAT-IF MODE: propose concrete code-level changes, not just high-level ideas.' : ''}`;
@@ -81,7 +81,7 @@ function generateFallbackAnswer(problem: (typeof lldProblems)[0], question: stri
   const patternList = problem.patterns.join(', ');
 
   if (q.includes('pattern') || q.includes('design')) {
-    return `This ${problem.name} implementation uses ${patternList}. ${problem.keyClasses.filter(c => c.pattern).map(c => `**${c.name}** demonstrates the ${c.pattern} — ${c.role}.`).join(' ')} The key insight is that each class has a single responsibility, making the system extensible without modification.`;
+    return `This ${problem.name} implementation uses ${patternList}. ${problem.keyClasses.filter(c => c.pattern).map(c => `**${c.name}** demonstrates the ${c.pattern}: ${c.role}.`).join(' ')} The key insight is that each class has a single responsibility, making the system extensible without modification.`;
   }
   if (q.includes('class') || q.includes('explain')) {
     return `The core classes are: ${problem.keyClasses.map(c => `**${c.name}** (${c.role})`).join(', ')}. The execution flow starts at ${problem.flowSteps[0]?.label} and terminates at ${problem.flowSteps[problem.flowSteps.length - 1]?.label}. Each class encapsulates exactly one concern.`;
