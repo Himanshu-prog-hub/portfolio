@@ -136,11 +136,11 @@ export const navItems = [
     {
       id: 4,
       title: "Policy Compliance Agent",
-      des: "Internal tool at Serko. Reads corporate travel policies written in plain English and filters live flight results against them. Java and Spring Boot backend, LLM integration for policy parsing.",
+      des: "Internal tool at Serko. Reads corporate travel policies written in plain English and filters live flight results against them. Python backend, LLM integration for policy parsing.",
       img: "/p3.svg",
       iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
       link: "",
-      tags: ["Java", "Spring Boot", "LLM", "GenAI", "AI Agent", "Backend"],
+      tags: ["Python", "LLM", "GenAI", "AI Agent"],
       status: "Shipped",
     },
   ];

@@ -92,5 +92,5 @@ function generateFallbackAnswer(problem: (typeof lldProblems)[0], question: stri
   if (q.includes('tradeoff') || q.includes('why')) {
     return `The design trade-off here is **simplicity vs extensibility**. By programming to interfaces (${patternList}), adding new behaviour requires only a new concrete class, not modifying existing ones. The downside is more classes upfront. This aligns with Open/Closed Principle.`;
   }
-  return `${problem.name} uses ${patternList}. The execution flow: ${problem.flowSteps.map(s => s.label).join(' → ')}. Key design decision: ${problem.keyClasses[0]?.name} acts as the ${problem.keyClasses[0]?.pattern ?? 'entry point'}, keeping client code decoupled from implementation details. Add ANTHROPIC_API_KEY to .env.local for full AI-powered answers grounded in the actual code.`;
+  return `${problem.name} uses ${patternList}. The execution flow: ${problem.flowSteps.map(s => s.label).join(' → ')}. Key design decision: ${problem.keyClasses[0]?.name} acts as the ${problem.keyClasses[0]?.pattern ?? 'entry point'}, keeping client code decoupled from implementation details.`;
 }
