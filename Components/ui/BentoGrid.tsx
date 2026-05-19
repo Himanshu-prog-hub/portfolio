@@ -217,7 +217,7 @@ export const BentoGridItem = ({
                 className="flex flex-col gap-2.5 z-10"
               >
                 <a
-                  href="/Himanshu_Mishra_Resume_2026.pdf"
+                  href="/Himanshu_Mishra_Resume_v3.pdf"
                   download
                   className={cn(
                     "flex items-center justify-center gap-2 w-full py-2.5 rounded-full",
